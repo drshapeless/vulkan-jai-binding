@@ -134,7 +134,9 @@ vkCmdBlitImage : PFN_vkCmdBlitImage;
 vkCmdCopyBufferToImage : PFN_vkCmdCopyBufferToImage;
 vkCmdCopyImageToBuffer : PFN_vkCmdCopyImageToBuffer;
 vkCmdCopyMemoryIndirectNV : PFN_vkCmdCopyMemoryIndirectNV;
+vkCmdCopyMemoryIndirectKHR : PFN_vkCmdCopyMemoryIndirectKHR;
 vkCmdCopyMemoryToImageIndirectNV : PFN_vkCmdCopyMemoryToImageIndirectNV;
+vkCmdCopyMemoryToImageIndirectKHR : PFN_vkCmdCopyMemoryToImageIndirectKHR;
 vkCmdUpdateBuffer : PFN_vkCmdUpdateBuffer;
 vkCmdFillBuffer : PFN_vkCmdFillBuffer;
 vkCmdClearColorImage : PFN_vkCmdClearColorImage;
@@ -149,6 +151,7 @@ vkCmdBeginQuery : PFN_vkCmdBeginQuery;
 vkCmdEndQuery : PFN_vkCmdEndQuery;
 vkCmdBeginConditionalRenderingEXT : PFN_vkCmdBeginConditionalRenderingEXT;
 vkCmdEndConditionalRenderingEXT : PFN_vkCmdEndConditionalRenderingEXT;
+vkCmdBeginCustomResolveEXT : PFN_vkCmdBeginCustomResolveEXT;
 vkCmdResetQueryPool : PFN_vkCmdResetQueryPool;
 vkCmdWriteTimestamp : PFN_vkCmdWriteTimestamp;
 vkCmdCopyQueryPoolResults : PFN_vkCmdCopyQueryPoolResults;
@@ -632,6 +635,8 @@ vkCmdDecompressMemoryNV : PFN_vkCmdDecompressMemoryNV;
 vkCmdDecompressMemoryIndirectCountNV : PFN_vkCmdDecompressMemoryIndirectCountNV;
 vkGetPartitionedAccelerationStructuresBuildSizesNV : PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV;
 vkCmdBuildPartitionedAccelerationStructuresNV : PFN_vkCmdBuildPartitionedAccelerationStructuresNV;
+vkCmdDecompressMemoryEXT : PFN_vkCmdDecompressMemoryEXT;
+vkCmdDecompressMemoryIndirectCountEXT : PFN_vkCmdDecompressMemoryIndirectCountEXT;
 vkCreateCuModuleNVX : PFN_vkCreateCuModuleNVX;
 vkCreateCuFunctionNVX : PFN_vkCreateCuFunctionNVX;
 vkDestroyCuModuleNVX : PFN_vkDestroyCuModuleNVX;
@@ -667,6 +672,7 @@ vkCmdCudaLaunchKernelNV : PFN_vkCmdCudaLaunchKernelNV;
 vkCmdBeginRendering : PFN_vkCmdBeginRendering;
 vkCmdBeginRenderingKHR : PFN_vkCmdBeginRenderingKHR;
 vkCmdEndRendering : PFN_vkCmdEndRendering;
+vkCmdEndRendering2KHR : PFN_vkCmdEndRendering2KHR;
 vkCmdEndRendering2EXT : PFN_vkCmdEndRendering2EXT;
 vkCmdEndRenderingKHR : PFN_vkCmdEndRenderingKHR;
 vkGetDescriptorSetLayoutHostMappingInfoVALVE : PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE;
@@ -714,6 +720,10 @@ vkCreateShadersEXT : PFN_vkCreateShadersEXT;
 vkDestroyShaderEXT : PFN_vkDestroyShaderEXT;
 vkGetShaderBinaryDataEXT : PFN_vkGetShaderBinaryDataEXT;
 vkCmdBindShadersEXT : PFN_vkCmdBindShadersEXT;
+vkSetSwapchainPresentTimingQueueSizeEXT : PFN_vkSetSwapchainPresentTimingQueueSizeEXT;
+vkGetSwapchainTimingPropertiesEXT : PFN_vkGetSwapchainTimingPropertiesEXT;
+vkGetSwapchainTimeDomainPropertiesEXT : PFN_vkGetSwapchainTimeDomainPropertiesEXT;
+vkGetPastPresentationTimingEXT : PFN_vkGetPastPresentationTimingEXT;
 vkGetScreenBufferPropertiesQNX : PFN_vkGetScreenBufferPropertiesQNX;
 vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR : PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR;
 vkGetExecutionGraphPipelineScratchSizeAMDX : PFN_vkGetExecutionGraphPipelineScratchSizeAMDX;
@@ -777,6 +787,12 @@ vkGetDataGraphPipelineAvailablePropertiesARM : PFN_vkGetDataGraphPipelineAvailab
 vkGetDataGraphPipelinePropertiesARM : PFN_vkGetDataGraphPipelinePropertiesARM;
 vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM : PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM;
 vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM : PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM;
+vkGetNativeBufferPropertiesOHOS : PFN_vkGetNativeBufferPropertiesOHOS;
+vkGetMemoryNativeBufferOHOS : PFN_vkGetMemoryNativeBufferOHOS;
+vkGetSwapchainGrallocUsageOHOS : PFN_vkGetSwapchainGrallocUsageOHOS;
+vkAcquireImageOHOS : PFN_vkAcquireImageOHOS;
+vkQueueSignalReleaseImageOHOS : PFN_vkQueueSignalReleaseImageOHOS;
+vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM : PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM;
 vkDebugUtilsMessengerCallbackEXT : PFN_vkDebugUtilsMessengerCallbackEXT;
 
 vk_load_global_functions :: (vk_get_instance_proc_addr: *void) {
@@ -892,6 +908,7 @@ vk_load_instance_functions :: (instance: VkInstance) {
     vkGetPhysicalDeviceExternalTensorPropertiesARM                       = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalTensorPropertiesARM");
     vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM");
     vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM");
+    vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM   = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM");
 }
 
 vk_load_device_functions :: (device: VkDevice) {
@@ -1011,7 +1028,9 @@ vk_load_device_functions :: (device: VkDevice) {
     vkCmdCopyBufferToImage                                   = xx vkGetDeviceProcAddr(device, "vkCmdCopyBufferToImage");
     vkCmdCopyImageToBuffer                                   = xx vkGetDeviceProcAddr(device, "vkCmdCopyImageToBuffer");
     vkCmdCopyMemoryIndirectNV                                = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryIndirectNV");
+    vkCmdCopyMemoryIndirectKHR                               = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryIndirectKHR");
     vkCmdCopyMemoryToImageIndirectNV                         = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryToImageIndirectNV");
+    vkCmdCopyMemoryToImageIndirectKHR                        = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryToImageIndirectKHR");
     vkCmdUpdateBuffer                                        = xx vkGetDeviceProcAddr(device, "vkCmdUpdateBuffer");
     vkCmdFillBuffer                                          = xx vkGetDeviceProcAddr(device, "vkCmdFillBuffer");
     vkCmdClearColorImage                                     = xx vkGetDeviceProcAddr(device, "vkCmdClearColorImage");
@@ -1026,6 +1045,7 @@ vk_load_device_functions :: (device: VkDevice) {
     vkCmdEndQuery                                            = xx vkGetDeviceProcAddr(device, "vkCmdEndQuery");
     vkCmdBeginConditionalRenderingEXT                        = xx vkGetDeviceProcAddr(device, "vkCmdBeginConditionalRenderingEXT");
     vkCmdEndConditionalRenderingEXT                          = xx vkGetDeviceProcAddr(device, "vkCmdEndConditionalRenderingEXT");
+    vkCmdBeginCustomResolveEXT                               = xx vkGetDeviceProcAddr(device, "vkCmdBeginCustomResolveEXT");
     vkCmdResetQueryPool                                      = xx vkGetDeviceProcAddr(device, "vkCmdResetQueryPool");
     vkCmdWriteTimestamp                                      = xx vkGetDeviceProcAddr(device, "vkCmdWriteTimestamp");
     vkCmdCopyQueryPoolResults                                = xx vkGetDeviceProcAddr(device, "vkCmdCopyQueryPoolResults");
@@ -1341,6 +1361,8 @@ vk_load_device_functions :: (device: VkDevice) {
     vkCmdDecompressMemoryIndirectCountNV                     = xx vkGetDeviceProcAddr(device, "vkCmdDecompressMemoryIndirectCountNV");
     vkGetPartitionedAccelerationStructuresBuildSizesNV       = xx vkGetDeviceProcAddr(device, "vkGetPartitionedAccelerationStructuresBuildSizesNV");
     vkCmdBuildPartitionedAccelerationStructuresNV            = xx vkGetDeviceProcAddr(device, "vkCmdBuildPartitionedAccelerationStructuresNV");
+    vkCmdDecompressMemoryEXT                                 = xx vkGetDeviceProcAddr(device, "vkCmdDecompressMemoryEXT");
+    vkCmdDecompressMemoryIndirectCountEXT                    = xx vkGetDeviceProcAddr(device, "vkCmdDecompressMemoryIndirectCountEXT");
     vkCreateCuModuleNVX                                      = xx vkGetDeviceProcAddr(device, "vkCreateCuModuleNVX");
     vkCreateCuFunctionNVX                                    = xx vkGetDeviceProcAddr(device, "vkCreateCuFunctionNVX");
     vkDestroyCuModuleNVX                                     = xx vkGetDeviceProcAddr(device, "vkDestroyCuModuleNVX");
@@ -1373,7 +1395,7 @@ vk_load_device_functions :: (device: VkDevice) {
     vkCmdCudaLaunchKernelNV                                  = xx vkGetDeviceProcAddr(device, "vkCmdCudaLaunchKernelNV");
     vkCmdBeginRendering                                      = xx vkGetDeviceProcAddr(device, "vkCmdBeginRendering");
     vkCmdEndRendering                                        = xx vkGetDeviceProcAddr(device, "vkCmdEndRendering");
-    vkCmdEndRendering2EXT                                    = xx vkGetDeviceProcAddr(device, "vkCmdEndRendering2EXT");
+    vkCmdEndRendering2KHR                                    = xx vkGetDeviceProcAddr(device, "vkCmdEndRendering2KHR");
     vkGetDescriptorSetLayoutHostMappingInfoVALVE             = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetLayoutHostMappingInfoVALVE");
     vkGetDescriptorSetHostMappingVALVE                       = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetHostMappingVALVE");
     vkCreateMicromapEXT                                      = xx vkGetDeviceProcAddr(device, "vkCreateMicromapEXT");
@@ -1412,6 +1434,10 @@ vk_load_device_functions :: (device: VkDevice) {
     vkDestroyShaderEXT                                       = xx vkGetDeviceProcAddr(device, "vkDestroyShaderEXT");
     vkGetShaderBinaryDataEXT                                 = xx vkGetDeviceProcAddr(device, "vkGetShaderBinaryDataEXT");
     vkCmdBindShadersEXT                                      = xx vkGetDeviceProcAddr(device, "vkCmdBindShadersEXT");
+    vkSetSwapchainPresentTimingQueueSizeEXT                  = xx vkGetDeviceProcAddr(device, "vkSetSwapchainPresentTimingQueueSizeEXT");
+    vkGetSwapchainTimingPropertiesEXT                        = xx vkGetDeviceProcAddr(device, "vkGetSwapchainTimingPropertiesEXT");
+    vkGetSwapchainTimeDomainPropertiesEXT                    = xx vkGetDeviceProcAddr(device, "vkGetSwapchainTimeDomainPropertiesEXT");
+    vkGetPastPresentationTimingEXT                           = xx vkGetDeviceProcAddr(device, "vkGetPastPresentationTimingEXT");
     vkGetScreenBufferPropertiesQNX                           = xx vkGetDeviceProcAddr(device, "vkGetScreenBufferPropertiesQNX");
     vkGetExecutionGraphPipelineScratchSizeAMDX               = xx vkGetDeviceProcAddr(device, "vkGetExecutionGraphPipelineScratchSizeAMDX");
     vkGetExecutionGraphPipelineNodeIndexAMDX                 = xx vkGetDeviceProcAddr(device, "vkGetExecutionGraphPipelineNodeIndexAMDX");
@@ -1463,4 +1489,9 @@ vk_load_device_functions :: (device: VkDevice) {
     vkCmdDispatchDataGraphARM                                = xx vkGetDeviceProcAddr(device, "vkCmdDispatchDataGraphARM");
     vkGetDataGraphPipelineAvailablePropertiesARM             = xx vkGetDeviceProcAddr(device, "vkGetDataGraphPipelineAvailablePropertiesARM");
     vkGetDataGraphPipelinePropertiesARM                      = xx vkGetDeviceProcAddr(device, "vkGetDataGraphPipelinePropertiesARM");
+    vkGetNativeBufferPropertiesOHOS                          = xx vkGetDeviceProcAddr(device, "vkGetNativeBufferPropertiesOHOS");
+    vkGetMemoryNativeBufferOHOS                              = xx vkGetDeviceProcAddr(device, "vkGetMemoryNativeBufferOHOS");
+    vkGetSwapchainGrallocUsageOHOS                           = xx vkGetDeviceProcAddr(device, "vkGetSwapchainGrallocUsageOHOS");
+    vkAcquireImageOHOS                                       = xx vkGetDeviceProcAddr(device, "vkAcquireImageOHOS");
+    vkQueueSignalReleaseImageOHOS                            = xx vkGetDeviceProcAddr(device, "vkQueueSignalReleaseImageOHOS");
 }

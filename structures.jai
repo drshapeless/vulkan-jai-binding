@@ -442,19 +442,49 @@ VkBufferImageCopy :: struct {
     imageExtent: VkExtent3D; /* Specified in pixels for both compressed and uncompressed images */
 }
 
-VkCopyMemoryIndirectCommandNV :: struct {
-    srcAddress: VkDeviceAddress;
-    dstAddress: VkDeviceAddress;
-    size: VkDeviceSize; /* Specified in bytes */
+VkStridedDeviceAddressRangeKHR :: struct {
+    address: VkDeviceAddress;
+    size: VkDeviceSize;
+    stride: VkDeviceSize;
 }
 
-VkCopyMemoryToImageIndirectCommandNV :: struct {
+VkCopyMemoryIndirectCommandKHR :: struct {
     srcAddress: VkDeviceAddress;
-    bufferRowLength: u32; /* Specified in texels */
+    dstAddress: VkDeviceAddress;
+    size: VkDeviceSize;
+}
+
+VkCopyMemoryIndirectCommandNV :: VkCopyMemoryIndirectCommandKHR;
+
+VkCopyMemoryIndirectInfoKHR :: struct {
+    sType: VkStructureType = .COPY_MEMORY_INDIRECT_INFO_KHR;
+    pNext: *void;
+    srcCopyFlags: VkAddressCopyFlagsKHR;
+    dstCopyFlags: VkAddressCopyFlagsKHR;
+    copyCount: u32;
+    copyAddressRange: VkStridedDeviceAddressRangeKHR;
+}
+
+VkCopyMemoryToImageIndirectCommandKHR :: struct {
+    srcAddress: VkDeviceAddress;
+    bufferRowLength: u32;
     bufferImageHeight: u32;
     imageSubresource: VkImageSubresourceLayers;
-    imageOffset: VkOffset3D; /* Specified in pixels for both compressed and uncompressed images */
-    imageExtent: VkExtent3D; /* Specified in pixels for both compressed and uncompressed images */
+    imageOffset: VkOffset3D;
+    imageExtent: VkExtent3D;
+}
+
+VkCopyMemoryToImageIndirectCommandNV :: VkCopyMemoryToImageIndirectCommandKHR;
+
+VkCopyMemoryToImageIndirectInfoKHR :: struct {
+    sType: VkStructureType = .COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR;
+    pNext: *void;
+    srcCopyFlags: VkAddressCopyFlagsKHR;
+    copyCount: u32;
+    copyAddressRange: VkStridedDeviceAddressRangeKHR;
+    dstImage: VkImage;
+    dstImageLayout: VkImageLayout;
+    pImageSubresources: *VkImageSubresourceLayers;
 }
 
 VkImageResolve :: struct {
@@ -751,6 +781,14 @@ VkPipelineCacheHeaderVersionSafetyCriticalOne :: struct {
     pipelineIndexCount: u32;
     pipelineIndexStride: u32;
     pipelineIndexOffset: u64;
+}
+
+VkPipelineCacheHeaderVersionDataGraphQCOM :: struct {
+    headerSize: u32;
+    headerVersion: VkPipelineCacheHeaderVersion;
+    cacheType: VkDataGraphModelCacheTypeQCOM;
+    cacheVersion: u32;
+    toolchainVersion: [VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM]u32;
 }
 
 VkPushConstantRange :: struct {
@@ -2779,6 +2817,96 @@ VkPhysicalDevicePresentWait2FeaturesKHR :: struct {
     presentWait2: VkBool32; /* vkWaitForPresent2KHR is supported */
 }
 
+VkPhysicalDevicePresentTimingFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT;
+    pNext: *void;
+    presentTiming: VkBool32; /* vkGetPastPresentationTimingEXT is supported */
+    presentAtAbsoluteTime: VkBool32; /* Absolute time can be used to specify present time */
+    presentAtRelativeTime: VkBool32; /* Relative time can be used to specify present duration */
+}
+
+VkPresentTimingSurfaceCapabilitiesEXT :: struct {
+    sType: VkStructureType = .PRESENT_TIMING_SURFACE_CAPABILITIES_EXT;
+    pNext: *void;
+    presentTimingSupported: VkBool32; /* presentation timings of the surface can be queried using vkGetPastPresentationTimingEXT */
+    presentAtAbsoluteTimeSupported: VkBool32; /* surface can be presented using absolute times */
+    presentAtRelativeTimeSupported: VkBool32; /* surface can be presented using relative times */
+    presentStageQueries: VkPresentStageFlagsEXT; /* present stages that can be queried */
+}
+
+VkSwapchainTimingPropertiesEXT :: struct {
+    sType: VkStructureType = .SWAPCHAIN_TIMING_PROPERTIES_EXT;
+    pNext: *void;
+    refreshDuration: u64; /* Number of nanoseconds from the start of one refresh cycle to the next */
+    refreshInterval: u64; /* Interval in nanoseconds between refresh cycles durations */
+}
+
+VkSwapchainTimeDomainPropertiesEXT :: struct {
+    sType: VkStructureType = .SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT;
+    pNext: *void;
+    timeDomainCount: u32;
+    pTimeDomains: *VkTimeDomainKHR; /* Available time domains to use with the swapchain */
+    pTimeDomainIds: *u64; /* Unique identifier for a time domain */
+}
+
+VkPresentStageTimeEXT :: struct {
+    stage: VkPresentStageFlagsEXT;
+    time: u64; /* Time in nanoseconds of the associated stage */
+}
+
+VkPastPresentationTimingInfoEXT :: struct {
+    sType: VkStructureType = .PAST_PRESENTATION_TIMING_INFO_EXT;
+    pNext: *void;
+    flags: VkPastPresentationTimingFlagsEXT;
+    swapchain: VkSwapchainKHR;
+}
+
+VkPastPresentationTimingPropertiesEXT :: struct {
+    sType: VkStructureType = .PAST_PRESENTATION_TIMING_PROPERTIES_EXT;
+    pNext: *void;
+    timingPropertiesCounter: u64;
+    timeDomainsCounter: u64;
+    presentationTimingCount: u32;
+    pPresentationTimings: *VkPastPresentationTimingEXT;
+}
+
+VkPastPresentationTimingEXT :: struct {
+    sType: VkStructureType = .PAST_PRESENTATION_TIMING_EXT;
+    pNext: *void;
+    presentId: u64; /* Application-provided identifier, previously given to vkQueuePresentKHR */
+    targetTime: u64; /* Application-provided present time */
+    presentStageCount: u32; /* Number of present stages results available in pPresentStages */
+    pPresentStages: *VkPresentStageTimeEXT; /* Reported timings for each present stage */
+    timeDomain: VkTimeDomainKHR; /* Time domain of the present stages */
+    timeDomainId: u64; /* Time domain id of the present stages */
+    reportComplete: VkBool32; /* VK_TRUE if all the present stages have been reported */
+}
+
+VkPresentTimingsInfoEXT :: struct {
+    sType: VkStructureType = .PRESENT_TIMINGS_INFO_EXT;
+    pNext: *void;
+    swapchainCount: u32; /* Copy of VkPresentInfoKHR::swapchainCount */
+    pTimingInfos: *VkPresentTimingInfoEXT; /* Present timing details for each swapchain */
+}
+
+VkPresentTimingInfoEXT :: struct {
+    sType: VkStructureType = .PRESENT_TIMING_INFO_EXT;
+    pNext: *void;
+    flags: VkPresentTimingInfoFlagsEXT;
+    targetTime: u64;
+    timeDomainId: u64; /* Time domain to interpret the target present time and collect present stages timings with */
+    presentStageQueries: VkPresentStageFlagsEXT; /* Present stages to collect timing information for */
+    targetTimeDomainPresentStage: VkPresentStageFlagsEXT; /* Target stage-local time domain's stage */
+}
+
+VkSwapchainCalibratedTimestampInfoEXT :: struct {
+    sType: VkStructureType = .SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT;
+    pNext: *void;
+    swapchain: VkSwapchainKHR;
+    presentStage: VkPresentStageFlagsEXT;
+    timeDomainId: u64;
+}
+
 VkHdrMetadataEXT :: struct {
     sType: VkStructureType = .HDR_METADATA_EXT;
     pNext: *void;
@@ -3517,6 +3645,20 @@ VkPhysicalDeviceMaintenance9PropertiesKHR :: struct {
     pNext: *void;
     image2DViewOf3DSparse: VkBool32;
     defaultVertexAttributeValue: VkDefaultVertexAttributeValueKHR;
+}
+
+VkPhysicalDeviceMaintenance10PropertiesKHR :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR;
+    pNext: *void;
+    rgba4OpaqueBlackSwizzled: VkBool32;
+    resolveSrgbFormatAppliesTransferFunction: VkBool32;
+    resolveSrgbFormatSupportsTransferFunctionControl: VkBool32;
+}
+
+VkPhysicalDeviceMaintenance10FeaturesKHR :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR;
+    pNext: *void;
+    maintenance10: VkBool32;
 }
 
 VkQueueFamilyOwnershipTransferPropertiesKHR :: struct {
@@ -4362,30 +4504,43 @@ VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV :: struct {
     dedicatedAllocationImageAliasing: VkBool32;
 }
 
+VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR;
+    pNext: *void;
+    indirectMemoryCopy: VkBool32;
+    indirectMemoryToImageCopy: VkBool32;
+}
+
 VkPhysicalDeviceCopyMemoryIndirectFeaturesNV :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV;
     pNext: *void;
     indirectCopy: VkBool32;
 }
 
-VkPhysicalDeviceCopyMemoryIndirectPropertiesNV :: struct {
-    sType: VkStructureType = .PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV;
+VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
     pNext: *void;
-    supportedQueues: VkQueueFlags; /* Bitfield of which queues are supported for indirect copy */
+    supportedQueues: VkQueueFlags; /* Bitmask of VkQueueFlagBits indicating the family of queues that support indirect copy */
 }
 
-VkPhysicalDeviceMemoryDecompressionFeaturesNV :: struct {
-    sType: VkStructureType = .PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV;
+VkPhysicalDeviceCopyMemoryIndirectPropertiesNV :: VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR;
+
+VkPhysicalDeviceMemoryDecompressionFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
     pNext: *void;
     memoryDecompression: VkBool32;
 }
 
-VkPhysicalDeviceMemoryDecompressionPropertiesNV :: struct {
-    sType: VkStructureType = .PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV;
+VkPhysicalDeviceMemoryDecompressionFeaturesNV :: VkPhysicalDeviceMemoryDecompressionFeaturesEXT;
+
+VkPhysicalDeviceMemoryDecompressionPropertiesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT;
     pNext: *void;
-    decompressionMethods: VkMemoryDecompressionMethodFlagsNV;
+    decompressionMethods: VkMemoryDecompressionMethodFlagsEXT;
     maxDecompressionIndirectCount: u64;
 }
+
+VkPhysicalDeviceMemoryDecompressionPropertiesNV :: VkPhysicalDeviceMemoryDecompressionPropertiesEXT;
 
 VkShadingRatePaletteNV :: struct {
     shadingRatePaletteEntryCount: u32;
@@ -6668,6 +6823,27 @@ VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT :: struct {
     zeroInitializeDeviceMemory: VkBool32;
 }
 
+VkBeginCustomResolveInfoEXT :: struct {
+    sType: VkStructureType = .BEGIN_CUSTOM_RESOLVE_INFO_EXT;
+    pNext: *void;
+}
+
+VkPhysicalDeviceCustomResolveFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT;
+    pNext: *void;
+    customResolve: VkBool32;
+}
+
+VkCustomResolveCreateInfoEXT :: struct {
+    sType: VkStructureType = .CUSTOM_RESOLVE_CREATE_INFO_EXT;
+    pNext: *void;
+    customResolve: VkBool32;
+    colorAttachmentCount: u32;
+    pColorAttachmentFormats: *VkFormat;
+    depthAttachmentFormat: VkFormat;
+    stencilAttachmentFormat: VkFormat;
+}
+
 VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT;
     pNext: *void;
@@ -8531,6 +8707,14 @@ VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR :: struct {
     triStripVertexOrderIndependentOfProvokingVertex: VkBool32;
 }
 
+VkPhysicalDeviceShaderFmaFeaturesKHR :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR;
+    pNext: *void;
+    shaderFmaFloat16: VkBool32;
+    shaderFmaFloat32: VkBool32;
+    shaderFmaFloat64: VkBool32;
+}
+
 VkPhysicalDeviceRayTracingMotionBlurFeaturesNV :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV;
     pNext: *void;
@@ -8815,10 +8999,12 @@ VkRenderingInfo :: struct {
 
 VkRenderingInfoKHR :: VkRenderingInfo;
 
-VkRenderingEndInfoEXT :: struct {
-    sType: VkStructureType = .RENDERING_END_INFO_EXT;
+VkRenderingEndInfoKHR :: struct {
+    sType: VkStructureType = .RENDERING_END_INFO_KHR;
     pNext: *void;
 }
+
+VkRenderingEndInfoEXT :: VkRenderingEndInfoKHR;
 
 VkRenderingAttachmentInfo :: struct {
     sType: VkStructureType = .RENDERING_ATTACHMENT_INFO;
@@ -9456,6 +9642,20 @@ VkPhysicalDeviceAddressBindingReportFeaturesEXT :: struct {
     reportAddressBinding: VkBool32;
 }
 
+VkRenderingAttachmentFlagsInfoKHR :: struct {
+    sType: VkStructureType = .RENDERING_ATTACHMENT_FLAGS_INFO_KHR;
+    pNext: *void;
+    flags: VkRenderingAttachmentFlagsKHR;
+}
+
+VkResolveImageModeInfoKHR :: struct {
+    sType: VkStructureType = .RESOLVE_IMAGE_MODE_INFO_KHR;
+    pNext: *void;
+    flags: VkResolveImageFlagsKHR;
+    resolveMode: VkResolveModeFlagBits;
+    stencilResolveMode: VkResolveModeFlagBits;
+}
+
 VkDeviceAddressBindingCallbackDataEXT :: struct {
     sType: VkStructureType = .DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT;
     pNext: *void;
@@ -9608,6 +9808,21 @@ VkDecompressMemoryRegionNV :: struct {
     decompressionMethod: VkMemoryDecompressionMethodFlagsNV;
 }
 
+VkDecompressMemoryRegionEXT :: struct {
+    srcAddress: VkDeviceAddress;
+    dstAddress: VkDeviceAddress;
+    compressedSize: VkDeviceSize; /* Specified in bytes */
+    decompressedSize: VkDeviceSize; /* Specified in bytes */
+}
+
+VkDecompressMemoryInfoEXT :: struct {
+    sType: VkStructureType = .DECOMPRESS_MEMORY_INFO_EXT;
+    pNext: *void;
+    decompressionMethod: VkMemoryDecompressionMethodFlagsEXT;
+    regionCount: u32;
+    pRegions: *VkDecompressMemoryRegionEXT;
+}
+
 VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM;
     pNext: *void;
@@ -9741,16 +9956,29 @@ VkPhysicalDeviceDepthBiasControlFeaturesEXT :: struct {
     depthBiasExact: VkBool32;
 }
 
+VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT;
+    pNext: *void;
+    rayTracingInvocationReorder: VkBool32;
+}
+
 VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV;
     pNext: *void;
     rayTracingInvocationReorder: VkBool32;
 }
 
+VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT;
+    pNext: *void;
+    rayTracingInvocationReorderReorderingHint: VkRayTracingInvocationReorderModeEXT;
+    maxShaderBindingTableRecordIndex: u32;
+}
+
 VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV;
     pNext: *void;
-    rayTracingInvocationReorderReorderingHint: VkRayTracingInvocationReorderModeNV;
+    rayTracingInvocationReorderReorderingHint: VkRayTracingInvocationReorderModeEXT;
 }
 
 VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV :: struct {
@@ -10757,6 +10985,12 @@ VkPhysicalDeviceExternalComputeQueuePropertiesNV :: struct {
     maxExternalQueues: u32;
 }
 
+VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT;
+    pNext: *void;
+    shaderUniformBufferUnsizedArray: VkBool32;
+}
+
 VkPhysicalDeviceFormatPackFeaturesARM :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM;
     pNext: *void;
@@ -10964,14 +11198,12 @@ VkPhysicalDeviceShaderFloat8FeaturesEXT :: struct {
     shaderFloat8CooperativeMatrix: VkBool32;
 }
 
-VkOHSurfaceCreateInfoOHOS :: struct {
-    sType: VkStructureType = .OH_SURFACE_CREATE_INFO_OHOS;
+VkSurfaceCreateInfoOHOS :: struct {
+    sType: VkStructureType = .SURFACE_CREATE_INFO_OHOS;
     pNext: *void;
     flags: VkSurfaceCreateFlagsOHOS;
     window: *OHNativeWindow;
 }
-
-VkSurfaceCreateInfoOHOS :: VkOHSurfaceCreateInfoOHOS;
 
 VkPhysicalDeviceDataGraphFeaturesARM :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM;
@@ -11143,9 +11375,158 @@ VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC :: struct {
     pipelineCacheIncrementalMode: VkBool32;
 }
 
+VkDataGraphPipelineBuiltinModelCreateInfoQCOM :: struct {
+    sType: VkStructureType = .DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM;
+    pNext: *void;
+    pOperation: *VkPhysicalDeviceDataGraphOperationSupportARM;
+}
+
+VkPhysicalDeviceDataGraphModelFeaturesQCOM :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM;
+    pNext: *void;
+    dataGraphModel: VkBool32;
+}
+
 VkPhysicalDeviceShaderUntypedPointersFeaturesKHR :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR;
     pNext: *void;
     shaderUntypedPointers: VkBool32;
+}
+
+VkNativeBufferOHOS :: struct {
+    sType: VkStructureType = .NATIVE_BUFFER_OHOS;
+    pNext: *void;
+    handle: *OHBufferHandle;
+}
+
+VkSwapchainImageCreateInfoOHOS :: struct {
+    sType: VkStructureType = .SWAPCHAIN_IMAGE_CREATE_INFO_OHOS;
+    pNext: *void;
+    usage: VkSwapchainImageUsageFlagsOHOS;
+}
+
+VkPhysicalDevicePresentationPropertiesOHOS :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_PRESENTATION_PROPERTIES_OHOS;
+    pNext: *void;
+    sharedImage: VkBool32;
+}
+
+VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE;
+    pNext: *void;
+    videoEncodeRgbConversion: VkBool32;
+}
+
+VkVideoEncodeRgbConversionCapabilitiesVALVE :: struct {
+    sType: VkStructureType = .VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE;
+    pNext: *void;
+    rgbModels: VkVideoEncodeRgbModelConversionFlagsVALVE;
+    rgbRanges: VkVideoEncodeRgbRangeCompressionFlagsVALVE;
+    xChromaOffsets: VkVideoEncodeRgbChromaOffsetFlagsVALVE;
+    yChromaOffsets: VkVideoEncodeRgbChromaOffsetFlagsVALVE;
+}
+
+VkVideoEncodeProfileRgbConversionInfoVALVE :: struct {
+    sType: VkStructureType = .VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE;
+    pNext: *void;
+    performEncodeRgbConversion: VkBool32;
+}
+
+VkVideoEncodeSessionRgbConversionCreateInfoVALVE :: struct {
+    sType: VkStructureType = .VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE;
+    pNext: *void;
+    rgbModel: VkVideoEncodeRgbModelConversionFlagBitsVALVE;
+    rgbRange: VkVideoEncodeRgbRangeCompressionFlagBitsVALVE;
+    xChromaOffset: VkVideoEncodeRgbChromaOffsetFlagBitsVALVE;
+    yChromaOffset: VkVideoEncodeRgbChromaOffsetFlagBitsVALVE;
+}
+
+VkPhysicalDeviceShader64BitIndexingFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT;
+    pNext: *void;
+    shader64BitIndexing: VkBool32;
+}
+
+VkNativeBufferUsageOHOS :: struct {
+    sType: VkStructureType = .NATIVE_BUFFER_USAGE_OHOS;
+    pNext: *void;
+    OHOSNativeBufferUsage: u64;
+}
+
+VkNativeBufferPropertiesOHOS :: struct {
+    sType: VkStructureType = .NATIVE_BUFFER_PROPERTIES_OHOS;
+    pNext: *void;
+    allocationSize: VkDeviceSize;
+    memoryTypeBits: u32;
+}
+
+VkNativeBufferFormatPropertiesOHOS :: struct {
+    sType: VkStructureType = .NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS;
+    pNext: *void;
+    format: VkFormat;
+    externalFormat: u64;
+    formatFeatures: VkFormatFeatureFlags;
+    samplerYcbcrConversionComponents: VkComponentMapping;
+    suggestedYcbcrModel: VkSamplerYcbcrModelConversion;
+    suggestedYcbcrRange: VkSamplerYcbcrRange;
+    suggestedXChromaOffset: VkChromaLocation;
+    suggestedYChromaOffset: VkChromaLocation;
+}
+
+VkImportNativeBufferInfoOHOS :: struct {
+    sType: VkStructureType = .IMPORT_NATIVE_BUFFER_INFO_OHOS;
+    pNext: *void;
+    buffer: *OH_NativeBuffer;
+}
+
+VkMemoryGetNativeBufferInfoOHOS :: struct {
+    sType: VkStructureType = .MEMORY_GET_NATIVE_BUFFER_INFO_OHOS;
+    pNext: *void;
+    memory: VkDeviceMemory;
+}
+
+VkExternalFormatOHOS :: struct {
+    sType: VkStructureType = .EXTERNAL_FORMAT_OHOS;
+    pNext: *void;
+    externalFormat: u64;
+}
+
+VkPhysicalDevicePerformanceCountersByRegionFeaturesARM :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM;
+    pNext: *void;
+    performanceCountersByRegion: VkBool32;
+}
+
+VkPhysicalDevicePerformanceCountersByRegionPropertiesARM :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM;
+    pNext: *void;
+    maxPerRegionPerformanceCounters: u32;
+    performanceCounterRegionSize: VkExtent2D;
+    rowStrideAlignment: u32;
+    regionAlignment: u32;
+    identityTransformOrder: VkBool32;
+}
+
+VkPerformanceCounterARM :: struct {
+    sType: VkStructureType = .PERFORMANCE_COUNTER_ARM;
+    pNext: *void;
+    counterID: u32;
+}
+
+VkPerformanceCounterDescriptionARM :: struct {
+    sType: VkStructureType = .PERFORMANCE_COUNTER_DESCRIPTION_ARM;
+    pNext: *void;
+    flags: VkPerformanceCounterDescriptionFlagsARM;
+    name: [VK_MAX_DESCRIPTION_SIZE]u8;
+}
+
+VkRenderPassPerformanceCountersByRegionBeginInfoARM :: struct {
+    sType: VkStructureType = .RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM;
+    pNext: *void; /* Pointer to next structure */
+    counterAddressCount: u32;
+    pCounterAddresses: *VkDeviceAddress;
+    serializeRegions: VkBool32;
+    counterIndexCount: u32;
+    pCounterIndices: *u32;
 }
 

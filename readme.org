@@ -1,8 +1,8 @@
 #+title: readme
 
 This is a Vulkan binding generated from vk.xml. This generator is
-written from scratch, including the xml parser. Tested on Vulkan 1.4
-and jai version beta 0.2.017.
+written from scratch, including the xml parser. Tested on Vulkan
+1.4.328 and jai version beta 0.2.023.
 
 This has no relation to osor_io's Vulkan jai binding, [[https://github.com/osor-io/osor_vulkan][osor_vulkan]].
 

@@ -134,7 +134,9 @@ PFN_vkCmdBlitImage :: #type (commandBuffer: VkCommandBuffer, srcImage: VkImage, 
 PFN_vkCmdCopyBufferToImage :: #type (commandBuffer: VkCommandBuffer, srcBuffer: VkBuffer, dstImage: VkImage, dstImageLayout: VkImageLayout, regionCount: u32, pRegions: *VkBufferImageCopy) -> void #c_call;
 PFN_vkCmdCopyImageToBuffer :: #type (commandBuffer: VkCommandBuffer, srcImage: VkImage, srcImageLayout: VkImageLayout, dstBuffer: VkBuffer, regionCount: u32, pRegions: *VkBufferImageCopy) -> void #c_call;
 PFN_vkCmdCopyMemoryIndirectNV :: #type (commandBuffer: VkCommandBuffer, copyBufferAddress: VkDeviceAddress, copyCount: u32, stride: u32) -> void #c_call;
+PFN_vkCmdCopyMemoryIndirectKHR :: #type (commandBuffer: VkCommandBuffer, pCopyMemoryIndirectInfo: *VkCopyMemoryIndirectInfoKHR) -> void #c_call;
 PFN_vkCmdCopyMemoryToImageIndirectNV :: #type (commandBuffer: VkCommandBuffer, copyBufferAddress: VkDeviceAddress, copyCount: u32, stride: u32, dstImage: VkImage, dstImageLayout: VkImageLayout, pImageSubresources: *VkImageSubresourceLayers) -> void #c_call;
+PFN_vkCmdCopyMemoryToImageIndirectKHR :: #type (commandBuffer: VkCommandBuffer, pCopyMemoryToImageIndirectInfo: *VkCopyMemoryToImageIndirectInfoKHR) -> void #c_call;
 PFN_vkCmdUpdateBuffer :: #type (commandBuffer: VkCommandBuffer, dstBuffer: VkBuffer, dstOffset: VkDeviceSize, dataSize: VkDeviceSize, pData: *void) -> void #c_call;
 PFN_vkCmdFillBuffer :: #type (commandBuffer: VkCommandBuffer, dstBuffer: VkBuffer, dstOffset: VkDeviceSize, size: VkDeviceSize, data: u32) -> void #c_call;
 PFN_vkCmdClearColorImage :: #type (commandBuffer: VkCommandBuffer, image: VkImage, imageLayout: VkImageLayout, pColor: *VkClearColorValue, rangeCount: u32, pRanges: *VkImageSubresourceRange) -> void #c_call;
@@ -149,6 +151,7 @@ PFN_vkCmdBeginQuery :: #type (commandBuffer: VkCommandBuffer, queryPool: VkQuery
 PFN_vkCmdEndQuery :: #type (commandBuffer: VkCommandBuffer, queryPool: VkQueryPool, query: u32) -> void #c_call;
 PFN_vkCmdBeginConditionalRenderingEXT :: #type (commandBuffer: VkCommandBuffer, pConditionalRenderingBegin: *VkConditionalRenderingBeginInfoEXT) -> void #c_call;
 PFN_vkCmdEndConditionalRenderingEXT :: #type (commandBuffer: VkCommandBuffer) -> void #c_call;
+PFN_vkCmdBeginCustomResolveEXT :: #type (commandBuffer: VkCommandBuffer, pBeginCustomResolveInfo: *VkBeginCustomResolveInfoEXT) -> void #c_call;
 PFN_vkCmdResetQueryPool :: #type (commandBuffer: VkCommandBuffer, queryPool: VkQueryPool, firstQuery: u32, queryCount: u32) -> void #c_call;
 PFN_vkCmdWriteTimestamp :: #type (commandBuffer: VkCommandBuffer, pipelineStage: VkPipelineStageFlagBits, queryPool: VkQueryPool, query: u32) -> void #c_call;
 PFN_vkCmdCopyQueryPoolResults :: #type (commandBuffer: VkCommandBuffer, queryPool: VkQueryPool, firstQuery: u32, queryCount: u32, dstBuffer: VkBuffer, dstOffset: VkDeviceSize, stride: VkDeviceSize, flags: VkQueryResultFlags) -> void #c_call;
@@ -632,6 +635,8 @@ PFN_vkCmdDecompressMemoryNV :: #type (commandBuffer: VkCommandBuffer, decompress
 PFN_vkCmdDecompressMemoryIndirectCountNV :: #type (commandBuffer: VkCommandBuffer, indirectCommandsAddress: VkDeviceAddress, indirectCommandsCountAddress: VkDeviceAddress, stride: u32) -> void #c_call;
 PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV :: #type (device: VkDevice, pInfo: *VkPartitionedAccelerationStructureInstancesInputNV, pSizeInfo: *VkAccelerationStructureBuildSizesInfoKHR) -> void #c_call;
 PFN_vkCmdBuildPartitionedAccelerationStructuresNV :: #type (commandBuffer: VkCommandBuffer, pBuildInfo: *VkBuildPartitionedAccelerationStructureInfoNV) -> void #c_call;
+PFN_vkCmdDecompressMemoryEXT :: #type (commandBuffer: VkCommandBuffer, pDecompressMemoryInfoEXT: *VkDecompressMemoryInfoEXT) -> void #c_call;
+PFN_vkCmdDecompressMemoryIndirectCountEXT :: #type (commandBuffer: VkCommandBuffer, decompressionMethod: VkMemoryDecompressionMethodFlagsEXT, indirectCommandsAddress: VkDeviceAddress, indirectCommandsCountAddress: VkDeviceAddress, maxDecompressionCount: u32, stride: u32) -> void #c_call;
 PFN_vkCreateCuModuleNVX :: #type (device: VkDevice, pCreateInfo: *VkCuModuleCreateInfoNVX, pAllocator: *VkAllocationCallbacks, pModule: *VkCuModuleNVX) -> VkResult #c_call;
 PFN_vkCreateCuFunctionNVX :: #type (device: VkDevice, pCreateInfo: *VkCuFunctionCreateInfoNVX, pAllocator: *VkAllocationCallbacks, pFunction: *VkCuFunctionNVX) -> VkResult #c_call;
 PFN_vkDestroyCuModuleNVX :: #type (device: VkDevice, module: VkCuModuleNVX, pAllocator: *VkAllocationCallbacks) -> void #c_call;
@@ -667,7 +672,8 @@ PFN_vkCmdCudaLaunchKernelNV :: #type (commandBuffer: VkCommandBuffer, pLaunchInf
 PFN_vkCmdBeginRendering :: #type (commandBuffer: VkCommandBuffer, pRenderingInfo: *VkRenderingInfo) -> void #c_call;
 PFN_vkCmdBeginRenderingKHR :: PFN_vkCmdBeginRendering;
 PFN_vkCmdEndRendering :: #type (commandBuffer: VkCommandBuffer) -> void #c_call;
-PFN_vkCmdEndRendering2EXT :: #type (commandBuffer: VkCommandBuffer, pRenderingEndInfo: *VkRenderingEndInfoEXT) -> void #c_call;
+PFN_vkCmdEndRendering2KHR :: #type (commandBuffer: VkCommandBuffer, pRenderingEndInfo: *VkRenderingEndInfoKHR) -> void #c_call;
+PFN_vkCmdEndRendering2EXT :: PFN_vkCmdEndRendering2KHR;
 PFN_vkCmdEndRenderingKHR :: PFN_vkCmdEndRendering;
 PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE :: #type (device: VkDevice, pBindingReference: *VkDescriptorSetBindingReferenceVALVE, pHostMapping: *VkDescriptorSetLayoutHostMappingInfoVALVE) -> void #c_call;
 PFN_vkGetDescriptorSetHostMappingVALVE :: #type (device: VkDevice, descriptorSet: VkDescriptorSet, ppData: **void) -> void #c_call;
@@ -714,6 +720,10 @@ PFN_vkCreateShadersEXT :: #type (device: VkDevice, createInfoCount: u32, pCreate
 PFN_vkDestroyShaderEXT :: #type (device: VkDevice, shader: VkShaderEXT, pAllocator: *VkAllocationCallbacks) -> void #c_call;
 PFN_vkGetShaderBinaryDataEXT :: #type (device: VkDevice, shader: VkShaderEXT, pDataSize: *u64, pData: *void) -> VkResult #c_call;
 PFN_vkCmdBindShadersEXT :: #type (commandBuffer: VkCommandBuffer, stageCount: u32, pStages: *VkShaderStageFlagBits, pShaders: *VkShaderEXT) -> void #c_call;
+PFN_vkSetSwapchainPresentTimingQueueSizeEXT :: #type (device: VkDevice, swapchain: VkSwapchainKHR, size: u32) -> VkResult #c_call;
+PFN_vkGetSwapchainTimingPropertiesEXT :: #type (device: VkDevice, swapchain: VkSwapchainKHR, pSwapchainTimingProperties: *VkSwapchainTimingPropertiesEXT, pSwapchainTimingPropertiesCounter: *u64) -> VkResult #c_call;
+PFN_vkGetSwapchainTimeDomainPropertiesEXT :: #type (device: VkDevice, swapchain: VkSwapchainKHR, pSwapchainTimeDomainProperties: *VkSwapchainTimeDomainPropertiesEXT, pTimeDomainsCounter: *u64) -> VkResult #c_call;
+PFN_vkGetPastPresentationTimingEXT :: #type (device: VkDevice, pPastPresentationTimingInfo: *VkPastPresentationTimingInfoEXT, pPastPresentationTimingProperties: *VkPastPresentationTimingPropertiesEXT) -> VkResult #c_call;
 PFN_vkGetScreenBufferPropertiesQNX :: #type (device: VkDevice, buffer: *_screen_buffer, pProperties: *VkScreenBufferPropertiesQNX) -> VkResult #c_call;
 PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR :: #type (physicalDevice: VkPhysicalDevice, pPropertyCount: *u32, pProperties: *VkCooperativeMatrixPropertiesKHR) -> VkResult #c_call;
 PFN_vkGetExecutionGraphPipelineScratchSizeAMDX :: #type (device: VkDevice, executionGraph: VkPipeline, pSizeInfo: *VkExecutionGraphPipelineScratchSizeAMDX) -> VkResult #c_call;
@@ -777,3 +787,9 @@ PFN_vkGetDataGraphPipelineAvailablePropertiesARM :: #type (device: VkDevice, pPi
 PFN_vkGetDataGraphPipelinePropertiesARM :: #type (device: VkDevice, pPipelineInfo: *VkDataGraphPipelineInfoARM, propertiesCount: u32, pProperties: *VkDataGraphPipelinePropertyQueryResultARM) -> VkResult #c_call;
 PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM :: #type (physicalDevice: VkPhysicalDevice, queueFamilyIndex: u32, pQueueFamilyDataGraphPropertyCount: *u32, pQueueFamilyDataGraphProperties: *VkQueueFamilyDataGraphPropertiesARM) -> VkResult #c_call;
 PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM :: #type (physicalDevice: VkPhysicalDevice, pQueueFamilyDataGraphProcessingEngineInfo: *VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM, pQueueFamilyDataGraphProcessingEngineProperties: *VkQueueFamilyDataGraphProcessingEnginePropertiesARM) -> void #c_call;
+PFN_vkGetNativeBufferPropertiesOHOS :: #type (device: VkDevice, buffer: *OH_NativeBuffer, pProperties: *VkNativeBufferPropertiesOHOS) -> VkResult #c_call;
+PFN_vkGetMemoryNativeBufferOHOS :: #type (device: VkDevice, pInfo: *VkMemoryGetNativeBufferInfoOHOS, pBuffer: **OH_NativeBuffer) -> VkResult #c_call;
+PFN_vkGetSwapchainGrallocUsageOHOS :: #type (device: VkDevice, format: VkFormat, imageUsage: VkImageUsageFlags, grallocUsage: *u64) -> VkResult #c_call;
+PFN_vkAcquireImageOHOS :: #type (device: VkDevice, image: VkImage, nativeFenceFd: s32, semaphore: VkSemaphore, fence: VkFence) -> VkResult #c_call;
+PFN_vkQueueSignalReleaseImageOHOS :: #type (queue: VkQueue, waitSemaphoreCount: u32, pWaitSemaphores: *VkSemaphore, image: VkImage, pNativeFenceFd: *s32) -> VkResult #c_call;
+PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM :: #type (physicalDevice: VkPhysicalDevice, queueFamilyIndex: u32, pCounterCount: *u32, pCounters: *VkPerformanceCounterARM, pCounterDescriptions: *VkPerformanceCounterDescriptionARM) -> VkResult #c_call;

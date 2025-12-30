@@ -166,6 +166,7 @@ VkPipelineBindPoint :: enum u32 {
 VkPipelineCacheHeaderVersion :: enum u32 {
     ONE                 :: 1;
     SAFETY_CRITICAL_ONE :: 1000298001;
+    DATA_GRAPH_QCOM     :: 1000629000;
 }
 
 VkPipelineCacheCreateFlagBits :: VkPipelineCacheCreateFlags;
@@ -793,14 +794,11 @@ VkStructureType :: enum u32 {
     MEMORY_BARRIER                                                        :: 46;
     LOADER_INSTANCE_CREATE_INFO                                           :: 47; /* Reserved for internal use by the loader, layers, and ICDs */
     LOADER_DEVICE_CREATE_INFO                                             :: 48; /* Reserved for internal use by the loader, layers, and ICDs */
-    PHYSICAL_DEVICE_SUBGROUP_PROPERTIES                                   :: 1000094000;
     BIND_BUFFER_MEMORY_INFO                                               :: 1000157000;
     BIND_IMAGE_MEMORY_INFO                                                :: 1000157001;
-    PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES                                :: 1000083000;
     MEMORY_DEDICATED_REQUIREMENTS                                         :: 1000127000;
     MEMORY_DEDICATED_ALLOCATE_INFO                                        :: 1000127001;
     MEMORY_ALLOCATE_FLAGS_INFO                                            :: 1000060000;
-    DEVICE_GROUP_RENDER_PASS_BEGIN_INFO                                   :: 1000060003;
     DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO                                :: 1000060004;
     DEVICE_GROUP_SUBMIT_INFO                                              :: 1000060005;
     DEVICE_GROUP_BIND_SPARSE_INFO                                         :: 1000060006;
@@ -822,26 +820,11 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_MEMORY_PROPERTIES_2                                   :: 1000059006;
     SPARSE_IMAGE_FORMAT_PROPERTIES_2                                      :: 1000059007;
     PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2                            :: 1000059008;
-    PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES                             :: 1000117000;
-    RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO                       :: 1000117001;
     IMAGE_VIEW_USAGE_CREATE_INFO                                          :: 1000117002;
-    PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO                 :: 1000117003;
-    RENDER_PASS_MULTIVIEW_CREATE_INFO                                     :: 1000053000;
-    PHYSICAL_DEVICE_MULTIVIEW_FEATURES                                    :: 1000053001;
-    PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES                                  :: 1000053002;
-    PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES                            :: 1000120000;
-    PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES                             :: PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
     PROTECTED_SUBMIT_INFO                                                 :: 1000145000;
     PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES                             :: 1000145001;
     PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES                           :: 1000145002;
     DEVICE_QUEUE_INFO_2                                                   :: 1000145003;
-    SAMPLER_YCBCR_CONVERSION_CREATE_INFO                                  :: 1000156000;
-    SAMPLER_YCBCR_CONVERSION_INFO                                         :: 1000156001;
-    BIND_IMAGE_PLANE_MEMORY_INFO                                          :: 1000156002;
-    IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO                                  :: 1000156003;
-    PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES                     :: 1000156004;
-    SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES                      :: 1000156005;
-    DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO                                :: 1000085000;
     PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO                            :: 1000071000;
     EXTERNAL_IMAGE_FORMAT_PROPERTIES                                      :: 1000071001;
     PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO                                  :: 1000071002;
@@ -856,8 +839,26 @@ VkStructureType :: enum u32 {
     EXPORT_SEMAPHORE_CREATE_INFO                                          :: 1000077000;
     PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO                               :: 1000076000;
     EXTERNAL_SEMAPHORE_PROPERTIES                                         :: 1000076001;
+    PHYSICAL_DEVICE_SUBGROUP_PROPERTIES                                   :: 1000094000;
+    PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES                                :: 1000083000;
+    PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES                            :: 1000120000;
+    PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES                             :: PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
+    DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO                                :: 1000085000;
     PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES                              :: 1000168000;
     DESCRIPTOR_SET_LAYOUT_SUPPORT                                         :: 1000168001;
+    SAMPLER_YCBCR_CONVERSION_CREATE_INFO                                  :: 1000156000;
+    SAMPLER_YCBCR_CONVERSION_INFO                                         :: 1000156001;
+    BIND_IMAGE_PLANE_MEMORY_INFO                                          :: 1000156002;
+    IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO                                  :: 1000156003;
+    PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES                     :: 1000156004;
+    SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES                      :: 1000156005;
+    DEVICE_GROUP_RENDER_PASS_BEGIN_INFO                                   :: 1000060003;
+    PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES                             :: 1000117000;
+    RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO                       :: 1000117001;
+    PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO                 :: 1000117003;
+    RENDER_PASS_MULTIVIEW_CREATE_INFO                                     :: 1000053000;
+    PHYSICAL_DEVICE_MULTIVIEW_FEATURES                                    :: 1000053001;
+    PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES                                  :: 1000053002;
     PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES                       :: 1000063000;
     PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES                        :: PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES;
     PHYSICAL_DEVICE_VULKAN_1_1_FEATURES                                   :: 49;
@@ -865,39 +866,8 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_VULKAN_1_2_FEATURES                                   :: 51;
     PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES                                 :: 52;
     IMAGE_FORMAT_LIST_CREATE_INFO                                         :: 1000147000;
-    ATTACHMENT_DESCRIPTION_2                                              :: 1000109000;
-    ATTACHMENT_REFERENCE_2                                                :: 1000109001;
-    SUBPASS_DESCRIPTION_2                                                 :: 1000109002;
-    SUBPASS_DEPENDENCY_2                                                  :: 1000109003;
-    RENDER_PASS_CREATE_INFO_2                                             :: 1000109004;
-    SUBPASS_BEGIN_INFO                                                    :: 1000109005;
-    SUBPASS_END_INFO                                                      :: 1000109006;
-    PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES                                 :: 1000177000;
     PHYSICAL_DEVICE_DRIVER_PROPERTIES                                     :: 1000196000;
-    PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES                          :: 1000180000;
-    PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES                          :: 1000082000;
-    PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES                             :: 1000197000;
-    DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO                       :: 1000161000;
-    PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES                          :: 1000161001;
-    PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES                        :: 1000161002;
-    DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO                :: 1000161003;
-    DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT               :: 1000161004;
-    PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES                      :: 1000199000;
-    SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE                             :: 1000199001;
-    PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES                          :: 1000221000;
-    IMAGE_STENCIL_USAGE_CREATE_INFO                                       :: 1000246000;
-    PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES                      :: 1000130000;
-    SAMPLER_REDUCTION_MODE_CREATE_INFO                                    :: 1000130001;
     PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES                          :: 1000211000;
-    PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES                        :: 1000108000;
-    FRAMEBUFFER_ATTACHMENTS_CREATE_INFO                                   :: 1000108001;
-    FRAMEBUFFER_ATTACHMENT_IMAGE_INFO                                     :: 1000108002;
-    RENDER_PASS_ATTACHMENT_BEGIN_INFO                                     :: 1000108003;
-    PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES               :: 1000253000;
-    PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES               :: 1000175000;
-    PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES               :: 1000241000;
-    ATTACHMENT_REFERENCE_STENCIL_LAYOUT                                   :: 1000241001;
-    ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT                                 :: 1000241002;
     PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES                             :: 1000261000;
     PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES                           :: 1000207000;
     PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES                         :: 1000207001;
@@ -910,16 +880,43 @@ VkStructureType :: enum u32 {
     BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO                             :: 1000257002;
     MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO                           :: 1000257003;
     DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO                             :: 1000257004;
+    PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES                                 :: 1000177000;
+    PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES                          :: 1000180000;
+    PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES                          :: 1000082000;
+    PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES                             :: 1000197000;
+    DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO                       :: 1000161000;
+    PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES                          :: 1000161001;
+    PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES                        :: 1000161002;
+    DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO                :: 1000161003;
+    DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT               :: 1000161004;
+    PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES                          :: 1000221000;
+    PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES                      :: 1000130000;
+    SAMPLER_REDUCTION_MODE_CREATE_INFO                                    :: 1000130001;
+    PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES               :: 1000253000;
+    PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES               :: 1000175000;
+    ATTACHMENT_DESCRIPTION_2                                              :: 1000109000;
+    ATTACHMENT_REFERENCE_2                                                :: 1000109001;
+    SUBPASS_DESCRIPTION_2                                                 :: 1000109002;
+    SUBPASS_DEPENDENCY_2                                                  :: 1000109003;
+    RENDER_PASS_CREATE_INFO_2                                             :: 1000109004;
+    SUBPASS_BEGIN_INFO                                                    :: 1000109005;
+    SUBPASS_END_INFO                                                      :: 1000109006;
+    PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES                      :: 1000199000;
+    SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE                             :: 1000199001;
+    IMAGE_STENCIL_USAGE_CREATE_INFO                                       :: 1000246000;
+    PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES                        :: 1000108000;
+    FRAMEBUFFER_ATTACHMENTS_CREATE_INFO                                   :: 1000108001;
+    FRAMEBUFFER_ATTACHMENT_IMAGE_INFO                                     :: 1000108002;
+    RENDER_PASS_ATTACHMENT_BEGIN_INFO                                     :: 1000108003;
+    PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES               :: 1000241000;
+    ATTACHMENT_REFERENCE_STENCIL_LAYOUT                                   :: 1000241001;
+    ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT                                 :: 1000241002;
     PHYSICAL_DEVICE_VULKAN_1_3_FEATURES                                   :: 53;
     PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES                                 :: 54;
-    PIPELINE_CREATION_FEEDBACK_CREATE_INFO                                :: 1000192000;
-    PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES                  :: 1000215000;
     PHYSICAL_DEVICE_TOOL_PROPERTIES                                       :: 1000245000;
-    PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES           :: 1000276000;
     PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES                                 :: 1000295000;
     DEVICE_PRIVATE_DATA_CREATE_INFO                                       :: 1000295001;
     PRIVATE_DATA_SLOT_CREATE_INFO                                         :: 1000295002;
-    PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES              :: 1000297000;
     MEMORY_BARRIER_2                                                      :: 1000314000;
     BUFFER_MEMORY_BARRIER_2                                               :: 1000314001;
     IMAGE_MEMORY_BARRIER_2                                                :: 1000314002;
@@ -928,19 +925,25 @@ VkStructureType :: enum u32 {
     SEMAPHORE_SUBMIT_INFO                                                 :: 1000314005;
     COMMAND_BUFFER_SUBMIT_INFO                                            :: 1000314006;
     PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES                            :: 1000314007;
-    PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES             :: 1000325000;
-    PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES                             :: 1000335000;
     COPY_BUFFER_INFO_2                                                    :: 1000337000;
     COPY_IMAGE_INFO_2                                                     :: 1000337001;
     COPY_BUFFER_TO_IMAGE_INFO_2                                           :: 1000337002;
     COPY_IMAGE_TO_BUFFER_INFO_2                                           :: 1000337003;
-    BLIT_IMAGE_INFO_2                                                     :: 1000337004;
-    RESOLVE_IMAGE_INFO_2                                                  :: 1000337005;
     BUFFER_COPY_2                                                         :: 1000337006;
     IMAGE_COPY_2                                                          :: 1000337007;
-    IMAGE_BLIT_2                                                          :: 1000337008;
     BUFFER_IMAGE_COPY_2                                                   :: 1000337009;
-    IMAGE_RESOLVE_2                                                       :: 1000337010;
+    PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES                 :: 1000066000;
+    FORMAT_PROPERTIES_3                                                   :: 1000360000;
+    PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES                                :: 1000413000;
+    PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES                              :: 1000413001;
+    DEVICE_BUFFER_MEMORY_REQUIREMENTS                                     :: 1000413002;
+    DEVICE_IMAGE_MEMORY_REQUIREMENTS                                      :: 1000413003;
+    PIPELINE_CREATION_FEEDBACK_CREATE_INFO                                :: 1000192000;
+    PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES                  :: 1000215000;
+    PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES           :: 1000276000;
+    PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES              :: 1000297000;
+    PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES             :: 1000325000;
+    PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES                             :: 1000335000;
     PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES                      :: 1000225000;
     PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO              :: 1000225001;
     PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES                        :: 1000225002;
@@ -948,60 +951,35 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES                       :: 1000138001;
     WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK                             :: 1000138002;
     DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO                      :: 1000138003;
-    PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES                 :: 1000066000;
+    PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES                   :: 1000280000;
+    PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES                 :: 1000280001;
+    PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES                     :: 1000281001;
+    BLIT_IMAGE_INFO_2                                                     :: 1000337004;
+    RESOLVE_IMAGE_INFO_2                                                  :: 1000337005;
+    IMAGE_BLIT_2                                                          :: 1000337008;
+    IMAGE_RESOLVE_2                                                       :: 1000337010;
     RENDERING_INFO                                                        :: 1000044000;
     RENDERING_ATTACHMENT_INFO                                             :: 1000044001;
     PIPELINE_RENDERING_CREATE_INFO                                        :: 1000044002;
     PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES                            :: 1000044003;
     COMMAND_BUFFER_INHERITANCE_RENDERING_INFO                             :: 1000044004;
-    PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES                   :: 1000280000;
-    PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES                 :: 1000280001;
-    PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES                     :: 1000281001;
-    FORMAT_PROPERTIES_3                                                   :: 1000360000;
-    PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES                                :: 1000413000;
-    PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES                              :: 1000413001;
-    DEVICE_BUFFER_MEMORY_REQUIREMENTS                                     :: 1000413002;
-    DEVICE_IMAGE_MEMORY_REQUIREMENTS                                      :: 1000413003;
     PHYSICAL_DEVICE_VULKAN_1_4_FEATURES                                   :: 55;
     PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES                                 :: 56;
     DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO                              :: 1000174000;
     PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES                        :: 1000388000;
     QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES                               :: 1000388001;
-    PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES                       :: 1000416000;
-    PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES                      :: 1000528000;
-    PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES                         :: 1000544000;
-    PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES                           :: 1000259000;
-    PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO                         :: 1000259001;
-    PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES                         :: 1000259002;
-    PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES                   :: 1000525000;
-    PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO                       :: 1000190001;
-    PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES                     :: 1000190002;
     PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES                             :: 1000265000;
     MEMORY_MAP_INFO                                                       :: 1000271000;
     MEMORY_UNMAP_INFO                                                     :: 1000271001;
     PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES                                :: 1000470000;
     PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES                              :: 1000470001;
-    RENDERING_AREA_INFO                                                   :: 1000470003;
     DEVICE_IMAGE_SUBRESOURCE_INFO                                         :: 1000470004;
     SUBRESOURCE_LAYOUT_2                                                  :: 1000338002;
     IMAGE_SUBRESOURCE_2                                                   :: 1000338003;
-    PIPELINE_CREATE_FLAGS_2_CREATE_INFO                                   :: 1000470005;
     BUFFER_USAGE_FLAGS_2_CREATE_INFO                                      :: 1000470006;
-    PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES                            :: 1000080000;
-    PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES                 :: 1000232000;
-    RENDERING_ATTACHMENT_LOCATION_INFO                                    :: 1000232001;
-    RENDERING_INPUT_ATTACHMENT_INDEX_INFO                                 :: 1000232002;
     PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES                                :: 1000545000;
     PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES                              :: 1000545001;
     BIND_MEMORY_STATUS                                                    :: 1000545002;
-    BIND_DESCRIPTOR_SETS_INFO                                             :: 1000545003;
-    PUSH_CONSTANTS_INFO                                                   :: 1000545004;
-    PUSH_DESCRIPTOR_SET_INFO                                              :: 1000545005;
-    PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO                                :: 1000545006;
-    PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES                    :: 1000466000;
-    PIPELINE_ROBUSTNESS_CREATE_INFO                                       :: 1000068000;
-    PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES                          :: 1000068001;
-    PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES                        :: 1000068002;
     PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES                              :: 1000270000;
     PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES                            :: 1000270001;
     MEMORY_TO_IMAGE_COPY                                                  :: 1000270002;
@@ -1012,6 +990,29 @@ VkStructureType :: enum u32 {
     COPY_IMAGE_TO_IMAGE_INFO                                              :: 1000270007;
     SUBRESOURCE_HOST_MEMCPY_SIZE                                          :: 1000270008;
     HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY                              :: 1000270009;
+    PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES                       :: 1000416000;
+    PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES                      :: 1000528000;
+    PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES                         :: 1000544000;
+    PIPELINE_CREATE_FLAGS_2_CREATE_INFO                                   :: 1000470005;
+    PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES                            :: 1000080000;
+    BIND_DESCRIPTOR_SETS_INFO                                             :: 1000545003;
+    PUSH_CONSTANTS_INFO                                                   :: 1000545004;
+    PUSH_DESCRIPTOR_SET_INFO                                              :: 1000545005;
+    PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO                                :: 1000545006;
+    PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES                    :: 1000466000;
+    PIPELINE_ROBUSTNESS_CREATE_INFO                                       :: 1000068000;
+    PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES                          :: 1000068001;
+    PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES                        :: 1000068002;
+    PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES                           :: 1000259000;
+    PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO                         :: 1000259001;
+    PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES                         :: 1000259002;
+    PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES                   :: 1000525000;
+    PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO                       :: 1000190001;
+    PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES                     :: 1000190002;
+    RENDERING_AREA_INFO                                                   :: 1000470003;
+    PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES                 :: 1000232000;
+    RENDERING_ATTACHMENT_LOCATION_INFO                                    :: 1000232001;
+    RENDERING_INPUT_ATTACHMENT_INDEX_INFO                                 :: 1000232002;
     PHYSICAL_DEVICE_VULKAN_SC_1_0_FEATURES                                :: 1000298000;
     PHYSICAL_DEVICE_VULKAN_SC_1_0_PROPERTIES                              :: 1000298001;
     DEVICE_OBJECT_RESERVATION_CREATE_INFO                                 :: 1000298002;
@@ -1410,6 +1411,16 @@ VkStructureType :: enum u32 {
     TIMELINE_SEMAPHORE_SUBMIT_INFO_KHR                                    :: TIMELINE_SEMAPHORE_SUBMIT_INFO;
     SEMAPHORE_WAIT_INFO_KHR                                               :: SEMAPHORE_WAIT_INFO;
     SEMAPHORE_SIGNAL_INFO_KHR                                             :: SEMAPHORE_SIGNAL_INFO;
+    PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT                           :: 1000208000;
+    SWAPCHAIN_TIMING_PROPERTIES_EXT                                       :: 1000208001;
+    SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT                                  :: 1000208002;
+    PRESENT_TIMINGS_INFO_EXT                                              :: 1000208003;
+    PRESENT_TIMING_INFO_EXT                                               :: 1000208004;
+    PAST_PRESENTATION_TIMING_INFO_EXT                                     :: 1000208005;
+    PAST_PRESENTATION_TIMING_PROPERTIES_EXT                               :: 1000208006;
+    PAST_PRESENTATION_TIMING_EXT                                          :: 1000208007;
+    PRESENT_TIMING_SURFACE_CAPABILITIES_EXT                               :: 1000208008;
+    SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT                               :: 1000208009;
     PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL             :: 1000209000;
     QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL                        :: 1000210000;
     QUERY_POOL_CREATE_INFO_INTEL                                          :: QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL;
@@ -1729,6 +1740,10 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR                  :: 1000387000;
     PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES_EXT                    :: PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES;
     QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_EXT                           :: QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
+    PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE            :: 1000390000;
+    VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE                        :: 1000390001;
+    VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE                        :: 1000390002;
+    VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE                 :: 1000390003;
     PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT                       :: 1000391000;
     IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT                                    :: 1000391001;
     PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT                               :: 1000392000;
@@ -1780,9 +1795,9 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM           :: PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
     SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM                     :: RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT;
     PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV                      :: 1000426000;
-    PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV                    :: 1000426001;
-    PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV                      :: 1000427000;
-    PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV                    :: 1000427001;
+    PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV                    :: PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
+    PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV                      :: PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
+    PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV                    :: PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT;
     PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV         :: 1000428000;
     COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV                              :: 1000428001;
     PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV                              :: 1000428002;
@@ -1798,6 +1813,12 @@ VkStructureType :: enum u32 {
     IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM                             :: 1000440002;
     PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT                    :: 1000451000;
     PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT                  :: 1000451001;
+    NATIVE_BUFFER_USAGE_OHOS                                              :: 1000452000;
+    NATIVE_BUFFER_PROPERTIES_OHOS                                         :: 1000452001;
+    NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS                                  :: 1000452002;
+    IMPORT_NATIVE_BUFFER_INFO_OHOS                                        :: 1000452003;
+    MEMORY_GET_NATIVE_BUFFER_INFO_OHOS                                    :: 1000452004;
+    EXTERNAL_FORMAT_OHOS                                                  :: 1000452005;
     EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT                                :: 1000453000;
     PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT                 :: 1000455000;
     PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT               :: 1000455001;
@@ -2019,6 +2040,13 @@ VkStructureType :: enum u32 {
     TILE_MEMORY_REQUIREMENTS_QCOM                                         :: 1000547002;
     TILE_MEMORY_BIND_INFO_QCOM                                            :: 1000547003;
     TILE_MEMORY_SIZE_INFO_QCOM                                            :: 1000547004;
+    PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR                     :: 1000549000;
+    PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR                   :: 1000426001;
+    COPY_MEMORY_INDIRECT_INFO_KHR                                         :: 1000549002;
+    COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR                                :: 1000549003;
+    PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT                     :: 1000427000;
+    PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT                   :: 1000427001;
+    DECOMPRESS_MEMORY_INFO_EXT                                            :: 1000550002;
     DISPLAY_SURFACE_STEREO_CREATE_INFO_NV                                 :: 1000551000;
     DISPLAY_MODE_STEREO_PROPERTIES_NV                                     :: 1000551001;
     VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR                           :: 1000552000;
@@ -2085,6 +2113,9 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA                 :: 1000575000;
     PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA               :: 1000575001;
     IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA                              :: 1000575002;
+    PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR                               :: 1000579000;
+    PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT           :: 1000581000;
+    PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT         :: 1000581001;
     PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT                      :: 1000582000;
     PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT                 :: 1000582001;
     PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR                            :: 1000584000;
@@ -2094,7 +2125,10 @@ VkStructureType :: enum u32 {
     VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR                  :: 1000586001;
     VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR                  :: 1000586002;
     VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR                   :: 1000586003;
-    OH_SURFACE_CREATE_INFO_OHOS                                           :: 1000587000;
+    SURFACE_CREATE_INFO_OHOS                                              :: 1000685000;
+    NATIVE_BUFFER_OHOS                                                    :: 1000453001;
+    SWAPCHAIN_IMAGE_CREATE_INFO_OHOS                                      :: 1000453002;
+    PHYSICAL_DEVICE_PRESENTATION_PROPERTIES_OHOS                          :: 1000453003;
     PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI                             :: 1000590000;
     HDR_VIVID_DYNAMIC_METADATA_HUAWEI                                     :: 1000590001;
     PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV                      :: 1000593000;
@@ -2105,6 +2139,11 @@ VkStructureType :: enum u32 {
     MEMORY_METAL_HANDLE_PROPERTIES_EXT                                    :: 1000602001;
     MEMORY_GET_METAL_HANDLE_INFO_EXT                                      :: 1000602002;
     PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR                     :: 1000421000;
+    PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM           :: 1000605000;
+    PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM         :: 1000605001;
+    PERFORMANCE_COUNTER_ARM                                               :: 1000605002;
+    PERFORMANCE_COUNTER_DESCRIPTION_ARM                                   :: 1000605003;
+    RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM             :: 1000605004;
     PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT              :: 1000608000;
     PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM                              :: 1000609000;
     PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE           :: 1000611000;
@@ -2117,10 +2156,22 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT              :: 1000425000;
     PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT            :: 1000425001;
     RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT                  :: 1000425002;
-    RENDERING_END_INFO_EXT                                                :: 1000619003;
+    RENDERING_END_INFO_EXT                                                :: RENDERING_END_INFO_KHR;
     PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT            :: 1000620000;
     PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR           :: 1000361000;
+    PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT                   :: 1000627000;
+    PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT                           :: 1000628000;
+    BEGIN_CUSTOM_RESOLVE_INFO_EXT                                         :: 1000628001;
+    CUSTOM_RESOLVE_CREATE_INFO_EXT                                        :: 1000628002;
+    PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM                        :: 1000629000;
+    DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM                    :: 1000629001;
+    PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR                           :: 1000630000;
+    PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR                         :: 1000630001;
+    RENDERING_ATTACHMENT_FLAGS_INFO_KHR                                   :: 1000630002;
+    RENDERING_END_INFO_KHR                                                :: 1000619003;
+    RESOLVE_IMAGE_MODE_INFO_KHR                                           :: 1000630004;
     PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC          :: 1000637000;
+    PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT      :: 1000642000;
 }
 
 VkSubpassContents :: enum u32 {
@@ -2156,8 +2207,8 @@ Return codes (positive values)
     ERROR_VALIDATION_FAILED                            :: -1000011001;
     ERROR_OUT_OF_POOL_MEMORY                           :: -1000069000;
     ERROR_INVALID_EXTERNAL_HANDLE                      :: -1000072003;
-    ERROR_FRAGMENTATION                                :: -1000161000;
     ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS               :: -1000257000;
+    ERROR_FRAGMENTATION                                :: -1000161000;
     PIPELINE_COMPILE_REQUIRED                          :: 1000297000;
     ERROR_NOT_PERMITTED                                :: -1000174001;
     ERROR_INVALID_PIPELINE_CACHE_DATA                  :: -1000298000;
@@ -2181,6 +2232,7 @@ Return codes (positive values)
     ERROR_FRAGMENTATION_EXT                            :: ERROR_FRAGMENTATION;
     ERROR_NOT_PERMITTED_EXT                            :: ERROR_NOT_PERMITTED;
     ERROR_NOT_PERMITTED_KHR                            :: ERROR_NOT_PERMITTED;
+    ERROR_PRESENT_TIMING_QUEUE_FULL_EXT                :: -1000208000;
     ERROR_INVALID_DEVICE_ADDRESS_EXT                   :: ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS;
     ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT          :: -1000255000;
     ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR           :: ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS;
@@ -2325,8 +2377,8 @@ VkObjectType :: enum u32 {
     DESCRIPTOR_SET                  :: 23;
     FRAMEBUFFER                     :: 24;
     COMMAND_POOL                    :: 25;
-    SAMPLER_YCBCR_CONVERSION        :: 1000156000;
     DESCRIPTOR_UPDATE_TEMPLATE      :: 1000085000;
+    SAMPLER_YCBCR_CONVERSION        :: 1000156000;
     PRIVATE_DATA_SLOT               :: 1000295000;
     SURFACE_KHR                     :: 1000000000;
     SWAPCHAIN_KHR                   :: 1000001000;
@@ -2363,9 +2415,11 @@ VkObjectType :: enum u32 {
     INDIRECT_EXECUTION_SET_EXT      :: 1000572001;
 }
 
-VkRayTracingInvocationReorderModeNV :: enum u32 {
-    NONE    :: 0;
-    REORDER :: 1;
+VkRayTracingInvocationReorderModeEXT :: enum u32 {
+    NONE       :: 0;
+    REORDER    :: 1;
+    NONE_NV    :: NONE;
+    REORDER_NV :: REORDER;
 }
 
 VkRayTracingLssIndexingModeNV :: enum u32 {
@@ -2404,9 +2458,11 @@ VkQueueFlags :: enum_flags u32 {
     VIDEO_DECODE_KHR :: 1 << 5;
     VIDEO_ENCODE_KHR :: 1 << 6;
     RESERVED_7_QCOM  :: 1 << 7;
-    RESERVED_11_ARM  :: 1 << 11;
     OPTICAL_FLOW_NV  :: 1 << 8;
     DATA_GRAPH_ARM   :: 1 << 10;
+    RESERVED_12_EXT  :: 1 << 12;
+    RESERVED_13_EXT  :: 1 << 13;
+    RESERVED_11_ARM  :: 1 << 11;
 }
 
 VkCullModeFlagBits :: VkCullModeFlags;
@@ -2419,6 +2475,7 @@ VkCullModeFlags :: enum_flags u32 {
 
 VkRenderPassCreateFlagBits :: VkRenderPassCreateFlags;
 VkRenderPassCreateFlags :: enum_flags u32 {
+    RESERVED_3_IMG                   :: 1 << 3;
     RESERVED_0_KHR                   :: 1 << 0;
     TRANSFORM_QCOM                   :: 1 << 1;
     PER_LAYER_FRAGMENT_DENSITY_VALVE :: 1 << 2;
@@ -2569,9 +2626,13 @@ VkBufferUsageFlags2 :: enum_flags u64 {
     MICROMAP_STORAGE_EXT                             :: 1 << 24;
     COMPRESSED_DATA_DGF1_AMDX                        :: 1 << 33;
     DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM                :: 1 << 29;
+    RESERVED_34_EXT                                  :: 1 << 34;
     TILE_MEMORY_QCOM                                 :: 1 << 27;
-    RESERVED_32_NV                                   :: 1 << 32;
+    MEMORY_DECOMPRESSION_EXT                         :: 1 << 32;
     PREPROCESS_BUFFER_EXT                            :: 1 << 31;
+    RESERVED_35_KHR                                  :: 1 << 35;
+    RESERVED_36_KHR                                  :: 1 << 36;
+    RESERVED_37_HUAWEI                               :: 1 << 37;
 }
 
 VkBufferCreateFlagBits :: VkBufferCreateFlags;
@@ -2581,6 +2642,7 @@ VkBufferCreateFlags :: enum_flags u32 {
     SPARSE_ALIASED                       :: 1 << 2; /* Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers */
     PROTECTED                            :: 1 << 3; /* Buffer requires protected memory */
     DEVICE_ADDRESS_CAPTURE_REPLAY        :: 1 << 4;
+    RESERVED_7_IMG                       :: 1 << 7;
     DEVICE_ADDRESS_CAPTURE_REPLAY_EXT    :: DEVICE_ADDRESS_CAPTURE_REPLAY;
     DEVICE_ADDRESS_CAPTURE_REPLAY_KHR    :: DEVICE_ADDRESS_CAPTURE_REPLAY;
     DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT :: 1 << 5;
@@ -2616,6 +2678,7 @@ VkShaderStageFlags :: enum_flags u32 {
     SUBPASS_SHADING_HUAWEI  :: 1 << 14;
     CLUSTER_CULLING_HUAWEI  :: 1 << 19;
     RESERVED_15_NV          :: 1 << 15;
+    RESERVED_16_HUAWEI      :: 1 << 16;
 }
 
 VkImageUsageFlagBits :: VkImageUsageFlags;
@@ -2645,9 +2708,14 @@ VkImageUsageFlags :: enum_flags u32 {
     SAMPLE_BLOCK_MATCH_QCOM                 :: 1 << 21;
     RESERVED_24_COREAVI                     :: 1 << 24;
     TENSOR_ALIASING_ARM                     :: 1 << 23;
+    RESERVED_28_EXT                         :: 1 << 28;
     TILE_MEMORY_QCOM                        :: 1 << 27;
     VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR :: 1 << 25;
     VIDEO_ENCODE_EMPHASIS_MAP_KHR           :: 1 << 26;
+    RESERVED_29_KHR                         :: 1 << 29;
+    RESERVED_30_KHR                         :: 1 << 30;
+    RESERVED_16_HUAWEI                      :: 1 << 16;
+    RESERVED_27_HUAWEI                      :: 1 << 17;
 }
 
 VkImageCreateFlagBits :: VkImageCreateFlags;
@@ -2667,6 +2735,7 @@ VkImageCreateFlags :: enum_flags u32 {
     CORNER_SAMPLED_NV                         :: 1 << 13;
     SPLIT_INSTANCE_BIND_REGIONS_KHR           :: SPLIT_INSTANCE_BIND_REGIONS;
     e2D_ARRAY_COMPATIBLE_KHR                  :: e2D_ARRAY_COMPATIBLE;
+    RESERVED_21_IMG                           :: 1 << 21;
     BLOCK_TEXEL_VIEW_COMPATIBLE_KHR           :: BLOCK_TEXEL_VIEW_COMPATIBLE;
     EXTENDED_USAGE_KHR                        :: EXTENDED_USAGE;
     SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT     :: 1 << 12;
@@ -2679,6 +2748,7 @@ VkImageCreateFlags :: enum_flags u32 {
     FRAGMENT_DENSITY_MAP_OFFSET_QCOM          :: FRAGMENT_DENSITY_MAP_OFFSET_EXT;
     VIDEO_PROFILE_INDEPENDENT_KHR             :: 1 << 20;
     FRAGMENT_DENSITY_MAP_OFFSET_EXT           :: 1 << 15;
+    RESERVED_22_KHR                           :: 1 << 22;
 }
 
 VkImageViewCreateFlagBits :: VkImageViewCreateFlags;
@@ -2702,8 +2772,8 @@ VkPipelineCreateFlags :: enum_flags u32 {
     DISABLE_OPTIMIZATION                                                        :: 1 << 0;
     ALLOW_DERIVATIVES                                                           :: 1 << 1;
     DERIVATIVE                                                                  :: 1 << 2;
-    VIEW_INDEX_FROM_DEVICE_INDEX                                                :: 1 << 3;
     DISPATCH_BASE                                                               :: 1 << 4;
+    VIEW_INDEX_FROM_DEVICE_INDEX                                                :: 1 << 3;
     FAIL_ON_PIPELINE_COMPILE_REQUIRED                                           :: 1 << 8;
     EARLY_RETURN_ON_FAILURE                                                     :: 1 << 9;
     NO_PROTECTED_ACCESS                                                         :: 1 << 27;
@@ -2751,6 +2821,7 @@ VkPipelineCreateFlags2 :: enum_flags u64 {
     EARLY_RETURN_ON_FAILURE                               :: 1 << 9;
     NO_PROTECTED_ACCESS                                   :: 1 << 27;
     PROTECTED_ACCESS_ONLY                                 :: 1 << 30;
+    RESERVED_46_IMG                                       :: 1 << 46;
     EXECUTION_GRAPH_AMDX                                  :: 1 << 32;
     VK_PIPELINE_CREATE_RESERVED_36_KHR                    :: 1 << 36;
     VK_PIPELINE_CREATE_RESERVED_39_KHR                    :: 1 << 39;
@@ -2795,9 +2866,10 @@ VkPipelineCreateFlags2 :: enum_flags u64 {
     RESERVED_35_KHR                                       :: 1 << 35;
     PER_LAYER_FRAGMENT_DENSITY_VALVE                      :: 1 << 40;
     RESERVED_41_KHR                                       :: 1 << 41;
-    RESERVED_42_KHR                                       :: 1 << 42;
-    RESERVED_43_EXT                                       :: 1 << 43;
+    e64_INDEXING_EXT                                      :: 1 << 43;
     RESERVED_45_EXT                                       :: 1 << 45;
+    RESERVED_47_AMD                                       :: 1 << 47;
+    RESERVED_48_HUAWEI                                    :: 1 << 48;
 }
 
 VkPipelineShaderStageCreateFlagBits :: VkPipelineShaderStageCreateFlags;
@@ -2887,6 +2959,7 @@ VkCommandBufferUsageFlags :: enum_flags u32 {
     ONE_TIME_SUBMIT      :: 1 << 0;
     RENDER_PASS_CONTINUE :: 1 << 1;
     SIMULTANEOUS_USE     :: 1 << 2; /* Command buffer may be submitted/executed more than once simultaneously */
+    RESERVED_3_HUAWEI    :: 1 << 3;
 }
 
 VkQueryPipelineStatisticFlagBits :: VkQueryPipelineStatisticFlags;
@@ -2930,6 +3003,7 @@ VkImageAspectFlags :: enum_flags u32 {
     MEMORY_PLANE_2_EXT :: 1 << 9;
     MEMORY_PLANE_3_EXT :: 1 << 10;
     NONE_KHR           :: NONE;
+    RESERVED_11_HUAWEI :: 1 << 11;
 }
 
 VkSparseImageFormatFlagBits :: VkSparseImageFormatFlags;
@@ -3013,9 +3087,9 @@ VkSampleCountFlags :: enum_flags u32 {
 
 VkAttachmentDescriptionFlagBits :: VkAttachmentDescriptionFlags;
 VkAttachmentDescriptionFlags :: enum_flags u32 {
-    MAY_ALIAS      :: 1 << 0; /* The attachment may alias physical memory of another attachment in the same render pass */
-    RESERVED_1_KHR :: 1 << 1;
-    RESERVED_2_KHR :: 1 << 2;
+    MAY_ALIAS                            :: 1 << 0; /* The attachment may alias physical memory of another attachment in the same render pass */
+    RESOLVE_SKIP_TRANSFER_FUNCTION_KHR   :: 1 << 1;
+    RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR :: 1 << 2;
 }
 
 VkStencilFaceFlagBits :: VkStencilFaceFlags;
@@ -3145,6 +3219,8 @@ VkTimeDomainKHR :: enum u32 {
     CLOCK_MONOTONIC_EXT           :: CLOCK_MONOTONIC;
     CLOCK_MONOTONIC_RAW_EXT       :: CLOCK_MONOTONIC_RAW;
     QUERY_PERFORMANCE_COUNTER_EXT :: QUERY_PERFORMANCE_COUNTER;
+    PRESENT_STAGE_LOCAL_EXT       :: 1000208000;
+    SWAPCHAIN_LOCAL_EXT           :: 1000208001;
 }
 
 VkDebugReportFlagBitsEXT :: VkDebugReportFlagsEXT;
@@ -3410,8 +3486,8 @@ VkExternalMemoryHandleTypeFlags :: enum_flags u32 {
     ZIRCON_VMO_FUCHSIA              :: 1 << 11;
     RDMA_ADDRESS_NV                 :: 1 << 12;
     SCI_BUF_NV                      :: 1 << 13;
+    OH_NATIVE_BUFFER_OHOS           :: 1 << 15;
     SCREEN_BUFFER_QNX               :: 1 << 14;
-    e590_HUAWEI                     :: 1 << 15;
     MTLBUFFER_EXT                   :: 1 << 16;
     MTLTEXTURE_EXT                  :: 1 << 17;
     MTLHEAP_EXT                     :: 1 << 18;
@@ -3541,12 +3617,14 @@ VkSwapchainCreateFlagsKHR :: enum_flags u32 {
     SPLIT_INSTANCE_BIND_REGIONS    :: 1 << 0; /* Allow images with VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT */
     PROTECTED                      :: 1 << 1; /* Swapchain is protected */
     MUTABLE_FORMAT                 :: 1 << 2;
+    PRESENT_TIMING_EXT             :: 1 << 9;
     DEFERRED_MEMORY_ALLOCATION_EXT :: DEFERRED_MEMORY_ALLOCATION;
+    RESERVED_5_EXT                 :: 1 << 5;
     RESERVED_4_EXT                 :: 1 << 4;
     PRESENT_ID_2                   :: 1 << 6; /* Allow use of VK_KHR_present_id2 with this swapchain */
     PRESENT_WAIT_2                 :: 1 << 7; /* Allow use of VK_KHR_present_wait2 with this swapchain */
     DEFERRED_MEMORY_ALLOCATION     :: 1 << 3;
-    RESERVED_5_EXT                 :: 1 << 5;
+    RESERVED_8_EXT                 :: 1 << 8;
 }
 
 VkViewportCoordinateSwizzleNV :: enum u32 {
@@ -3569,8 +3647,8 @@ VkSubpassDescriptionFlagBits :: VkSubpassDescriptionFlags;
 VkSubpassDescriptionFlags :: enum_flags u32 {
     PER_VIEW_ATTRIBUTES_NVX                           :: 1 << 0;
     PER_VIEW_POSITION_X_ONLY_NVX                      :: 1 << 1;
-    FRAGMENT_REGION_QCOM                              :: 1 << 2;
-    SHADER_RESOLVE_QCOM                               :: 1 << 3;
+    FRAGMENT_REGION_QCOM                              :: FRAGMENT_REGION_EXT;
+    SHADER_RESOLVE_QCOM                               :: CUSTOM_RESOLVE_EXT;
     TILE_SHADING_APRON_QCOM                           :: 1 << 8;
     RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_ARM   :: RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT;
     RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM   :: RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
@@ -3579,6 +3657,8 @@ VkSubpassDescriptionFlags :: enum_flags u32 {
     RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT   :: 1 << 5;
     RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT :: 1 << 6;
     ENABLE_LEGACY_DITHERING_EXT                       :: 1 << 7;
+    FRAGMENT_REGION_EXT                               :: 1 << 2;
+    CUSTOM_RESOLVE_EXT                                :: 1 << 3;
 }
 
 VkPointClippingBehavior :: enum u32 {
@@ -3759,6 +3839,7 @@ Driver IDs are now represented as enums instead of the old
     IMAGINATION_OPEN_SOURCE_MESA  :: 25; /* Imagination Technologies */
     MESA_HONEYKRISP               :: 26; /* Mesa open source project */
     VULKAN_SC_EMULATION_ON_VULKAN :: 27; /* Vulkan SC Emulation on Vulkan */
+    MESA_KOSMICKRISP              :: 28; /* Mesa open source project */
     AMD_PROPRIETARY_KHR           :: AMD_PROPRIETARY;
     AMD_OPEN_SOURCE_KHR           :: AMD_OPEN_SOURCE;
     MESA_RADV_KHR                 :: MESA_RADV;
@@ -3791,7 +3872,7 @@ VkResolveModeFlags :: enum_flags u32 {
     MIN_KHR                            :: MIN;
     MAX_KHR                            :: MAX;
     EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID :: 1 << 4;
-    RESERVED_5_EXT                     :: 1 << 5;
+    CUSTOM_EXT                         :: 1 << 5;
 }
 
 VkShadingRatePaletteEntryNV :: enum u32 {
@@ -3858,6 +3939,7 @@ VkBuildAccelerationStructureFlagsKHR :: enum_flags u32 {
     ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV  :: 1 << 9;
     ALLOW_DATA_ACCESS                      :: 1 << 11;
     ALLOW_CLUSTER_OPACITY_MICROMAPS_NV     :: 1 << 12;
+    RESERVED_10                            :: 1 << 10;
 }
 
 VkAccelerationStructureCreateFlagBitsKHR :: VkAccelerationStructureCreateFlagsKHR;
@@ -3984,9 +4066,10 @@ VkPerformanceCounterScopeKHR :: enum u32 {
     VK_QUERY_SCOPE_COMMAND        :: COMMAND;
 }
 
-VkMemoryDecompressionMethodFlagBitsNV :: VkMemoryDecompressionMethodFlagsNV;
-VkMemoryDecompressionMethodFlagsNV :: enum_flags u64 {
-    GDEFLATE_1_0 :: 1 << 0;
+VkMemoryDecompressionMethodFlagBitsEXT :: VkMemoryDecompressionMethodFlagsEXT;
+VkMemoryDecompressionMethodFlagsEXT :: enum_flags u64 {
+    GDEFLATE_1_0    :: 1 << 0;
+    GDEFLATE_1_0_NV :: GDEFLATE_1_0;
 }
 
 VkPerformanceCounterUnitKHR :: enum u32 {
@@ -4255,14 +4338,16 @@ bitpos 17-31 are specified by extensions to the original VkAccessFlagBits enum
     SHADER_BINDING_TABLE_READ_KHR             :: 1 << 40;
     MICROMAP_READ_EXT                         :: 1 << 44;
     MICROMAP_WRITE_EXT                        :: 1 << 45;
-    RESERVED_49_ARM                           :: 1 << 49;
-    RESERVED_50_ARM                           :: 1 << 50;
     OPTICAL_FLOW_READ_NV                      :: 1 << 42;
     OPTICAL_FLOW_WRITE_NV                     :: 1 << 43;
     DATA_GRAPH_READ_ARM                       :: 1 << 47;
     DATA_GRAPH_WRITE_ARM                      :: 1 << 48;
-    RESERVED_55_NV                            :: 1 << 55;
-    RESERVED_56_NV                            :: 1 << 56;
+    MEMORY_DECOMPRESSION_READ_EXT             :: 1 << 55;
+    MEMORY_DECOMPRESSION_WRITE_EXT            :: 1 << 56;
+    RESERVED_60_KHR                           :: 1 << 60;
+    RESERVED_61_KHR                           :: 1 << 61;
+    RESERVED_49_ARM                           :: 1 << 49;
+    RESERVED_50_ARM                           :: 1 << 50;
 }
 
 VkPipelineStageFlagBits2 :: VkPipelineStageFlags2;
@@ -4345,12 +4430,14 @@ bitpos 17-31 are specified by extensions to the original VkPipelineStageFlagBits
     ACCELERATION_STRUCTURE_COPY_KHR      :: 1 << 28;
     MICROMAP_BUILD_EXT                   :: 1 << 30;
     CLUSTER_CULLING_SHADER_HUAWEI        :: 1 << 41;
-    RESERVED_43_ARM                      :: 1 << 43;
     OPTICAL_FLOW_NV                      :: 1 << 29;
     CONVERT_COOPERATIVE_VECTOR_MATRIX_NV :: 1 << 44;
     DATA_GRAPH_ARM                       :: 1 << 42;
-    RESERVED_46_NV                       :: 1 << 46;
-    RESERVED_45_NV                       :: 1 << 45;
+    COPY_INDIRECT_KHR                    :: 1 << 46;
+    MEMORY_DECOMPRESSION_EXT             :: 1 << 45;
+    RESERVED_47_KHR                      :: 1 << 47;
+    RESERVED_43_ARM                      :: 1 << 43;
+    RESERVED_48_HUAWEI                   :: 1 << 48;
 }
 
 VkSubmitFlagBits :: VkSubmitFlags;
@@ -4419,6 +4506,19 @@ VkGraphicsPipelineLibraryFlagsEXT :: enum_flags u32 {
     FRAGMENT_OUTPUT_INTERFACE :: 1 << 3;
 }
 
+VkRenderingAttachmentFlagBitsKHR :: VkRenderingAttachmentFlagsKHR;
+VkRenderingAttachmentFlagsKHR :: enum_flags u32 {
+    INPUT_ATTACHMENT_FEEDBACK        :: 1 << 0;
+    RESOLVE_SKIP_TRANSFER_FUNCTION   :: 1 << 1;
+    RESOLVE_ENABLE_TRANSFER_FUNCTION :: 1 << 2;
+}
+
+VkResolveImageFlagBitsKHR :: VkResolveImageFlagsKHR;
+VkResolveImageFlagsKHR :: enum_flags u32 {
+    SKIP_TRANSFER_FUNCTION   :: 1 << 0;
+    ENABLE_TRANSFER_FUNCTION :: 1 << 1;
+}
+
 VkDeviceAddressBindingFlagBitsEXT :: VkDeviceAddressBindingFlagsEXT;
 VkDeviceAddressBindingFlagsEXT :: enum_flags u32 {
     INTERNAL_OBJECT :: 1 << 0;
@@ -4457,6 +4557,26 @@ VkPresentGravityFlagsKHR :: enum_flags u32 {
 VkPhysicalDeviceSchedulingControlsFlagBitsARM :: VkPhysicalDeviceSchedulingControlsFlagsARM;
 VkPhysicalDeviceSchedulingControlsFlagsARM :: enum_flags u64 {
     SHADER_CORE_COUNT :: 1 << 0;
+}
+
+VkPresentStageFlagBitsEXT :: VkPresentStageFlagsEXT;
+VkPresentStageFlagsEXT :: enum_flags u32 {
+    QUEUE_OPERATIONS_END      :: 1 << 0;
+    REQUEST_DEQUEUED          :: 1 << 1;
+    IMAGE_FIRST_PIXEL_OUT     :: 1 << 2;
+    IMAGE_FIRST_PIXEL_VISIBLE :: 1 << 3;
+}
+
+VkPastPresentationTimingFlagBitsEXT :: VkPastPresentationTimingFlagsEXT;
+VkPastPresentationTimingFlagsEXT :: enum_flags u32 {
+    ALLOW_PARTIAL_RESULTS      :: 1 << 0;
+    ALLOW_OUT_OF_ORDER_RESULTS :: 1 << 1;
+}
+
+VkPresentTimingInfoFlagBitsEXT :: VkPresentTimingInfoFlagsEXT;
+VkPresentTimingInfoFlagsEXT :: enum_flags u32 {
+    PRESENT_AT_RELATIVE_TIME         :: 1 << 0;
+    PRESENT_AT_NEAREST_REFRESH_CYCLE :: 1 << 1;
 }
 
 VkVideoCodecOperationFlagBitsKHR :: VkVideoCodecOperationFlagsKHR;
@@ -4767,40 +4887,43 @@ bitpos 13 is an extension interaction with VK_EXT_filter_cubic"
     WEIGHT_SAMPLED_IMAGE_QCOM                                                   :: 1 << 35;
     BLOCK_MATCHING_QCOM                                                         :: 1 << 36;
     BOX_FILTER_SAMPLED_QCOM                                                     :: 1 << 37;
-    RESERVED_47_ARM                                                             :: 1 << 47;
     TENSOR_SHADER_ARM                                                           :: 1 << 39;
     TENSOR_IMAGE_ALIASING_ARM                                                   :: 1 << 43;
     OPTICAL_FLOW_IMAGE_NV                                                       :: 1 << 40;
     OPTICAL_FLOW_VECTOR_NV                                                      :: 1 << 41;
     OPTICAL_FLOW_COST_NV                                                        :: 1 << 42;
     TENSOR_DATA_GRAPH_ARM                                                       :: 1 << 48;
-    RESERVED_59_NV                                                              :: 1 << 59;
+    RESERVED_60_EXT                                                             :: 1 << 60;
+    COPY_IMAGE_INDIRECT_DST_KHR                                                 :: 1 << 59;
     VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR                                     :: 1 << 49;
     VIDEO_ENCODE_EMPHASIS_MAP_KHR                                               :: 1 << 50;
-    RESERVED_52_KHR                                                             :: 1 << 52;
-    RESERVED_53_KHR                                                             :: 1 << 53;
-    RESERVED_54_KHR                                                             :: 1 << 54;
-    RESERVED_55_KHR                                                             :: 1 << 55;
+    DEPTH_COPY_ON_COMPUTE_QUEUE_KHR                                             :: 1 << 52;
+    DEPTH_COPY_ON_TRANSFER_QUEUE_KHR                                            :: 1 << 53;
+    STENCIL_COPY_ON_COMPUTE_QUEUE_KHR                                           :: 1 << 54;
+    STENCIL_COPY_ON_TRANSFER_QUEUE_KHR                                          :: 1 << 55;
     RESERVED_56_ARM                                                             :: 1 << 56;
     RESERVED_57_ARM                                                             :: 1 << 57;
     RESERVED_58_ARM                                                             :: 1 << 58;
+    RESERVED_47_ARM                                                             :: 1 << 47;
+    RESERVED_61_HUAWEI                                                          :: 1 << 61;
 }
 
 VkRenderingFlagBits :: VkRenderingFlags;
 VkRenderingFlags :: enum_flags u32 {
-    CONTENTS_SECONDARY_COMMAND_BUFFERS     :: 1 << 0;
-    SUSPENDING                             :: 1 << 1;
-    RESUMING                               :: 1 << 2;
-    CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR :: CONTENTS_SECONDARY_COMMAND_BUFFERS;
-    SUSPENDING_KHR                         :: SUSPENDING;
-    RESUMING_KHR                           :: RESUMING;
-    CONTENTS_INLINE_EXT                    :: CONTENTS_INLINE_KHR;
-    ENABLE_LEGACY_DITHERING_EXT            :: 1 << 3;
-    CONTENTS_INLINE_KHR                    :: 1 << 4; /* Promoted from extension 452 */
-    PER_LAYER_FRAGMENT_DENSITY_VALVE       :: 1 << 5;
-    RESERVED_6_EXT                         :: 1 << 6;
-    RESERVED_7_EXT                         :: 1 << 7;
-    RESERVED_8_KHR                         :: 1 << 8;
+    CONTENTS_SECONDARY_COMMAND_BUFFERS       :: 1 << 0;
+    SUSPENDING                               :: 1 << 1;
+    RESUMING                                 :: 1 << 2;
+    CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR   :: CONTENTS_SECONDARY_COMMAND_BUFFERS;
+    SUSPENDING_KHR                           :: SUSPENDING;
+    RESUMING_KHR                             :: RESUMING;
+    RESERVED_9_IMG                           :: 1 << 9;
+    CONTENTS_INLINE_EXT                      :: CONTENTS_INLINE_KHR;
+    ENABLE_LEGACY_DITHERING_EXT              :: 1 << 3;
+    CONTENTS_INLINE_KHR                      :: 1 << 4; /* Promoted from extension 452 */
+    PER_LAYER_FRAGMENT_DENSITY_VALVE         :: 1 << 5;
+    FRAGMENT_REGION_EXT                      :: 1 << 6;
+    CUSTOM_RESOLVE_EXT                       :: 1 << 7;
+    LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR :: 1 << 8;
 }
 
 VkVideoEncodeH265CapabilityFlagBitsKHR :: VkVideoEncodeH265CapabilityFlagsKHR;
@@ -4926,6 +5049,7 @@ VkExportMetalObjectTypeFlagsEXT :: enum_flags u32 {
 VkInstanceCreateFlagBits :: VkInstanceCreateFlags;
 VkInstanceCreateFlags :: enum_flags u32 {
     ENUMERATE_PORTABILITY_KHR :: 1 << 0;
+    RESERVED_616_EXT          :: 1 << 1;
 }
 
 VkImageCompressionFlagBitsEXT :: VkImageCompressionFlagsEXT;
@@ -5144,6 +5268,7 @@ VkDisplacementMicromapFormatNV :: enum u32 {
 VkShaderCreateFlagBitsEXT :: VkShaderCreateFlagsEXT;
 VkShaderCreateFlagsEXT :: enum_flags u32 {
     LINK_STAGE                       :: 1 << 0;
+    RESERVED_17_IMG                  :: 1 << 17;
     RESERVED_10_KHR                  :: 1 << 10;
     RESERVED_11_KHR                  :: 1 << 11;
     RESERVED_16_KHR                  :: 1 << 16;
@@ -5157,9 +5282,8 @@ VkShaderCreateFlagsEXT :: enum_flags u32 {
     RESERVED_8                       :: 1 << 8;
     RESERVED_9                       :: 1 << 9;
     RESERVED_12                      :: 1 << 12;
-    RESERVED_13                      :: 1 << 13;
-    RESERVED_14                      :: 1 << 14;
-    RESERVED_15                      :: 1 << 15;
+    e64_BIT_INDEXING                 :: 1 << 15;
+    RESERVED_18_KHR                  :: 1 << 18;
 }
 
 VkShaderCodeTypeEXT :: enum u32 {
@@ -5292,6 +5416,13 @@ VkCooperativeVectorMatrixLayoutNV :: enum u32 {
     TRAINING_OPTIMAL    :: 3;
 }
 
+VkAddressCopyFlagBitsKHR :: VkAddressCopyFlagsKHR;
+VkAddressCopyFlagsKHR :: enum_flags u32 {
+    DEVICE_LOCAL :: 1 << 0;
+    SPARSE       :: 1 << 1;
+    PROTECTED    :: 1 << 2;
+}
+
 VkTensorCreateFlagBitsARM :: VkTensorCreateFlagsARM;
 VkTensorCreateFlagsARM :: enum_flags u64 {
     MUTABLE_FORMAT                   :: 1 << 0;
@@ -5347,10 +5478,44 @@ VkDataGraphPipelineDispatchFlagsARM :: enum_flags u64 {
 }
 
 VkPhysicalDeviceDataGraphProcessingEngineTypeARM :: enum u32 {
-    DEFAULT :: 0;
+    DEFAULT      :: 0;
+    NEURAL_QCOM  :: 1000629000;
+    COMPUTE_QCOM :: 1000629001;
 }
 
 VkPhysicalDeviceDataGraphOperationTypeARM :: enum u32 {
     SPIRV_EXTENDED_INSTRUCTION_SET :: 0;
+    NEURAL_MODEL_QCOM              :: 1000629000;
+    BUILTIN_MODEL_QCOM             :: 1000629001;
+}
+
+VkDataGraphModelCacheTypeQCOM :: enum u32 {
+    GENERIC_BINARY :: 0;
+}
+
+VkVideoEncodeRgbModelConversionFlagBitsVALVE :: VkVideoEncodeRgbModelConversionFlagsVALVE;
+VkVideoEncodeRgbModelConversionFlagsVALVE :: enum_flags u32 {
+    RGB_IDENTITY   :: 1 << 0;
+    YCBCR_IDENTITY :: 1 << 1;
+    YCBCR_709      :: 1 << 2;
+    YCBCR_601      :: 1 << 3;
+    YCBCR_2020     :: 1 << 4;
+}
+
+VkVideoEncodeRgbRangeCompressionFlagBitsVALVE :: VkVideoEncodeRgbRangeCompressionFlagsVALVE;
+VkVideoEncodeRgbRangeCompressionFlagsVALVE :: enum_flags u32 {
+    FULL_RANGE   :: 1 << 0;
+    NARROW_RANGE :: 1 << 1;
+}
+
+VkVideoEncodeRgbChromaOffsetFlagBitsVALVE :: VkVideoEncodeRgbChromaOffsetFlagsVALVE;
+VkVideoEncodeRgbChromaOffsetFlagsVALVE :: enum_flags u32 {
+    COSITED_EVEN :: 1 << 0;
+    MIDPOINT     :: 1 << 1;
+}
+
+VkSwapchainImageUsageFlagBitsOHOS :: VkSwapchainImageUsageFlagsOHOS;
+VkSwapchainImageUsageFlagsOHOS :: enum_flags u32 {
+    SHARED :: 1 << 0;
 }
 
