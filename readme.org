@@ -26,13 +26,18 @@ You can either modify the VK_XML_PATH variable in the top of
 ~generate.jai~ or you copy the ~vk.xml~ to the current directory.
 Same for ~generate_video.jai~.
 
-Run. The execution time should be pretty fast, it is sub 1.2s on M1
-chips, and sub 1.6s on 9950x3d. (Yes, 9950x3d is slower...) The time
-needed for ~video.xml~ is negligible. Most of the time is spent on my
-naive xml parser, I may write a better one in the future.
+Run. This single command will generate both vulkan and vulkan_video
+related bindings.
 #+begin_src shell
   jai generate.jai
-  jai generate_video.jai
+#+end_src
+
+However, if you want a faster generation without waiting that few
+second, you can compile and run using this. Even with a default build,
+the generation takes sub 0.3 for running on both machine. Why? I don't
+know.
+#+begin_src shell
+  jai main.jai +Autorun
 #+end_src
 
 ~video.xml~ is parsed separately because it is unlikely to change like
@@ -75,3 +80,14 @@ Most of the vendor dependent libraries definition is hardcoded by
 hand. I may write a function to generate them instead. But because the
 size of them is still manageable by human. I don't bother to deal with
 it at the moment.
+
+* Fun facts
+My original xml-parser was a bit too primitive and I decided to write
+a proper one with isolated lexer and parser. Guess what, the rewritten
+version perform 2x to 3x slower than the original one.
+
+If you run the generation on a decent machine, it takes a few seconds,
+e.g. 4.2s on 9950x3d and 3s on M1 pro.
+
+But that is properly because I made a lot more allocation calls
+instead of referencing all the string to the original input string.

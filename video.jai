@@ -863,8 +863,8 @@ StdVideoEncodeH265WeightTable :: struct {
     luma_offset_l0: [STD_VIDEO_H265_MAX_NUM_LIST_REF]s8; /* comment */
     delta_chroma_weight_l0: [STD_VIDEO_H265_MAX_CHROMA_PLANES]s8; /* [i][j]: valid entry range for i is [0, num_ref_idx_l0_active_minus1]; j = 0 for Cb, j = 1 for Cr */
     delta_chroma_offset_l0: [STD_VIDEO_H265_MAX_CHROMA_PLANES]s8; /* [i][j]: valid entry range for i is [0, num_ref_idx_l0_active_minus1]; j = 0 for Cb, j = 1 for Cr */
-    delta_luma_weight_l1: [STD_VIDEO_H265_MAX_NUM_LIST_REF]s8; /*   */
-    luma_offset_l1: [STD_VIDEO_H265_MAX_NUM_LIST_REF]s8; /*   */
+    delta_luma_weight_l1: [STD_VIDEO_H265_MAX_NUM_LIST_REF]s8;
+    luma_offset_l1: [STD_VIDEO_H265_MAX_NUM_LIST_REF]s8;
     delta_chroma_weight_l1: [STD_VIDEO_H265_MAX_CHROMA_PLANES]s8; /* [i][j]: valid entry range for i is [0, num_ref_idx_l1_active_minus1]; j = 0 for Cb, j = 1 for Cr */
     delta_chroma_offset_l1: [STD_VIDEO_H265_MAX_CHROMA_PLANES]s8; /* [i][j]: valid entry range for i is [0, num_ref_idx_l1_active_minus1]; j = 0 for Cb, j = 1 for Cr */
 }
