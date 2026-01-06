@@ -31,23 +31,21 @@ bitmask_depends : [..]string;
 outputted_flags : [..]string;
 
 generate :: () {
-    at := current_time_monotonic();
-    start_time := to_float64_seconds(at);
-
     source_string, ok := read_entire_file(VK_XML_PATH);
     if !ok {
         log_error("vk.xml not found");
     }
 
+    begin := current_time_monotonic();
     root_node := parse_xml(source_string);
 
-    xml_parse_time := to_float64_seconds(current_time_monotonic());
-    log("Finished parsing vk.xml in  % seconds", xml_parse_time - start_time);
+    xml_parse_time := current_time_monotonic();
+    log("Finished parsing vk.xml in  % seconds", to_float64_seconds(xml_parse_time - begin));
 
     generation_loop(root_node);
 
-    generation_time := to_float64_seconds(current_time_monotonic());
-    log("Finished generation in      % seconds", generation_time - xml_parse_time);
+    generation_time := current_time_monotonic();
+    log("Finished generation in      % seconds", to_float64_seconds(generation_time - xml_parse_time));
 
     output_structures();
     output_function_pointers();
