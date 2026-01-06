@@ -1,14 +1,7 @@
 VIDEO_XML_PATH :: "video.xml";
 
-#run {
-    set_build_options_dc(.{do_output = false});
-
-    generate();
-}
-
 generate :: () {
-    at := current_time_monotonic();
-    start_time := to_float64_seconds(at);
+    start_time := current_time_monotonic();
 
     source_string, ok := read_entire_file(VIDEO_XML_PATH);
     if !ok {
@@ -17,19 +10,18 @@ generate :: () {
 
     root_node := parse_xml(source_string);
 
-    xml_parse_time := to_float64_seconds(current_time_monotonic());
-    log("Finished parsing video.xml in % seconds", xml_parse_time - start_time);
+    xml_parse_time := current_time_monotonic();
+    log("Finished parsing video.xml in % seconds", to_float64_seconds(xml_parse_time - start_time));
 
     loop(root_node);
 
-    generation_time := to_float64_seconds(current_time_monotonic());
-    log("Finished generation in        % seconds", generation_time - xml_parse_time);
+    generation_time := current_time_monotonic();
+    log("Finished generation in        % seconds", to_float64_seconds(generation_time - xml_parse_time));
 
     output();
-    at = current_time_monotonic();
-    end_time := to_float64_seconds(at);
-    log("Finished writing to file in   % seconds", end_time - generation_time);
-    log("Video binding generated in    % seconds", end_time - start_time);
+    end_time := current_time_monotonic();
+    log("Finished writing to file in   % seconds", to_float64_seconds(end_time - generation_time));
+    log("Video binding generated in    % seconds", to_float64_seconds(end_time - start_time));
 }
 
 Video_Constant :: struct {
@@ -71,7 +63,7 @@ video_enums     : [..]Video_Enum;
 
 loop :: (root_node: Node) {
     for root_child: root_node.children {
-        if root_child.tag_name == {
+        if root_child.tag.name == {
         case "types";
             handle_types(root_child);
         case "enums";
@@ -115,12 +107,12 @@ handle_type_define :: (parent: Node) {
 
     for n : parent.children {
         if n.type == .NODE {
-            if n.tag_name == "name" {
-                c.name = n.inner_string;
+            if n.tag.name == "name" {
+                c.name = n.children[0].str;
             }
         } else {
-            if begins_with(n.raw_string, "(") && ends_with(n.raw_string, ")") {
-                c.value = sprint("#run VK_MAKE_VIDEO_STD_VERSION%", n.raw_string);
+            if begins_with(n.str, "(") && ends_with(n.str, ")") {
+                c.value = sprint("#run VK_MAKE_VIDEO_STD_VERSION%", n.str);
             }
         }
     }
@@ -135,22 +127,24 @@ handle_struct :: (parent: Node) {
 
     for member_node : parent.children {
         m : Video_Struct_Member;
-        if member_node.tag_name == {
+        if member_node.tag.name == {
         case "member";
             for member_child : member_node.children {
                 if member_child.type == .NODE {
-                    if member_child.tag_name == {
+                    if member_child.tag.name == {
                     case "type";
-                        m.type = convert_type(member_child.inner_string);
+                        m.type = convert_type(member_child.children[0].str);
                     case "name";
-                        m.name = member_child.inner_string;
+                        m.name = member_child.children[0].str;
                     case "enum";
-                        m.array_prefix = sprint("[%]", member_child.inner_string);
+                        m.array_prefix = sprint("[%]", member_child.children[0].str);
                     case "comment";
-                        m.comment = member_child.inner_string;
+                        if member_child.children.count > 0 {
+                            m.comment = member_child.children[0].str;
+                        }
                     }
                 } else {
-                    s := trim(member_child.raw_string);
+                    s := trim(member_child.str);
 
                     if begins_with(s, ":") {
                         s = remove_left(s, ":");
@@ -166,7 +160,9 @@ handle_struct :: (parent: Node) {
                 }
             }
         case "comment";
-            m.comment = member_node.inner_string;
+            if member_node.children.count > 0{
+                m.comment = member_node.children[0].str;
+            }
         }
         array_add(*s.members, m);
     }
@@ -182,14 +178,14 @@ handle_enums :: (parent: Node) {
 
     for member_node : parent.children {
         m : Video_Enum_Member;
-        if member_node.tag_name ==  {
+        if member_node.tag.name ==  {
         case "enum";
             m.name = get_attr(member_node, "name");
             m.value = get_attr(member_node, "value");
             m.comment = get_attr(member_node, "comment");
             m.alias = get_attr(member_node, "alias");
         case "comment";
-            m.comment = member_node.inner_string;
+            m.comment = member_node.children[0].str;
         }
         array_add(*e.members, m);
     }
@@ -200,11 +196,11 @@ handle_enums :: (parent: Node) {
 
 handle_extensions :: (parent: Node) {
     for extension_node : parent.children {
-        assert(extension_node.tag_name == "extension");
+        assert(extension_node.tag.name == "extension");
         for require_node : extension_node.children {
-            assert(require_node.tag_name == "require");
+            assert(require_node.tag.name == "require");
             for member : require_node.children {
-                if member.tag_name == "enum" {
+                if member.tag.name == "enum" {
                     c : Video_Constant;
                     c.name = get_attr(member, "name");
                     assert(c.name.count > 0);
@@ -372,7 +368,7 @@ VK_MAKE_VIDEO_STD_VERSION :: (major: u32, minor: u32, patch: u32) -> u32 {
 
 DONE
 
-#import,file "xml_parser.jai";
+#import,dir "XML";
 #import "Basic";
 #import "String";
 #import "Compiler";
