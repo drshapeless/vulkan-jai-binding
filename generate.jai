@@ -61,10 +61,9 @@ generate :: () {
 
     output_module();
 
-    at = current_time_monotonic();
-    end_time := to_float64_seconds(at);
-    log("Finished writing to file in % seconds", end_time - generation_time);
-    log("Vulkan binding generated in % seconds", end_time - start_time);
+    end_time := current_time_monotonic();
+    log("Finished writing to file in % seconds", to_float64_seconds(end_time - generation_time));
+    log("Vulkan binding generated in % seconds", to_float64_seconds(end_time - begin));
 }
 
 VK_Type :: struct {
