@@ -26,6 +26,8 @@ IOSurfaceRef       :: struct {}; // Opaque struct defined by Apple’s CoreGraph
 IDirectFB          :: struct {}; // FB
 IDirectFBSurface   :: struct {}; // FB
 OHNativeWindow     :: struct {};
+OHBufferHandle     :: struct {};
+OH_NativeBuffer     :: struct {};
 MTLBuffer_id       :: *void;
 MTLCommandQueue_id :: *void;
 MTLDevice_id       :: *void;
