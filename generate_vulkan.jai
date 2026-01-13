@@ -1563,7 +1563,7 @@ output_enumeration_wrapper :: () {
         if count_param.number_of_pointer != 1 || count_param.type != "u32" continue;
         if data_param.number_of_pointer == 0 continue;
 
-        has_return_value := func.return_type != "";
+        has_return_value := func.return_type != "void";
         if has_return_value && func.return_type != "VkResult" continue;
 
         print_to_builder(*sb, "% :: (", func.name);

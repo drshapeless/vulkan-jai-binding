@@ -10,6 +10,16 @@ vkEnumeratePhysicalDevices :: (instance: VkInstance) -> VkResult, [] VkPhysicalD
     return result, data;
 }
 
+vkGetPhysicalDeviceQueueFamilyProperties :: (physicalDevice: VkPhysicalDevice) -> [] VkQueueFamilyProperties {
+    count: u32;
+    data: [] VkQueueFamilyProperties;
+    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkQueueFamilyProperties, initialized = false);
+    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, *count, data.data);
+    return data;
+}
+
 vkEnumerateInstanceLayerProperties :: () -> VkResult, [] VkLayerProperties {
     count: u32;
     data: [] VkLayerProperties;
@@ -56,6 +66,26 @@ vkEnumerateDeviceExtensionProperties :: (physicalDevice: VkPhysicalDevice, pLaye
     data = NewArray(count, VkExtensionProperties, initialized = false);
     result = vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, *count, data.data);
     return result, data;
+}
+
+vkGetImageSparseMemoryRequirements :: (device: VkDevice, image: VkImage) -> [] VkSparseImageMemoryRequirements {
+    count: u32;
+    data: [] VkSparseImageMemoryRequirements;
+    vkGetImageSparseMemoryRequirements(device, image, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkSparseImageMemoryRequirements, initialized = false);
+    vkGetImageSparseMemoryRequirements(device, image, *count, data.data);
+    return data;
+}
+
+vkGetPhysicalDeviceSparseImageFormatProperties :: (physicalDevice: VkPhysicalDevice, format: VkFormat, type: VkImageType, samples: VkSampleCountFlagBits, usage: VkImageUsageFlags, tiling: VkImageTiling) -> [] VkSparseImageFormatProperties {
+    count: u32;
+    data: [] VkSparseImageFormatProperties;
+    vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkSparseImageFormatProperties, initialized = false);
+    vkGetPhysicalDeviceSparseImageFormatProperties(physicalDevice, format, type, samples, usage, tiling, *count, data.data);
+    return data;
 }
 
 vkGetPhysicalDeviceDisplayPropertiesKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkDisplayPropertiesKHR {
@@ -142,6 +172,26 @@ vkGetSwapchainImagesKHR :: (device: VkDevice, swapchain: VkSwapchainKHR) -> VkRe
     return result, data;
 }
 
+vkGetPhysicalDeviceQueueFamilyProperties2 :: (physicalDevice: VkPhysicalDevice) -> [] VkQueueFamilyProperties2 {
+    count: u32;
+    data: [] VkQueueFamilyProperties2;
+    vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkQueueFamilyProperties2, initialized = false);
+    vkGetPhysicalDeviceQueueFamilyProperties2(physicalDevice, *count, data.data);
+    return data;
+}
+
+vkGetPhysicalDeviceSparseImageFormatProperties2 :: (physicalDevice: VkPhysicalDevice, pFormatInfo: *VkPhysicalDeviceSparseImageFormatInfo2) -> [] VkSparseImageFormatProperties2 {
+    count: u32;
+    data: [] VkSparseImageFormatProperties2;
+    vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkSparseImageFormatProperties2, initialized = false);
+    vkGetPhysicalDeviceSparseImageFormatProperties2(physicalDevice, pFormatInfo, *count, data.data);
+    return data;
+}
+
 vkEnumeratePhysicalDeviceGroups :: (instance: VkInstance) -> VkResult, [] VkPhysicalDeviceGroupProperties {
     count: u32;
     data: [] VkPhysicalDeviceGroupProperties;
@@ -226,6 +276,26 @@ vkGetDisplayModeProperties2KHR :: (physicalDevice: VkPhysicalDevice, display: Vk
     return result, data;
 }
 
+vkGetImageSparseMemoryRequirements2 :: (device: VkDevice, pInfo: *VkImageSparseMemoryRequirementsInfo2) -> [] VkSparseImageMemoryRequirements2 {
+    count: u32;
+    data: [] VkSparseImageMemoryRequirements2;
+    vkGetImageSparseMemoryRequirements2(device, pInfo, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkSparseImageMemoryRequirements2, initialized = false);
+    vkGetImageSparseMemoryRequirements2(device, pInfo, *count, data.data);
+    return data;
+}
+
+vkGetDeviceImageSparseMemoryRequirements :: (device: VkDevice, pInfo: *VkDeviceImageMemoryRequirements) -> [] VkSparseImageMemoryRequirements2 {
+    count: u32;
+    data: [] VkSparseImageMemoryRequirements2;
+    vkGetDeviceImageSparseMemoryRequirements(device, pInfo, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkSparseImageMemoryRequirements2, initialized = false);
+    vkGetDeviceImageSparseMemoryRequirements(device, pInfo, *count, data.data);
+    return data;
+}
+
 vkGetPhysicalDeviceCalibrateableTimeDomainsKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkTimeDomainKHR {
     count: u32;
     data: [] VkTimeDomainKHR;
@@ -236,6 +306,16 @@ vkGetPhysicalDeviceCalibrateableTimeDomainsKHR :: (physicalDevice: VkPhysicalDev
     data = NewArray(count, VkTimeDomainKHR, initialized = false);
     result = vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(physicalDevice, *count, data.data);
     return result, data;
+}
+
+vkGetQueueCheckpointDataNV :: (queue: VkQueue) -> [] VkCheckpointDataNV {
+    count: u32;
+    data: [] VkCheckpointDataNV;
+    vkGetQueueCheckpointDataNV(queue, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkCheckpointDataNV, initialized = false);
+    vkGetQueueCheckpointDataNV(queue, *count, data.data);
+    return data;
 }
 
 vkGetPhysicalDeviceCooperativeMatrixPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkCooperativeMatrixPropertiesNV {
@@ -334,6 +414,16 @@ vkGetPhysicalDeviceToolProperties :: (physicalDevice: VkPhysicalDevice) -> VkRes
     return result, data;
 }
 
+vkCmdBuildAccelerationStructuresIndirectKHR :: (commandBuffer: VkCommandBuffer, infoCount: u32, pInfos: *VkAccelerationStructureBuildGeometryInfoKHR, pIndirectDeviceAddresses: *VkDeviceAddress) -> [] u32 {
+    count: u32;
+    data: [] u32;
+    vkCmdBuildAccelerationStructuresIndirectKHR(commandBuffer, infoCount, pInfos, pIndirectDeviceAddresses, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, u32, initialized = false);
+    vkCmdBuildAccelerationStructuresIndirectKHR(commandBuffer, infoCount, pInfos, pIndirectDeviceAddresses, *count, data.data);
+    return data;
+}
+
 vkGetPhysicalDeviceRefreshableObjectTypesKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkObjectType {
     count: u32;
     data: [] VkObjectType;
@@ -358,6 +448,26 @@ vkGetPhysicalDeviceFragmentShadingRatesKHR :: (physicalDevice: VkPhysicalDevice)
     return result, data;
 }
 
+vkGetAccelerationStructureBuildSizesKHR :: (device: VkDevice, buildType: VkAccelerationStructureBuildTypeKHR, pBuildInfo: *VkAccelerationStructureBuildGeometryInfoKHR) -> [] VkAccelerationStructureBuildSizesInfoKHR {
+    count: u32;
+    data: [] VkAccelerationStructureBuildSizesInfoKHR;
+    vkGetAccelerationStructureBuildSizesKHR(device, buildType, pBuildInfo, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkAccelerationStructureBuildSizesInfoKHR, initialized = false);
+    vkGetAccelerationStructureBuildSizesKHR(device, buildType, pBuildInfo, *count, data.data);
+    return data;
+}
+
+vkGetQueueCheckpointData2NV :: (queue: VkQueue) -> [] VkCheckpointData2NV {
+    count: u32;
+    data: [] VkCheckpointData2NV;
+    vkGetQueueCheckpointData2NV(queue, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkCheckpointData2NV, initialized = false);
+    vkGetQueueCheckpointData2NV(queue, *count, data.data);
+    return data;
+}
+
 vkGetPhysicalDeviceVideoFormatPropertiesKHR :: (physicalDevice: VkPhysicalDevice, pVideoFormatInfo: *VkPhysicalDeviceVideoFormatInfoKHR) -> VkResult, [] VkVideoFormatPropertiesKHR {
     count: u32;
     data: [] VkVideoFormatPropertiesKHR;
@@ -380,6 +490,16 @@ vkGetVideoSessionMemoryRequirementsKHR :: (device: VkDevice, videoSession: VkVid
     data = NewArray(count, VkVideoSessionMemoryRequirementsKHR, initialized = false);
     result = vkGetVideoSessionMemoryRequirementsKHR(device, videoSession, *count, data.data);
     return result, data;
+}
+
+vkCmdSetDescriptorBufferOffsetsEXT :: (commandBuffer: VkCommandBuffer, pipelineBindPoint: VkPipelineBindPoint, layout: VkPipelineLayout, firstSet: u32, setCount: u32) -> [] VkDeviceSize {
+    count: u32;
+    data: [] VkDeviceSize;
+    vkCmdSetDescriptorBufferOffsetsEXT(commandBuffer, pipelineBindPoint, layout, firstSet, setCount, *count, data.data);
+    if count == 0 return .[];
+    data = NewArray(count, VkDeviceSize, initialized = false);
+    vkCmdSetDescriptorBufferOffsetsEXT(commandBuffer, pipelineBindPoint, layout, firstSet, setCount, *count, data.data);
+    return data;
 }
 
 vkGetFramebufferTilePropertiesQCOM :: (device: VkDevice, framebuffer: VkFramebuffer) -> VkResult, [] VkTilePropertiesQCOM {
