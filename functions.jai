@@ -206,9 +206,7 @@ vkResetQueryPool :: (device: VkDevice, queryPool: VkQueryPool, firstQuery: u32, 
     return vkResetQueryPool_dynamic(device, queryPool, firstQuery, queryCount);
 }
 
-vkResetQueryPoolEXT :: () ->  #expand {
-    return vkResetQueryPoolEXT_dynamic();
-}
+vkResetQueryPoolEXT :: vkResetQueryPool;
 
 vkCreateBuffer :: (device: VkDevice, pCreateInfo: *VkBufferCreateInfo, pAllocator: *VkAllocationCallbacks, pBuffer: *VkBuffer) -> VkResult #expand {
     return vkCreateBuffer_dynamic(device, pCreateInfo, pAllocator, pBuffer);
@@ -378,9 +376,7 @@ vkGetRenderingAreaGranularity :: (device: VkDevice, pRenderingAreaInfo: *VkRende
     return vkGetRenderingAreaGranularity_dynamic(device, pRenderingAreaInfo, pGranularity);
 }
 
-vkGetRenderingAreaGranularityKHR :: () ->  #expand {
-    return vkGetRenderingAreaGranularityKHR_dynamic();
-}
+vkGetRenderingAreaGranularityKHR :: vkGetRenderingAreaGranularity;
 
 vkCreateCommandPool :: (device: VkDevice, pCreateInfo: *VkCommandPoolCreateInfo, pAllocator: *VkAllocationCallbacks, pCommandPool: *VkCommandPool) -> VkResult #expand {
     return vkCreateCommandPool_dynamic(device, pCreateInfo, pAllocator, pCommandPool);
@@ -890,81 +886,61 @@ vkGetPhysicalDeviceFeatures2 :: (physicalDevice: VkPhysicalDevice, pFeatures: *V
     return vkGetPhysicalDeviceFeatures2_dynamic(physicalDevice, pFeatures);
 }
 
-vkGetPhysicalDeviceFeatures2KHR :: () ->  #expand {
-    return vkGetPhysicalDeviceFeatures2KHR_dynamic();
-}
+vkGetPhysicalDeviceFeatures2KHR :: vkGetPhysicalDeviceFeatures2;
 
 vkGetPhysicalDeviceProperties2 :: (physicalDevice: VkPhysicalDevice, pProperties: *VkPhysicalDeviceProperties2) -> void #expand {
     return vkGetPhysicalDeviceProperties2_dynamic(physicalDevice, pProperties);
 }
 
-vkGetPhysicalDeviceProperties2KHR :: () ->  #expand {
-    return vkGetPhysicalDeviceProperties2KHR_dynamic();
-}
+vkGetPhysicalDeviceProperties2KHR :: vkGetPhysicalDeviceProperties2;
 
 vkGetPhysicalDeviceFormatProperties2 :: (physicalDevice: VkPhysicalDevice, format: VkFormat, pFormatProperties: *VkFormatProperties2) -> void #expand {
     return vkGetPhysicalDeviceFormatProperties2_dynamic(physicalDevice, format, pFormatProperties);
 }
 
-vkGetPhysicalDeviceFormatProperties2KHR :: () ->  #expand {
-    return vkGetPhysicalDeviceFormatProperties2KHR_dynamic();
-}
+vkGetPhysicalDeviceFormatProperties2KHR :: vkGetPhysicalDeviceFormatProperties2;
 
 vkGetPhysicalDeviceImageFormatProperties2 :: (physicalDevice: VkPhysicalDevice, pImageFormatInfo: *VkPhysicalDeviceImageFormatInfo2, pImageFormatProperties: *VkImageFormatProperties2) -> VkResult #expand {
     return vkGetPhysicalDeviceImageFormatProperties2_dynamic(physicalDevice, pImageFormatInfo, pImageFormatProperties);
 }
 
-vkGetPhysicalDeviceImageFormatProperties2KHR :: () ->  #expand {
-    return vkGetPhysicalDeviceImageFormatProperties2KHR_dynamic();
-}
+vkGetPhysicalDeviceImageFormatProperties2KHR :: vkGetPhysicalDeviceImageFormatProperties2;
 
 vkGetPhysicalDeviceQueueFamilyProperties2 :: (physicalDevice: VkPhysicalDevice, pQueueFamilyPropertyCount: *u32, pQueueFamilyProperties: *VkQueueFamilyProperties2) -> void #expand {
     return vkGetPhysicalDeviceQueueFamilyProperties2_dynamic(physicalDevice, pQueueFamilyPropertyCount, pQueueFamilyProperties);
 }
 
-vkGetPhysicalDeviceQueueFamilyProperties2KHR :: () ->  #expand {
-    return vkGetPhysicalDeviceQueueFamilyProperties2KHR_dynamic();
-}
+vkGetPhysicalDeviceQueueFamilyProperties2KHR :: vkGetPhysicalDeviceQueueFamilyProperties2;
 
 vkGetPhysicalDeviceMemoryProperties2 :: (physicalDevice: VkPhysicalDevice, pMemoryProperties: *VkPhysicalDeviceMemoryProperties2) -> void #expand {
     return vkGetPhysicalDeviceMemoryProperties2_dynamic(physicalDevice, pMemoryProperties);
 }
 
-vkGetPhysicalDeviceMemoryProperties2KHR :: () ->  #expand {
-    return vkGetPhysicalDeviceMemoryProperties2KHR_dynamic();
-}
+vkGetPhysicalDeviceMemoryProperties2KHR :: vkGetPhysicalDeviceMemoryProperties2;
 
 vkGetPhysicalDeviceSparseImageFormatProperties2 :: (physicalDevice: VkPhysicalDevice, pFormatInfo: *VkPhysicalDeviceSparseImageFormatInfo2, pPropertyCount: *u32, pProperties: *VkSparseImageFormatProperties2) -> void #expand {
     return vkGetPhysicalDeviceSparseImageFormatProperties2_dynamic(physicalDevice, pFormatInfo, pPropertyCount, pProperties);
 }
 
-vkGetPhysicalDeviceSparseImageFormatProperties2KHR :: () ->  #expand {
-    return vkGetPhysicalDeviceSparseImageFormatProperties2KHR_dynamic();
-}
+vkGetPhysicalDeviceSparseImageFormatProperties2KHR :: vkGetPhysicalDeviceSparseImageFormatProperties2;
 
 vkCmdPushDescriptorSet :: (commandBuffer: VkCommandBuffer, pipelineBindPoint: VkPipelineBindPoint, layout: VkPipelineLayout, set: u32, descriptorWriteCount: u32, pDescriptorWrites: *VkWriteDescriptorSet) -> void #expand {
     return vkCmdPushDescriptorSet_dynamic(commandBuffer, pipelineBindPoint, layout, set, descriptorWriteCount, pDescriptorWrites);
 }
 
-vkCmdPushDescriptorSetKHR :: () ->  #expand {
-    return vkCmdPushDescriptorSetKHR_dynamic();
-}
+vkCmdPushDescriptorSetKHR :: vkCmdPushDescriptorSet;
 
 vkTrimCommandPool :: (device: VkDevice, commandPool: VkCommandPool, flags: VkCommandPoolTrimFlags) -> void #expand {
     return vkTrimCommandPool_dynamic(device, commandPool, flags);
 }
 
-vkTrimCommandPoolKHR :: () ->  #expand {
-    return vkTrimCommandPoolKHR_dynamic();
-}
+vkTrimCommandPoolKHR :: vkTrimCommandPool;
 
 vkGetPhysicalDeviceExternalBufferProperties :: (physicalDevice: VkPhysicalDevice, pExternalBufferInfo: *VkPhysicalDeviceExternalBufferInfo, pExternalBufferProperties: *VkExternalBufferProperties) -> void #expand {
     return vkGetPhysicalDeviceExternalBufferProperties_dynamic(physicalDevice, pExternalBufferInfo, pExternalBufferProperties);
 }
 
-vkGetPhysicalDeviceExternalBufferPropertiesKHR :: () ->  #expand {
-    return vkGetPhysicalDeviceExternalBufferPropertiesKHR_dynamic();
-}
+vkGetPhysicalDeviceExternalBufferPropertiesKHR :: vkGetPhysicalDeviceExternalBufferProperties;
 
 vkGetMemoryWin32HandleKHR :: (device: VkDevice, pGetWin32HandleInfo: *VkMemoryGetWin32HandleInfoKHR, pHandle: *HANDLE) -> VkResult #expand {
     return vkGetMemoryWin32HandleKHR_dynamic(device, pGetWin32HandleInfo, pHandle);
@@ -1010,9 +986,7 @@ vkGetPhysicalDeviceExternalSemaphoreProperties :: (physicalDevice: VkPhysicalDev
     return vkGetPhysicalDeviceExternalSemaphoreProperties_dynamic(physicalDevice, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
 }
 
-vkGetPhysicalDeviceExternalSemaphorePropertiesKHR :: () ->  #expand {
-    return vkGetPhysicalDeviceExternalSemaphorePropertiesKHR_dynamic();
-}
+vkGetPhysicalDeviceExternalSemaphorePropertiesKHR :: vkGetPhysicalDeviceExternalSemaphoreProperties;
 
 vkGetSemaphoreWin32HandleKHR :: (device: VkDevice, pGetWin32HandleInfo: *VkSemaphoreGetWin32HandleInfoKHR, pHandle: *HANDLE) -> VkResult #expand {
     return vkGetSemaphoreWin32HandleKHR_dynamic(device, pGetWin32HandleInfo, pHandle);
@@ -1042,9 +1016,7 @@ vkGetPhysicalDeviceExternalFenceProperties :: (physicalDevice: VkPhysicalDevice,
     return vkGetPhysicalDeviceExternalFenceProperties_dynamic(physicalDevice, pExternalFenceInfo, pExternalFenceProperties);
 }
 
-vkGetPhysicalDeviceExternalFencePropertiesKHR :: () ->  #expand {
-    return vkGetPhysicalDeviceExternalFencePropertiesKHR_dynamic();
-}
+vkGetPhysicalDeviceExternalFencePropertiesKHR :: vkGetPhysicalDeviceExternalFenceProperties;
 
 vkGetFenceWin32HandleKHR :: (device: VkDevice, pGetWin32HandleInfo: *VkFenceGetWin32HandleInfoKHR, pHandle: *HANDLE) -> VkResult #expand {
     return vkGetFenceWin32HandleKHR_dynamic(device, pGetWin32HandleInfo, pHandle);
@@ -1142,41 +1114,31 @@ vkEnumeratePhysicalDeviceGroups :: (instance: VkInstance, pPhysicalDeviceGroupCo
     return vkEnumeratePhysicalDeviceGroups_dynamic(instance, pPhysicalDeviceGroupCount, pPhysicalDeviceGroupProperties);
 }
 
-vkEnumeratePhysicalDeviceGroupsKHR :: () ->  #expand {
-    return vkEnumeratePhysicalDeviceGroupsKHR_dynamic();
-}
+vkEnumeratePhysicalDeviceGroupsKHR :: vkEnumeratePhysicalDeviceGroups;
 
 vkGetDeviceGroupPeerMemoryFeatures :: (device: VkDevice, heapIndex: u32, localDeviceIndex: u32, remoteDeviceIndex: u32, pPeerMemoryFeatures: *VkPeerMemoryFeatureFlags) -> void #expand {
     return vkGetDeviceGroupPeerMemoryFeatures_dynamic(device, heapIndex, localDeviceIndex, remoteDeviceIndex, pPeerMemoryFeatures);
 }
 
-vkGetDeviceGroupPeerMemoryFeaturesKHR :: () ->  #expand {
-    return vkGetDeviceGroupPeerMemoryFeaturesKHR_dynamic();
-}
+vkGetDeviceGroupPeerMemoryFeaturesKHR :: vkGetDeviceGroupPeerMemoryFeatures;
 
 vkBindBufferMemory2 :: (device: VkDevice, bindInfoCount: u32, pBindInfos: *VkBindBufferMemoryInfo) -> VkResult #expand {
     return vkBindBufferMemory2_dynamic(device, bindInfoCount, pBindInfos);
 }
 
-vkBindBufferMemory2KHR :: () ->  #expand {
-    return vkBindBufferMemory2KHR_dynamic();
-}
+vkBindBufferMemory2KHR :: vkBindBufferMemory2;
 
 vkBindImageMemory2 :: (device: VkDevice, bindInfoCount: u32, pBindInfos: *VkBindImageMemoryInfo) -> VkResult #expand {
     return vkBindImageMemory2_dynamic(device, bindInfoCount, pBindInfos);
 }
 
-vkBindImageMemory2KHR :: () ->  #expand {
-    return vkBindImageMemory2KHR_dynamic();
-}
+vkBindImageMemory2KHR :: vkBindImageMemory2;
 
 vkCmdSetDeviceMask :: (commandBuffer: VkCommandBuffer, deviceMask: u32) -> void #expand {
     return vkCmdSetDeviceMask_dynamic(commandBuffer, deviceMask);
 }
 
-vkCmdSetDeviceMaskKHR :: () ->  #expand {
-    return vkCmdSetDeviceMaskKHR_dynamic();
-}
+vkCmdSetDeviceMaskKHR :: vkCmdSetDeviceMask;
 
 vkGetDeviceGroupPresentCapabilitiesKHR :: (device: VkDevice, pDeviceGroupPresentCapabilities: *VkDeviceGroupPresentCapabilitiesKHR) -> VkResult #expand {
     return vkGetDeviceGroupPresentCapabilitiesKHR_dynamic(device, pDeviceGroupPresentCapabilities);
@@ -1194,9 +1156,7 @@ vkCmdDispatchBase :: (commandBuffer: VkCommandBuffer, baseGroupX: u32, baseGroup
     return vkCmdDispatchBase_dynamic(commandBuffer, baseGroupX, baseGroupY, baseGroupZ, groupCountX, groupCountY, groupCountZ);
 }
 
-vkCmdDispatchBaseKHR :: () ->  #expand {
-    return vkCmdDispatchBaseKHR_dynamic();
-}
+vkCmdDispatchBaseKHR :: vkCmdDispatchBase;
 
 vkGetPhysicalDevicePresentRectanglesKHR :: (physicalDevice: VkPhysicalDevice, surface: VkSurfaceKHR, pRectCount: *u32, pRects: *VkRect2D) -> VkResult #expand {
     return vkGetPhysicalDevicePresentRectanglesKHR_dynamic(physicalDevice, surface, pRectCount, pRects);
@@ -1206,33 +1166,25 @@ vkCreateDescriptorUpdateTemplate :: (device: VkDevice, pCreateInfo: *VkDescripto
     return vkCreateDescriptorUpdateTemplate_dynamic(device, pCreateInfo, pAllocator, pDescriptorUpdateTemplate);
 }
 
-vkCreateDescriptorUpdateTemplateKHR :: () ->  #expand {
-    return vkCreateDescriptorUpdateTemplateKHR_dynamic();
-}
+vkCreateDescriptorUpdateTemplateKHR :: vkCreateDescriptorUpdateTemplate;
 
 vkDestroyDescriptorUpdateTemplate :: (device: VkDevice, descriptorUpdateTemplate: VkDescriptorUpdateTemplate, pAllocator: *VkAllocationCallbacks) -> void #expand {
     return vkDestroyDescriptorUpdateTemplate_dynamic(device, descriptorUpdateTemplate, pAllocator);
 }
 
-vkDestroyDescriptorUpdateTemplateKHR :: () ->  #expand {
-    return vkDestroyDescriptorUpdateTemplateKHR_dynamic();
-}
+vkDestroyDescriptorUpdateTemplateKHR :: vkDestroyDescriptorUpdateTemplate;
 
 vkUpdateDescriptorSetWithTemplate :: (device: VkDevice, descriptorSet: VkDescriptorSet, descriptorUpdateTemplate: VkDescriptorUpdateTemplate, pData: *void) -> void #expand {
     return vkUpdateDescriptorSetWithTemplate_dynamic(device, descriptorSet, descriptorUpdateTemplate, pData);
 }
 
-vkUpdateDescriptorSetWithTemplateKHR :: () ->  #expand {
-    return vkUpdateDescriptorSetWithTemplateKHR_dynamic();
-}
+vkUpdateDescriptorSetWithTemplateKHR :: vkUpdateDescriptorSetWithTemplate;
 
 vkCmdPushDescriptorSetWithTemplate :: (commandBuffer: VkCommandBuffer, descriptorUpdateTemplate: VkDescriptorUpdateTemplate, layout: VkPipelineLayout, set: u32, pData: *void) -> void #expand {
     return vkCmdPushDescriptorSetWithTemplate_dynamic(commandBuffer, descriptorUpdateTemplate, layout, set, pData);
 }
 
-vkCmdPushDescriptorSetWithTemplateKHR :: () ->  #expand {
-    return vkCmdPushDescriptorSetWithTemplateKHR_dynamic();
-}
+vkCmdPushDescriptorSetWithTemplateKHR :: vkCmdPushDescriptorSetWithTemplate;
 
 vkSetHdrMetadataEXT :: (device: VkDevice, swapchainCount: u32, pSwapchains: *VkSwapchainKHR, pMetadata: *VkHdrMetadataEXT) -> void #expand {
     return vkSetHdrMetadataEXT_dynamic(device, swapchainCount, pSwapchains, pMetadata);
@@ -1314,65 +1266,49 @@ vkGetBufferMemoryRequirements2 :: (device: VkDevice, pInfo: *VkBufferMemoryRequi
     return vkGetBufferMemoryRequirements2_dynamic(device, pInfo, pMemoryRequirements);
 }
 
-vkGetBufferMemoryRequirements2KHR :: () ->  #expand {
-    return vkGetBufferMemoryRequirements2KHR_dynamic();
-}
+vkGetBufferMemoryRequirements2KHR :: vkGetBufferMemoryRequirements2;
 
 vkGetImageMemoryRequirements2 :: (device: VkDevice, pInfo: *VkImageMemoryRequirementsInfo2, pMemoryRequirements: *VkMemoryRequirements2) -> void #expand {
     return vkGetImageMemoryRequirements2_dynamic(device, pInfo, pMemoryRequirements);
 }
 
-vkGetImageMemoryRequirements2KHR :: () ->  #expand {
-    return vkGetImageMemoryRequirements2KHR_dynamic();
-}
+vkGetImageMemoryRequirements2KHR :: vkGetImageMemoryRequirements2;
 
 vkGetImageSparseMemoryRequirements2 :: (device: VkDevice, pInfo: *VkImageSparseMemoryRequirementsInfo2, pSparseMemoryRequirementCount: *u32, pSparseMemoryRequirements: *VkSparseImageMemoryRequirements2) -> void #expand {
     return vkGetImageSparseMemoryRequirements2_dynamic(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 }
 
-vkGetImageSparseMemoryRequirements2KHR :: () ->  #expand {
-    return vkGetImageSparseMemoryRequirements2KHR_dynamic();
-}
+vkGetImageSparseMemoryRequirements2KHR :: vkGetImageSparseMemoryRequirements2;
 
 vkGetDeviceBufferMemoryRequirements :: (device: VkDevice, pInfo: *VkDeviceBufferMemoryRequirements, pMemoryRequirements: *VkMemoryRequirements2) -> void #expand {
     return vkGetDeviceBufferMemoryRequirements_dynamic(device, pInfo, pMemoryRequirements);
 }
 
-vkGetDeviceBufferMemoryRequirementsKHR :: () ->  #expand {
-    return vkGetDeviceBufferMemoryRequirementsKHR_dynamic();
-}
+vkGetDeviceBufferMemoryRequirementsKHR :: vkGetDeviceBufferMemoryRequirements;
 
 vkGetDeviceImageMemoryRequirements :: (device: VkDevice, pInfo: *VkDeviceImageMemoryRequirements, pMemoryRequirements: *VkMemoryRequirements2) -> void #expand {
     return vkGetDeviceImageMemoryRequirements_dynamic(device, pInfo, pMemoryRequirements);
 }
 
-vkGetDeviceImageMemoryRequirementsKHR :: () ->  #expand {
-    return vkGetDeviceImageMemoryRequirementsKHR_dynamic();
-}
+vkGetDeviceImageMemoryRequirementsKHR :: vkGetDeviceImageMemoryRequirements;
 
 vkGetDeviceImageSparseMemoryRequirements :: (device: VkDevice, pInfo: *VkDeviceImageMemoryRequirements, pSparseMemoryRequirementCount: *u32, pSparseMemoryRequirements: *VkSparseImageMemoryRequirements2) -> void #expand {
     return vkGetDeviceImageSparseMemoryRequirements_dynamic(device, pInfo, pSparseMemoryRequirementCount, pSparseMemoryRequirements);
 }
 
-vkGetDeviceImageSparseMemoryRequirementsKHR :: () ->  #expand {
-    return vkGetDeviceImageSparseMemoryRequirementsKHR_dynamic();
-}
+vkGetDeviceImageSparseMemoryRequirementsKHR :: vkGetDeviceImageSparseMemoryRequirements;
 
 vkCreateSamplerYcbcrConversion :: (device: VkDevice, pCreateInfo: *VkSamplerYcbcrConversionCreateInfo, pAllocator: *VkAllocationCallbacks, pYcbcrConversion: *VkSamplerYcbcrConversion) -> VkResult #expand {
     return vkCreateSamplerYcbcrConversion_dynamic(device, pCreateInfo, pAllocator, pYcbcrConversion);
 }
 
-vkCreateSamplerYcbcrConversionKHR :: () ->  #expand {
-    return vkCreateSamplerYcbcrConversionKHR_dynamic();
-}
+vkCreateSamplerYcbcrConversionKHR :: vkCreateSamplerYcbcrConversion;
 
 vkDestroySamplerYcbcrConversion :: (device: VkDevice, ycbcrConversion: VkSamplerYcbcrConversion, pAllocator: *VkAllocationCallbacks) -> void #expand {
     return vkDestroySamplerYcbcrConversion_dynamic(device, ycbcrConversion, pAllocator);
 }
 
-vkDestroySamplerYcbcrConversionKHR :: () ->  #expand {
-    return vkDestroySamplerYcbcrConversionKHR_dynamic();
-}
+vkDestroySamplerYcbcrConversionKHR :: vkDestroySamplerYcbcrConversion;
 
 vkGetDeviceQueue2 :: (device: VkDevice, pQueueInfo: *VkDeviceQueueInfo2, pQueue: *VkQueue) -> void #expand {
     return vkGetDeviceQueue2_dynamic(device, pQueueInfo, pQueue);
@@ -1398,9 +1334,7 @@ vkGetDescriptorSetLayoutSupport :: (device: VkDevice, pCreateInfo: *VkDescriptor
     return vkGetDescriptorSetLayoutSupport_dynamic(device, pCreateInfo, pSupport);
 }
 
-vkGetDescriptorSetLayoutSupportKHR :: () ->  #expand {
-    return vkGetDescriptorSetLayoutSupportKHR_dynamic();
-}
+vkGetDescriptorSetLayoutSupportKHR :: vkGetDescriptorSetLayoutSupport;
 
 vkGetSwapchainGrallocUsageANDROID :: (device: VkDevice, format: VkFormat, imageUsage: VkImageUsageFlags, grallocUsage: *int) -> VkResult #expand {
     return vkGetSwapchainGrallocUsageANDROID_dynamic(device, format, imageUsage, grallocUsage);
@@ -1430,17 +1364,13 @@ vkGetPhysicalDeviceCalibrateableTimeDomainsKHR :: (physicalDevice: VkPhysicalDev
     return vkGetPhysicalDeviceCalibrateableTimeDomainsKHR_dynamic(physicalDevice, pTimeDomainCount, pTimeDomains);
 }
 
-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT :: () ->  #expand {
-    return vkGetPhysicalDeviceCalibrateableTimeDomainsEXT_dynamic();
-}
+vkGetPhysicalDeviceCalibrateableTimeDomainsEXT :: vkGetPhysicalDeviceCalibrateableTimeDomainsKHR;
 
 vkGetCalibratedTimestampsKHR :: (device: VkDevice, timestampCount: u32, pTimestampInfos: *VkCalibratedTimestampInfoKHR, pTimestamps: *u64, pMaxDeviation: *u64) -> VkResult #expand {
     return vkGetCalibratedTimestampsKHR_dynamic(device, timestampCount, pTimestampInfos, pTimestamps, pMaxDeviation);
 }
 
-vkGetCalibratedTimestampsEXT :: () ->  #expand {
-    return vkGetCalibratedTimestampsEXT_dynamic();
-}
+vkGetCalibratedTimestampsEXT :: vkGetCalibratedTimestampsKHR;
 
 vkSetDebugUtilsObjectNameEXT :: (device: VkDevice, pNameInfo: *VkDebugUtilsObjectNameInfoEXT) -> VkResult #expand {
     return vkSetDebugUtilsObjectNameEXT_dynamic(device, pNameInfo);
@@ -1498,57 +1428,43 @@ vkCreateRenderPass2 :: (device: VkDevice, pCreateInfo: *VkRenderPassCreateInfo2,
     return vkCreateRenderPass2_dynamic(device, pCreateInfo, pAllocator, pRenderPass);
 }
 
-vkCreateRenderPass2KHR :: () ->  #expand {
-    return vkCreateRenderPass2KHR_dynamic();
-}
+vkCreateRenderPass2KHR :: vkCreateRenderPass2;
 
 vkCmdBeginRenderPass2 :: (commandBuffer: VkCommandBuffer, pRenderPassBegin: *VkRenderPassBeginInfo, pSubpassBeginInfo: *VkSubpassBeginInfo) -> void #expand {
     return vkCmdBeginRenderPass2_dynamic(commandBuffer, pRenderPassBegin, pSubpassBeginInfo);
 }
 
-vkCmdBeginRenderPass2KHR :: () ->  #expand {
-    return vkCmdBeginRenderPass2KHR_dynamic();
-}
+vkCmdBeginRenderPass2KHR :: vkCmdBeginRenderPass2;
 
 vkCmdNextSubpass2 :: (commandBuffer: VkCommandBuffer, pSubpassBeginInfo: *VkSubpassBeginInfo, pSubpassEndInfo: *VkSubpassEndInfo) -> void #expand {
     return vkCmdNextSubpass2_dynamic(commandBuffer, pSubpassBeginInfo, pSubpassEndInfo);
 }
 
-vkCmdNextSubpass2KHR :: () ->  #expand {
-    return vkCmdNextSubpass2KHR_dynamic();
-}
+vkCmdNextSubpass2KHR :: vkCmdNextSubpass2;
 
 vkCmdEndRenderPass2 :: (commandBuffer: VkCommandBuffer, pSubpassEndInfo: *VkSubpassEndInfo) -> void #expand {
     return vkCmdEndRenderPass2_dynamic(commandBuffer, pSubpassEndInfo);
 }
 
-vkCmdEndRenderPass2KHR :: () ->  #expand {
-    return vkCmdEndRenderPass2KHR_dynamic();
-}
+vkCmdEndRenderPass2KHR :: vkCmdEndRenderPass2;
 
 vkGetSemaphoreCounterValue :: (device: VkDevice, semaphore: VkSemaphore, pValue: *u64) -> VkResult #expand {
     return vkGetSemaphoreCounterValue_dynamic(device, semaphore, pValue);
 }
 
-vkGetSemaphoreCounterValueKHR :: () ->  #expand {
-    return vkGetSemaphoreCounterValueKHR_dynamic();
-}
+vkGetSemaphoreCounterValueKHR :: vkGetSemaphoreCounterValue;
 
 vkWaitSemaphores :: (device: VkDevice, pWaitInfo: *VkSemaphoreWaitInfo, timeout: u64) -> VkResult #expand {
     return vkWaitSemaphores_dynamic(device, pWaitInfo, timeout);
 }
 
-vkWaitSemaphoresKHR :: () ->  #expand {
-    return vkWaitSemaphoresKHR_dynamic();
-}
+vkWaitSemaphoresKHR :: vkWaitSemaphores;
 
 vkSignalSemaphore :: (device: VkDevice, pSignalInfo: *VkSemaphoreSignalInfo) -> VkResult #expand {
     return vkSignalSemaphore_dynamic(device, pSignalInfo);
 }
 
-vkSignalSemaphoreKHR :: () ->  #expand {
-    return vkSignalSemaphoreKHR_dynamic();
-}
+vkSignalSemaphoreKHR :: vkSignalSemaphore;
 
 vkGetAndroidHardwareBufferPropertiesANDROID :: (device: VkDevice, buffer: *AHardwareBuffer, pProperties: *VkAndroidHardwareBufferPropertiesANDROID) -> VkResult #expand {
     return vkGetAndroidHardwareBufferPropertiesANDROID_dynamic(device, buffer, pProperties);
@@ -1562,25 +1478,17 @@ vkCmdDrawIndirectCount :: (commandBuffer: VkCommandBuffer, buffer: VkBuffer, off
     return vkCmdDrawIndirectCount_dynamic(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 }
 
-vkCmdDrawIndirectCountKHR :: () ->  #expand {
-    return vkCmdDrawIndirectCountKHR_dynamic();
-}
+vkCmdDrawIndirectCountKHR :: vkCmdDrawIndirectCount;
 
-vkCmdDrawIndirectCountAMD :: () ->  #expand {
-    return vkCmdDrawIndirectCountAMD_dynamic();
-}
+vkCmdDrawIndirectCountAMD :: vkCmdDrawIndirectCount;
 
 vkCmdDrawIndexedIndirectCount :: (commandBuffer: VkCommandBuffer, buffer: VkBuffer, offset: VkDeviceSize, countBuffer: VkBuffer, countBufferOffset: VkDeviceSize, maxDrawCount: u32, stride: u32) -> void #expand {
     return vkCmdDrawIndexedIndirectCount_dynamic(commandBuffer, buffer, offset, countBuffer, countBufferOffset, maxDrawCount, stride);
 }
 
-vkCmdDrawIndexedIndirectCountKHR :: () ->  #expand {
-    return vkCmdDrawIndexedIndirectCountKHR_dynamic();
-}
+vkCmdDrawIndexedIndirectCountKHR :: vkCmdDrawIndexedIndirectCount;
 
-vkCmdDrawIndexedIndirectCountAMD :: () ->  #expand {
-    return vkCmdDrawIndexedIndirectCountAMD_dynamic();
-}
+vkCmdDrawIndexedIndirectCountAMD :: vkCmdDrawIndexedIndirectCount;
 
 vkCmdSetCheckpointNV :: (commandBuffer: VkCommandBuffer, pCheckpointMarker: *void) -> void #expand {
     return vkCmdSetCheckpointNV_dynamic(commandBuffer, pCheckpointMarker);
@@ -1742,9 +1650,7 @@ vkGetRayTracingShaderGroupHandlesKHR :: (device: VkDevice, pipeline: VkPipeline,
     return vkGetRayTracingShaderGroupHandlesKHR_dynamic(device, pipeline, firstGroup, groupCount, dataSize, pData);
 }
 
-vkGetRayTracingShaderGroupHandlesNV :: () ->  #expand {
-    return vkGetRayTracingShaderGroupHandlesNV_dynamic();
-}
+vkGetRayTracingShaderGroupHandlesNV :: vkGetRayTracingShaderGroupHandlesKHR;
 
 vkGetRayTracingCaptureReplayShaderGroupHandlesKHR :: (device: VkDevice, pipeline: VkPipeline, firstGroup: u32, groupCount: u32, dataSize: u64, pData: *void) -> VkResult #expand {
     return vkGetRayTracingCaptureReplayShaderGroupHandlesKHR_dynamic(device, pipeline, firstGroup, groupCount, dataSize, pData);
@@ -1846,21 +1752,15 @@ vkGetBufferOpaqueCaptureAddress :: (device: VkDevice, pInfo: *VkBufferDeviceAddr
     return vkGetBufferOpaqueCaptureAddress_dynamic(device, pInfo);
 }
 
-vkGetBufferOpaqueCaptureAddressKHR :: () ->  #expand {
-    return vkGetBufferOpaqueCaptureAddressKHR_dynamic();
-}
+vkGetBufferOpaqueCaptureAddressKHR :: vkGetBufferOpaqueCaptureAddress;
 
 vkGetBufferDeviceAddress :: (device: VkDevice, pInfo: *VkBufferDeviceAddressInfo) -> VkDeviceAddress #expand {
     return vkGetBufferDeviceAddress_dynamic(device, pInfo);
 }
 
-vkGetBufferDeviceAddressKHR :: () ->  #expand {
-    return vkGetBufferDeviceAddressKHR_dynamic();
-}
+vkGetBufferDeviceAddressKHR :: vkGetBufferDeviceAddress;
 
-vkGetBufferDeviceAddressEXT :: () ->  #expand {
-    return vkGetBufferDeviceAddressEXT_dynamic();
-}
+vkGetBufferDeviceAddressEXT :: vkGetBufferDeviceAddress;
 
 vkCreateHeadlessSurfaceEXT :: (instance: VkInstance, pCreateInfo: *VkHeadlessSurfaceCreateInfoEXT, pAllocator: *VkAllocationCallbacks, pSurface: *VkSurfaceKHR) -> VkResult #expand {
     return vkCreateHeadlessSurfaceEXT_dynamic(instance, pCreateInfo, pAllocator, pSurface);
@@ -1910,9 +1810,7 @@ vkGetDeviceMemoryOpaqueCaptureAddress :: (device: VkDevice, pInfo: *VkDeviceMemo
     return vkGetDeviceMemoryOpaqueCaptureAddress_dynamic(device, pInfo);
 }
 
-vkGetDeviceMemoryOpaqueCaptureAddressKHR :: () ->  #expand {
-    return vkGetDeviceMemoryOpaqueCaptureAddressKHR_dynamic();
-}
+vkGetDeviceMemoryOpaqueCaptureAddressKHR :: vkGetDeviceMemoryOpaqueCaptureAddress;
 
 vkGetPipelineExecutablePropertiesKHR :: (device: VkDevice, pPipelineInfo: *VkPipelineInfoKHR, pExecutableCount: *u32, pProperties: *VkPipelineExecutablePropertiesKHR) -> VkResult #expand {
     return vkGetPipelineExecutablePropertiesKHR_dynamic(device, pPipelineInfo, pExecutableCount, pProperties);
@@ -1930,13 +1828,9 @@ vkCmdSetLineStipple :: (commandBuffer: VkCommandBuffer, lineStippleFactor: u32, 
     return vkCmdSetLineStipple_dynamic(commandBuffer, lineStippleFactor, lineStipplePattern);
 }
 
-vkCmdSetLineStippleKHR :: () ->  #expand {
-    return vkCmdSetLineStippleKHR_dynamic();
-}
+vkCmdSetLineStippleKHR :: vkCmdSetLineStipple;
 
-vkCmdSetLineStippleEXT :: () ->  #expand {
-    return vkCmdSetLineStippleEXT_dynamic();
-}
+vkCmdSetLineStippleEXT :: vkCmdSetLineStipple;
 
 vkGetFaultData :: (device: VkDevice, faultQueryBehavior: VkFaultQueryBehavior, pUnrecordedFaults: *VkBool32, pFaultCount: *u32, pFaults: *VkFaultData) -> VkResult #expand {
     return vkGetFaultData_dynamic(device, faultQueryBehavior, pUnrecordedFaults, pFaultCount, pFaults);
@@ -1946,9 +1840,7 @@ vkGetPhysicalDeviceToolProperties :: (physicalDevice: VkPhysicalDevice, pToolCou
     return vkGetPhysicalDeviceToolProperties_dynamic(physicalDevice, pToolCount, pToolProperties);
 }
 
-vkGetPhysicalDeviceToolPropertiesEXT :: () ->  #expand {
-    return vkGetPhysicalDeviceToolPropertiesEXT_dynamic();
-}
+vkGetPhysicalDeviceToolPropertiesEXT :: vkGetPhysicalDeviceToolProperties;
 
 vkCreateAccelerationStructureKHR :: (device: VkDevice, pCreateInfo: *VkAccelerationStructureCreateInfoKHR, pAllocator: *VkAllocationCallbacks, pAccelerationStructure: *VkAccelerationStructureKHR) -> VkResult #expand {
     return vkCreateAccelerationStructureKHR_dynamic(device, pCreateInfo, pAllocator, pAccelerationStructure);
@@ -2006,105 +1898,79 @@ vkCmdSetCullMode :: (commandBuffer: VkCommandBuffer, cullMode: VkCullModeFlags) 
     return vkCmdSetCullMode_dynamic(commandBuffer, cullMode);
 }
 
-vkCmdSetCullModeEXT :: () ->  #expand {
-    return vkCmdSetCullModeEXT_dynamic();
-}
+vkCmdSetCullModeEXT :: vkCmdSetCullMode;
 
 vkCmdSetFrontFace :: (commandBuffer: VkCommandBuffer, frontFace: VkFrontFace) -> void #expand {
     return vkCmdSetFrontFace_dynamic(commandBuffer, frontFace);
 }
 
-vkCmdSetFrontFaceEXT :: () ->  #expand {
-    return vkCmdSetFrontFaceEXT_dynamic();
-}
+vkCmdSetFrontFaceEXT :: vkCmdSetFrontFace;
 
 vkCmdSetPrimitiveTopology :: (commandBuffer: VkCommandBuffer, primitiveTopology: VkPrimitiveTopology) -> void #expand {
     return vkCmdSetPrimitiveTopology_dynamic(commandBuffer, primitiveTopology);
 }
 
-vkCmdSetPrimitiveTopologyEXT :: () ->  #expand {
-    return vkCmdSetPrimitiveTopologyEXT_dynamic();
-}
+vkCmdSetPrimitiveTopologyEXT :: vkCmdSetPrimitiveTopology;
 
 vkCmdSetViewportWithCount :: (commandBuffer: VkCommandBuffer, viewportCount: u32, pViewports: *VkViewport) -> void #expand {
     return vkCmdSetViewportWithCount_dynamic(commandBuffer, viewportCount, pViewports);
 }
 
-vkCmdSetViewportWithCountEXT :: () ->  #expand {
-    return vkCmdSetViewportWithCountEXT_dynamic();
-}
+vkCmdSetViewportWithCountEXT :: vkCmdSetViewportWithCount;
 
 vkCmdSetScissorWithCount :: (commandBuffer: VkCommandBuffer, scissorCount: u32, pScissors: *VkRect2D) -> void #expand {
     return vkCmdSetScissorWithCount_dynamic(commandBuffer, scissorCount, pScissors);
 }
 
-vkCmdSetScissorWithCountEXT :: () ->  #expand {
-    return vkCmdSetScissorWithCountEXT_dynamic();
-}
+vkCmdSetScissorWithCountEXT :: vkCmdSetScissorWithCount;
 
 vkCmdBindIndexBuffer2 :: (commandBuffer: VkCommandBuffer, buffer: VkBuffer, offset: VkDeviceSize, size: VkDeviceSize, indexType: VkIndexType) -> void #expand {
     return vkCmdBindIndexBuffer2_dynamic(commandBuffer, buffer, offset, size, indexType);
 }
 
-vkCmdBindIndexBuffer2KHR :: () ->  #expand {
-    return vkCmdBindIndexBuffer2KHR_dynamic();
-}
+vkCmdBindIndexBuffer2KHR :: vkCmdBindIndexBuffer2;
 
 vkCmdBindVertexBuffers2 :: (commandBuffer: VkCommandBuffer, firstBinding: u32, bindingCount: u32, pBuffers: *VkBuffer, pOffsets: *VkDeviceSize, pSizes: *VkDeviceSize, pStrides: *VkDeviceSize) -> void #expand {
     return vkCmdBindVertexBuffers2_dynamic(commandBuffer, firstBinding, bindingCount, pBuffers, pOffsets, pSizes, pStrides);
 }
 
-vkCmdBindVertexBuffers2EXT :: () ->  #expand {
-    return vkCmdBindVertexBuffers2EXT_dynamic();
-}
+vkCmdBindVertexBuffers2EXT :: vkCmdBindVertexBuffers2;
 
 vkCmdSetDepthTestEnable :: (commandBuffer: VkCommandBuffer, depthTestEnable: VkBool32) -> void #expand {
     return vkCmdSetDepthTestEnable_dynamic(commandBuffer, depthTestEnable);
 }
 
-vkCmdSetDepthTestEnableEXT :: () ->  #expand {
-    return vkCmdSetDepthTestEnableEXT_dynamic();
-}
+vkCmdSetDepthTestEnableEXT :: vkCmdSetDepthTestEnable;
 
 vkCmdSetDepthWriteEnable :: (commandBuffer: VkCommandBuffer, depthWriteEnable: VkBool32) -> void #expand {
     return vkCmdSetDepthWriteEnable_dynamic(commandBuffer, depthWriteEnable);
 }
 
-vkCmdSetDepthWriteEnableEXT :: () ->  #expand {
-    return vkCmdSetDepthWriteEnableEXT_dynamic();
-}
+vkCmdSetDepthWriteEnableEXT :: vkCmdSetDepthWriteEnable;
 
 vkCmdSetDepthCompareOp :: (commandBuffer: VkCommandBuffer, depthCompareOp: VkCompareOp) -> void #expand {
     return vkCmdSetDepthCompareOp_dynamic(commandBuffer, depthCompareOp);
 }
 
-vkCmdSetDepthCompareOpEXT :: () ->  #expand {
-    return vkCmdSetDepthCompareOpEXT_dynamic();
-}
+vkCmdSetDepthCompareOpEXT :: vkCmdSetDepthCompareOp;
 
 vkCmdSetDepthBoundsTestEnable :: (commandBuffer: VkCommandBuffer, depthBoundsTestEnable: VkBool32) -> void #expand {
     return vkCmdSetDepthBoundsTestEnable_dynamic(commandBuffer, depthBoundsTestEnable);
 }
 
-vkCmdSetDepthBoundsTestEnableEXT :: () ->  #expand {
-    return vkCmdSetDepthBoundsTestEnableEXT_dynamic();
-}
+vkCmdSetDepthBoundsTestEnableEXT :: vkCmdSetDepthBoundsTestEnable;
 
 vkCmdSetStencilTestEnable :: (commandBuffer: VkCommandBuffer, stencilTestEnable: VkBool32) -> void #expand {
     return vkCmdSetStencilTestEnable_dynamic(commandBuffer, stencilTestEnable);
 }
 
-vkCmdSetStencilTestEnableEXT :: () ->  #expand {
-    return vkCmdSetStencilTestEnableEXT_dynamic();
-}
+vkCmdSetStencilTestEnableEXT :: vkCmdSetStencilTestEnable;
 
 vkCmdSetStencilOp :: (commandBuffer: VkCommandBuffer, faceMask: VkStencilFaceFlags, failOp: VkStencilOp, passOp: VkStencilOp, depthFailOp: VkStencilOp, compareOp: VkCompareOp) -> void #expand {
     return vkCmdSetStencilOp_dynamic(commandBuffer, faceMask, failOp, passOp, depthFailOp, compareOp);
 }
 
-vkCmdSetStencilOpEXT :: () ->  #expand {
-    return vkCmdSetStencilOpEXT_dynamic();
-}
+vkCmdSetStencilOpEXT :: vkCmdSetStencilOp;
 
 vkCmdSetPatchControlPointsEXT :: (commandBuffer: VkCommandBuffer, patchControlPoints: u32) -> void #expand {
     return vkCmdSetPatchControlPointsEXT_dynamic(commandBuffer, patchControlPoints);
@@ -2114,17 +1980,13 @@ vkCmdSetRasterizerDiscardEnable :: (commandBuffer: VkCommandBuffer, rasterizerDi
     return vkCmdSetRasterizerDiscardEnable_dynamic(commandBuffer, rasterizerDiscardEnable);
 }
 
-vkCmdSetRasterizerDiscardEnableEXT :: () ->  #expand {
-    return vkCmdSetRasterizerDiscardEnableEXT_dynamic();
-}
+vkCmdSetRasterizerDiscardEnableEXT :: vkCmdSetRasterizerDiscardEnable;
 
 vkCmdSetDepthBiasEnable :: (commandBuffer: VkCommandBuffer, depthBiasEnable: VkBool32) -> void #expand {
     return vkCmdSetDepthBiasEnable_dynamic(commandBuffer, depthBiasEnable);
 }
 
-vkCmdSetDepthBiasEnableEXT :: () ->  #expand {
-    return vkCmdSetDepthBiasEnableEXT_dynamic();
-}
+vkCmdSetDepthBiasEnableEXT :: vkCmdSetDepthBiasEnable;
 
 vkCmdSetLogicOpEXT :: (commandBuffer: VkCommandBuffer, logicOp: VkLogicOp) -> void #expand {
     return vkCmdSetLogicOpEXT_dynamic(commandBuffer, logicOp);
@@ -2134,9 +1996,7 @@ vkCmdSetPrimitiveRestartEnable :: (commandBuffer: VkCommandBuffer, primitiveRest
     return vkCmdSetPrimitiveRestartEnable_dynamic(commandBuffer, primitiveRestartEnable);
 }
 
-vkCmdSetPrimitiveRestartEnableEXT :: () ->  #expand {
-    return vkCmdSetPrimitiveRestartEnableEXT_dynamic();
-}
+vkCmdSetPrimitiveRestartEnableEXT :: vkCmdSetPrimitiveRestartEnable;
 
 vkCmdSetTessellationDomainOriginEXT :: (commandBuffer: VkCommandBuffer, domainOrigin: VkTessellationDomainOrigin) -> void #expand {
     return vkCmdSetTessellationDomainOriginEXT_dynamic(commandBuffer, domainOrigin);
@@ -2266,81 +2126,61 @@ vkCreatePrivateDataSlot :: (device: VkDevice, pCreateInfo: *VkPrivateDataSlotCre
     return vkCreatePrivateDataSlot_dynamic(device, pCreateInfo, pAllocator, pPrivateDataSlot);
 }
 
-vkCreatePrivateDataSlotEXT :: () ->  #expand {
-    return vkCreatePrivateDataSlotEXT_dynamic();
-}
+vkCreatePrivateDataSlotEXT :: vkCreatePrivateDataSlot;
 
 vkDestroyPrivateDataSlot :: (device: VkDevice, privateDataSlot: VkPrivateDataSlot, pAllocator: *VkAllocationCallbacks) -> void #expand {
     return vkDestroyPrivateDataSlot_dynamic(device, privateDataSlot, pAllocator);
 }
 
-vkDestroyPrivateDataSlotEXT :: () ->  #expand {
-    return vkDestroyPrivateDataSlotEXT_dynamic();
-}
+vkDestroyPrivateDataSlotEXT :: vkDestroyPrivateDataSlot;
 
 vkSetPrivateData :: (device: VkDevice, objectType: VkObjectType, objectHandle: u64, privateDataSlot: VkPrivateDataSlot, data: u64) -> VkResult #expand {
     return vkSetPrivateData_dynamic(device, objectType, objectHandle, privateDataSlot, data);
 }
 
-vkSetPrivateDataEXT :: () ->  #expand {
-    return vkSetPrivateDataEXT_dynamic();
-}
+vkSetPrivateDataEXT :: vkSetPrivateData;
 
 vkGetPrivateData :: (device: VkDevice, objectType: VkObjectType, objectHandle: u64, privateDataSlot: VkPrivateDataSlot, pData: *u64) -> void #expand {
     return vkGetPrivateData_dynamic(device, objectType, objectHandle, privateDataSlot, pData);
 }
 
-vkGetPrivateDataEXT :: () ->  #expand {
-    return vkGetPrivateDataEXT_dynamic();
-}
+vkGetPrivateDataEXT :: vkGetPrivateData;
 
 vkCmdCopyBuffer2 :: (commandBuffer: VkCommandBuffer, pCopyBufferInfo: *VkCopyBufferInfo2) -> void #expand {
     return vkCmdCopyBuffer2_dynamic(commandBuffer, pCopyBufferInfo);
 }
 
-vkCmdCopyBuffer2KHR :: () ->  #expand {
-    return vkCmdCopyBuffer2KHR_dynamic();
-}
+vkCmdCopyBuffer2KHR :: vkCmdCopyBuffer2;
 
 vkCmdCopyImage2 :: (commandBuffer: VkCommandBuffer, pCopyImageInfo: *VkCopyImageInfo2) -> void #expand {
     return vkCmdCopyImage2_dynamic(commandBuffer, pCopyImageInfo);
 }
 
-vkCmdCopyImage2KHR :: () ->  #expand {
-    return vkCmdCopyImage2KHR_dynamic();
-}
+vkCmdCopyImage2KHR :: vkCmdCopyImage2;
 
 vkCmdBlitImage2 :: (commandBuffer: VkCommandBuffer, pBlitImageInfo: *VkBlitImageInfo2) -> void #expand {
     return vkCmdBlitImage2_dynamic(commandBuffer, pBlitImageInfo);
 }
 
-vkCmdBlitImage2KHR :: () ->  #expand {
-    return vkCmdBlitImage2KHR_dynamic();
-}
+vkCmdBlitImage2KHR :: vkCmdBlitImage2;
 
 vkCmdCopyBufferToImage2 :: (commandBuffer: VkCommandBuffer, pCopyBufferToImageInfo: *VkCopyBufferToImageInfo2) -> void #expand {
     return vkCmdCopyBufferToImage2_dynamic(commandBuffer, pCopyBufferToImageInfo);
 }
 
-vkCmdCopyBufferToImage2KHR :: () ->  #expand {
-    return vkCmdCopyBufferToImage2KHR_dynamic();
-}
+vkCmdCopyBufferToImage2KHR :: vkCmdCopyBufferToImage2;
 
 vkCmdCopyImageToBuffer2 :: (commandBuffer: VkCommandBuffer, pCopyImageToBufferInfo: *VkCopyImageToBufferInfo2) -> void #expand {
     return vkCmdCopyImageToBuffer2_dynamic(commandBuffer, pCopyImageToBufferInfo);
 }
 
-vkCmdCopyImageToBuffer2KHR :: () ->  #expand {
-    return vkCmdCopyImageToBuffer2KHR_dynamic();
-}
+vkCmdCopyImageToBuffer2KHR :: vkCmdCopyImageToBuffer2;
 
 vkCmdResolveImage2 :: (commandBuffer: VkCommandBuffer, pResolveImageInfo: *VkResolveImageInfo2) -> void #expand {
     return vkCmdResolveImage2_dynamic(commandBuffer, pResolveImageInfo);
 }
 
-vkCmdResolveImage2KHR :: () ->  #expand {
-    return vkCmdResolveImage2KHR_dynamic();
-}
+vkCmdResolveImage2KHR :: vkCmdResolveImage2;
 
 vkCmdRefreshObjectsKHR :: (commandBuffer: VkCommandBuffer, pRefreshObjects: *VkRefreshObjectListKHR) -> void #expand {
     return vkCmdRefreshObjectsKHR_dynamic(commandBuffer, pRefreshObjects);
@@ -2378,49 +2218,37 @@ vkCmdSetEvent2 :: (commandBuffer: VkCommandBuffer, event: VkEvent, pDependencyIn
     return vkCmdSetEvent2_dynamic(commandBuffer, event, pDependencyInfo);
 }
 
-vkCmdSetEvent2KHR :: () ->  #expand {
-    return vkCmdSetEvent2KHR_dynamic();
-}
+vkCmdSetEvent2KHR :: vkCmdSetEvent2;
 
 vkCmdResetEvent2 :: (commandBuffer: VkCommandBuffer, event: VkEvent, stageMask: VkPipelineStageFlags2) -> void #expand {
     return vkCmdResetEvent2_dynamic(commandBuffer, event, stageMask);
 }
 
-vkCmdResetEvent2KHR :: () ->  #expand {
-    return vkCmdResetEvent2KHR_dynamic();
-}
+vkCmdResetEvent2KHR :: vkCmdResetEvent2;
 
 vkCmdWaitEvents2 :: (commandBuffer: VkCommandBuffer, eventCount: u32, pEvents: *VkEvent, pDependencyInfos: *VkDependencyInfo) -> void #expand {
     return vkCmdWaitEvents2_dynamic(commandBuffer, eventCount, pEvents, pDependencyInfos);
 }
 
-vkCmdWaitEvents2KHR :: () ->  #expand {
-    return vkCmdWaitEvents2KHR_dynamic();
-}
+vkCmdWaitEvents2KHR :: vkCmdWaitEvents2;
 
 vkCmdPipelineBarrier2 :: (commandBuffer: VkCommandBuffer, pDependencyInfo: *VkDependencyInfo) -> void #expand {
     return vkCmdPipelineBarrier2_dynamic(commandBuffer, pDependencyInfo);
 }
 
-vkCmdPipelineBarrier2KHR :: () ->  #expand {
-    return vkCmdPipelineBarrier2KHR_dynamic();
-}
+vkCmdPipelineBarrier2KHR :: vkCmdPipelineBarrier2;
 
 vkQueueSubmit2 :: (queue: VkQueue, submitCount: u32, pSubmits: *VkSubmitInfo2, fence: VkFence) -> VkResult #expand {
     return vkQueueSubmit2_dynamic(queue, submitCount, pSubmits, fence);
 }
 
-vkQueueSubmit2KHR :: () ->  #expand {
-    return vkQueueSubmit2KHR_dynamic();
-}
+vkQueueSubmit2KHR :: vkQueueSubmit2;
 
 vkCmdWriteTimestamp2 :: (commandBuffer: VkCommandBuffer, stage: VkPipelineStageFlags2, queryPool: VkQueryPool, query: u32) -> void #expand {
     return vkCmdWriteTimestamp2_dynamic(commandBuffer, stage, queryPool, query);
 }
 
-vkCmdWriteTimestamp2KHR :: () ->  #expand {
-    return vkCmdWriteTimestamp2KHR_dynamic();
-}
+vkCmdWriteTimestamp2KHR :: vkCmdWriteTimestamp2;
 
 vkCmdWriteBufferMarker2AMD :: (commandBuffer: VkCommandBuffer, stage: VkPipelineStageFlags2, dstBuffer: VkBuffer, dstOffset: VkDeviceSize, marker: u32) -> void #expand {
     return vkCmdWriteBufferMarker2AMD_dynamic(commandBuffer, stage, dstBuffer, dstOffset, marker);
@@ -2434,33 +2262,25 @@ vkCopyMemoryToImage :: (device: VkDevice, pCopyMemoryToImageInfo: *VkCopyMemoryT
     return vkCopyMemoryToImage_dynamic(device, pCopyMemoryToImageInfo);
 }
 
-vkCopyMemoryToImageEXT :: () ->  #expand {
-    return vkCopyMemoryToImageEXT_dynamic();
-}
+vkCopyMemoryToImageEXT :: vkCopyMemoryToImage;
 
 vkCopyImageToMemory :: (device: VkDevice, pCopyImageToMemoryInfo: *VkCopyImageToMemoryInfo) -> VkResult #expand {
     return vkCopyImageToMemory_dynamic(device, pCopyImageToMemoryInfo);
 }
 
-vkCopyImageToMemoryEXT :: () ->  #expand {
-    return vkCopyImageToMemoryEXT_dynamic();
-}
+vkCopyImageToMemoryEXT :: vkCopyImageToMemory;
 
 vkCopyImageToImage :: (device: VkDevice, pCopyImageToImageInfo: *VkCopyImageToImageInfo) -> VkResult #expand {
     return vkCopyImageToImage_dynamic(device, pCopyImageToImageInfo);
 }
 
-vkCopyImageToImageEXT :: () ->  #expand {
-    return vkCopyImageToImageEXT_dynamic();
-}
+vkCopyImageToImageEXT :: vkCopyImageToImage;
 
 vkTransitionImageLayout :: (device: VkDevice, transitionCount: u32, pTransitions: *VkHostImageLayoutTransitionInfo) -> VkResult #expand {
     return vkTransitionImageLayout_dynamic(device, transitionCount, pTransitions);
 }
 
-vkTransitionImageLayoutEXT :: () ->  #expand {
-    return vkTransitionImageLayoutEXT_dynamic();
-}
+vkTransitionImageLayoutEXT :: vkTransitionImageLayout;
 
 vkGetCommandPoolMemoryConsumption :: (device: VkDevice, commandPool: VkCommandPool, commandBuffer: VkCommandBuffer, pConsumption: *VkCommandPoolMemoryConsumption) -> void #expand {
     return vkGetCommandPoolMemoryConsumption_dynamic(device, commandPool, commandBuffer, pConsumption);
@@ -2686,9 +2506,7 @@ vkCmdBeginRendering :: (commandBuffer: VkCommandBuffer, pRenderingInfo: *VkRende
     return vkCmdBeginRendering_dynamic(commandBuffer, pRenderingInfo);
 }
 
-vkCmdBeginRenderingKHR :: () ->  #expand {
-    return vkCmdBeginRenderingKHR_dynamic();
-}
+vkCmdBeginRenderingKHR :: vkCmdBeginRendering;
 
 vkCmdEndRendering :: (commandBuffer: VkCommandBuffer) -> void #expand {
     return vkCmdEndRendering_dynamic(commandBuffer);
@@ -2698,13 +2516,9 @@ vkCmdEndRendering2KHR :: (commandBuffer: VkCommandBuffer, pRenderingEndInfo: *Vk
     return vkCmdEndRendering2KHR_dynamic(commandBuffer, pRenderingEndInfo);
 }
 
-vkCmdEndRendering2EXT :: () ->  #expand {
-    return vkCmdEndRendering2EXT_dynamic();
-}
+vkCmdEndRendering2EXT :: vkCmdEndRendering2KHR;
 
-vkCmdEndRenderingKHR :: () ->  #expand {
-    return vkCmdEndRenderingKHR_dynamic();
-}
+vkCmdEndRenderingKHR :: vkCmdEndRendering;
 
 vkGetDescriptorSetLayoutHostMappingInfoVALVE :: (device: VkDevice, pBindingReference: *VkDescriptorSetBindingReferenceVALVE, pHostMapping: *VkDescriptorSetLayoutHostMappingInfoVALVE) -> void #expand {
     return vkGetDescriptorSetLayoutHostMappingInfoVALVE_dynamic(device, pBindingReference, pHostMapping);
@@ -2782,13 +2596,9 @@ vkGetImageSubresourceLayout2 :: (device: VkDevice, image: VkImage, pSubresource:
     return vkGetImageSubresourceLayout2_dynamic(device, image, pSubresource, pLayout);
 }
 
-vkGetImageSubresourceLayout2KHR :: () ->  #expand {
-    return vkGetImageSubresourceLayout2KHR_dynamic();
-}
+vkGetImageSubresourceLayout2KHR :: vkGetImageSubresourceLayout2;
 
-vkGetImageSubresourceLayout2EXT :: () ->  #expand {
-    return vkGetImageSubresourceLayout2EXT_dynamic();
-}
+vkGetImageSubresourceLayout2EXT :: vkGetImageSubresourceLayout2;
 
 vkGetPipelinePropertiesEXT :: (device: VkDevice, pPipelineInfo: *VkPipelineInfoEXT, pPipelineProperties: *VkBaseOutStructure) -> VkResult #expand {
     return vkGetPipelinePropertiesEXT_dynamic(device, pPipelineInfo, pPipelineProperties);
@@ -2842,33 +2652,25 @@ vkReleaseSwapchainImagesKHR :: (device: VkDevice, pReleaseInfo: *VkReleaseSwapch
     return vkReleaseSwapchainImagesKHR_dynamic(device, pReleaseInfo);
 }
 
-vkReleaseSwapchainImagesEXT :: () ->  #expand {
-    return vkReleaseSwapchainImagesEXT_dynamic();
-}
+vkReleaseSwapchainImagesEXT :: vkReleaseSwapchainImagesKHR;
 
 vkGetDeviceImageSubresourceLayout :: (device: VkDevice, pInfo: *VkDeviceImageSubresourceInfo, pLayout: *VkSubresourceLayout2) -> void #expand {
     return vkGetDeviceImageSubresourceLayout_dynamic(device, pInfo, pLayout);
 }
 
-vkGetDeviceImageSubresourceLayoutKHR :: () ->  #expand {
-    return vkGetDeviceImageSubresourceLayoutKHR_dynamic();
-}
+vkGetDeviceImageSubresourceLayoutKHR :: vkGetDeviceImageSubresourceLayout;
 
 vkMapMemory2 :: (device: VkDevice, pMemoryMapInfo: *VkMemoryMapInfo, ppData: **void) -> VkResult #expand {
     return vkMapMemory2_dynamic(device, pMemoryMapInfo, ppData);
 }
 
-vkMapMemory2KHR :: () ->  #expand {
-    return vkMapMemory2KHR_dynamic();
-}
+vkMapMemory2KHR :: vkMapMemory2;
 
 vkUnmapMemory2 :: (device: VkDevice, pMemoryUnmapInfo: *VkMemoryUnmapInfo) -> VkResult #expand {
     return vkUnmapMemory2_dynamic(device, pMemoryUnmapInfo);
 }
 
-vkUnmapMemory2KHR :: () ->  #expand {
-    return vkUnmapMemory2KHR_dynamic();
-}
+vkUnmapMemory2KHR :: vkUnmapMemory2;
 
 vkCreateShadersEXT :: (device: VkDevice, createInfoCount: u32, pCreateInfos: *VkShaderCreateInfoEXT, pAllocator: *VkAllocationCallbacks, pShaders: *VkShaderEXT) -> VkResult #expand {
     return vkCreateShadersEXT_dynamic(device, createInfoCount, pCreateInfos, pAllocator, pShaders);
@@ -2942,33 +2744,25 @@ vkCmdBindDescriptorSets2 :: (commandBuffer: VkCommandBuffer, pBindDescriptorSets
     return vkCmdBindDescriptorSets2_dynamic(commandBuffer, pBindDescriptorSetsInfo);
 }
 
-vkCmdBindDescriptorSets2KHR :: () ->  #expand {
-    return vkCmdBindDescriptorSets2KHR_dynamic();
-}
+vkCmdBindDescriptorSets2KHR :: vkCmdBindDescriptorSets2;
 
 vkCmdPushConstants2 :: (commandBuffer: VkCommandBuffer, pPushConstantsInfo: *VkPushConstantsInfo) -> void #expand {
     return vkCmdPushConstants2_dynamic(commandBuffer, pPushConstantsInfo);
 }
 
-vkCmdPushConstants2KHR :: () ->  #expand {
-    return vkCmdPushConstants2KHR_dynamic();
-}
+vkCmdPushConstants2KHR :: vkCmdPushConstants2;
 
 vkCmdPushDescriptorSet2 :: (commandBuffer: VkCommandBuffer, pPushDescriptorSetInfo: *VkPushDescriptorSetInfo) -> void #expand {
     return vkCmdPushDescriptorSet2_dynamic(commandBuffer, pPushDescriptorSetInfo);
 }
 
-vkCmdPushDescriptorSet2KHR :: () ->  #expand {
-    return vkCmdPushDescriptorSet2KHR_dynamic();
-}
+vkCmdPushDescriptorSet2KHR :: vkCmdPushDescriptorSet2;
 
 vkCmdPushDescriptorSetWithTemplate2 :: (commandBuffer: VkCommandBuffer, pPushDescriptorSetWithTemplateInfo: *VkPushDescriptorSetWithTemplateInfo) -> void #expand {
     return vkCmdPushDescriptorSetWithTemplate2_dynamic(commandBuffer, pPushDescriptorSetWithTemplateInfo);
 }
 
-vkCmdPushDescriptorSetWithTemplate2KHR :: () ->  #expand {
-    return vkCmdPushDescriptorSetWithTemplate2KHR_dynamic();
-}
+vkCmdPushDescriptorSetWithTemplate2KHR :: vkCmdPushDescriptorSetWithTemplate2;
 
 vkCmdSetDescriptorBufferOffsets2EXT :: (commandBuffer: VkCommandBuffer, pSetDescriptorBufferOffsetsInfo: *VkSetDescriptorBufferOffsetsInfoEXT) -> void #expand {
     return vkCmdSetDescriptorBufferOffsets2EXT_dynamic(commandBuffer, pSetDescriptorBufferOffsetsInfo);
@@ -3002,17 +2796,13 @@ vkCmdSetRenderingAttachmentLocations :: (commandBuffer: VkCommandBuffer, pLocati
     return vkCmdSetRenderingAttachmentLocations_dynamic(commandBuffer, pLocationInfo);
 }
 
-vkCmdSetRenderingAttachmentLocationsKHR :: () ->  #expand {
-    return vkCmdSetRenderingAttachmentLocationsKHR_dynamic();
-}
+vkCmdSetRenderingAttachmentLocationsKHR :: vkCmdSetRenderingAttachmentLocations;
 
 vkCmdSetRenderingInputAttachmentIndices :: (commandBuffer: VkCommandBuffer, pInputAttachmentIndexInfo: *VkRenderingInputAttachmentIndexInfo) -> void #expand {
     return vkCmdSetRenderingInputAttachmentIndices_dynamic(commandBuffer, pInputAttachmentIndexInfo);
 }
 
-vkCmdSetRenderingInputAttachmentIndicesKHR :: () ->  #expand {
-    return vkCmdSetRenderingInputAttachmentIndicesKHR_dynamic();
-}
+vkCmdSetRenderingInputAttachmentIndicesKHR :: vkCmdSetRenderingInputAttachmentIndices;
 
 vkCmdSetDepthClampRangeEXT :: (commandBuffer: VkCommandBuffer, depthClampMode: VkDepthClampModeEXT, pDepthClampRange: *VkDepthClampRangeEXT) -> void #expand {
     return vkCmdSetDepthClampRangeEXT_dynamic(commandBuffer, depthClampMode, pDepthClampRange);

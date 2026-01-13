@@ -1231,23 +1231,29 @@ output_dynamic_functions :: () {
         // The reason I do this is because of enumeration wrapper, if
         // the function is a variable, Jai cannot overload that.
         append(*sb1, f.name);
-        append(*sb1, " :: (");
-        output_function_params(f.params, *sb1);
-        append(*sb1, ") -> ");
-        repeat_string("*", f.number_of_pointer, *sb1);
-        append(*sb1, f.return_type);
-        // Make it a macro so that it should not affect runtime performance.
-        append(*sb1, " #expand {\n");
-        append(*sb1, "    ");
-        append(*sb1, "return "); // Always return, even if it is void.
-        append(*sb1, f.name);
-        append(*sb1, "_dynamic(");
-        for i: 0..f.params.count - 1 {
-            if i append(*sb1, ", ");
-            param := f.params[i];
-            append(*sb1, param.name);
+        append(*sb1, " :: ");
+        if f.alias != "" {
+            append(*sb1, f.alias);
+            append(*sb1, ";\n\n");
+        } else {
+            append(*sb1, "(");
+            output_function_params(f.params, *sb1);
+            append(*sb1, ") -> ");
+            repeat_string("*", f.number_of_pointer, *sb1);
+            append(*sb1, f.return_type);
+            // Make it a macro so that it should not affect runtime performance.
+            append(*sb1, " #expand {\n");
+            append(*sb1, "    ");
+            append(*sb1, "return "); // Always return, even if it is void.
+            append(*sb1, f.name);
+            append(*sb1, "_dynamic(");
+            for i: 0..f.params.count - 1 {
+                if i append(*sb1, ", ");
+                param := f.params[i];
+                append(*sb1, param.name);
+            }
+            append(*sb1, ");\n}\n\n");
         }
-        append(*sb1, ");\n}\n\n");
 
         // Check if the first param is VkDevice, VkInstance or VkPhysicalDevice
         if f.params.count > 0 {
