@@ -82,118 +82,63 @@ VkVideoBeginCodingFlagsKHR :: VkFlags;
 VkVideoEndCodingFlagsKHR :: VkFlags;
 VkVideoDecodeFlagsKHR :: VkFlags;
 VkVideoEncodeRateControlFlagsKHR :: VkFlags;
-VkInstance_T :: struct {}
 VkInstance :: *VkInstance_T;
-VkPhysicalDevice_T :: struct {}
 VkPhysicalDevice :: *VkPhysicalDevice_T;
-VkDevice_T :: struct {}
 VkDevice :: *VkDevice_T;
-VkQueue_T :: struct {}
 VkQueue :: *VkQueue_T;
-VkCommandBuffer_T :: struct {}
 VkCommandBuffer :: *VkCommandBuffer_T;
-VkDeviceMemory_T :: struct {}
 VkDeviceMemory :: *VkDeviceMemory_T;
-VkCommandPool_T :: struct {}
 VkCommandPool :: *VkCommandPool_T;
-VkBuffer_T :: struct {}
 VkBuffer :: *VkBuffer_T;
-VkBufferView_T :: struct {}
 VkBufferView :: *VkBufferView_T;
-VkImage_T :: struct {}
 VkImage :: *VkImage_T;
-VkImageView_T :: struct {}
 VkImageView :: *VkImageView_T;
-VkShaderModule_T :: struct {}
 VkShaderModule :: *VkShaderModule_T;
-VkPipeline_T :: struct {}
 VkPipeline :: *VkPipeline_T;
-VkPipelineLayout_T :: struct {}
 VkPipelineLayout :: *VkPipelineLayout_T;
-VkSampler_T :: struct {}
 VkSampler :: *VkSampler_T;
-VkDescriptorSet_T :: struct {}
 VkDescriptorSet :: *VkDescriptorSet_T;
-VkDescriptorSetLayout_T :: struct {}
 VkDescriptorSetLayout :: *VkDescriptorSetLayout_T;
-VkDescriptorPool_T :: struct {}
 VkDescriptorPool :: *VkDescriptorPool_T;
-VkFence_T :: struct {}
 VkFence :: *VkFence_T;
-VkSemaphore_T :: struct {}
 VkSemaphore :: *VkSemaphore_T;
-VkEvent_T :: struct {}
 VkEvent :: *VkEvent_T;
-VkQueryPool_T :: struct {}
 VkQueryPool :: *VkQueryPool_T;
-VkFramebuffer_T :: struct {}
 VkFramebuffer :: *VkFramebuffer_T;
-VkRenderPass_T :: struct {}
 VkRenderPass :: *VkRenderPass_T;
-VkPipelineCache_T :: struct {}
 VkPipelineCache :: *VkPipelineCache_T;
-VkPipelineBinaryKHR_T :: struct {}
 VkPipelineBinaryKHR :: *VkPipelineBinaryKHR_T;
-VkIndirectCommandsLayoutNV_T :: struct {}
 VkIndirectCommandsLayoutNV :: *VkIndirectCommandsLayoutNV_T;
-VkIndirectCommandsLayoutEXT_T :: struct {}
 VkIndirectCommandsLayoutEXT :: *VkIndirectCommandsLayoutEXT_T;
-VkIndirectExecutionSetEXT_T :: struct {}
 VkIndirectExecutionSetEXT :: *VkIndirectExecutionSetEXT_T;
-VkDescriptorUpdateTemplate_T :: struct {}
 VkDescriptorUpdateTemplate :: *VkDescriptorUpdateTemplate_T;
 VkDescriptorUpdateTemplateKHR :: VkDescriptorUpdateTemplate;
-VkSamplerYcbcrConversion_T :: struct {}
 VkSamplerYcbcrConversion :: *VkSamplerYcbcrConversion_T;
 VkSamplerYcbcrConversionKHR :: VkSamplerYcbcrConversion;
-VkValidationCacheEXT_T :: struct {}
 VkValidationCacheEXT :: *VkValidationCacheEXT_T;
-VkAccelerationStructureKHR_T :: struct {}
 VkAccelerationStructureKHR :: *VkAccelerationStructureKHR_T;
-VkAccelerationStructureNV_T :: struct {}
 VkAccelerationStructureNV :: *VkAccelerationStructureNV_T;
-VkPerformanceConfigurationINTEL_T :: struct {}
 VkPerformanceConfigurationINTEL :: *VkPerformanceConfigurationINTEL_T;
-VkBufferCollectionFUCHSIA_T :: struct {}
 VkBufferCollectionFUCHSIA :: *VkBufferCollectionFUCHSIA_T;
-VkDeferredOperationKHR_T :: struct {}
 VkDeferredOperationKHR :: *VkDeferredOperationKHR_T;
-VkPrivateDataSlot_T :: struct {}
 VkPrivateDataSlot :: *VkPrivateDataSlot_T;
 VkPrivateDataSlotEXT :: VkPrivateDataSlot;
-VkCuModuleNVX_T :: struct {}
 VkCuModuleNVX :: *VkCuModuleNVX_T;
-VkCuFunctionNVX_T :: struct {}
 VkCuFunctionNVX :: *VkCuFunctionNVX_T;
-VkOpticalFlowSessionNV_T :: struct {}
 VkOpticalFlowSessionNV :: *VkOpticalFlowSessionNV_T;
-VkMicromapEXT_T :: struct {}
 VkMicromapEXT :: *VkMicromapEXT_T;
-VkShaderEXT_T :: struct {}
 VkShaderEXT :: *VkShaderEXT_T;
-VkTensorARM_T :: struct {}
 VkTensorARM :: *VkTensorARM_T;
-VkTensorViewARM_T :: struct {}
 VkTensorViewARM :: *VkTensorViewARM_T;
-VkDataGraphPipelineSessionARM_T :: struct {}
 VkDataGraphPipelineSessionARM :: *VkDataGraphPipelineSessionARM_T;
-VkDisplayKHR_T :: struct {}
 VkDisplayKHR :: *VkDisplayKHR_T;
-VkDisplayModeKHR_T :: struct {}
 VkDisplayModeKHR :: *VkDisplayModeKHR_T;
-VkSurfaceKHR_T :: struct {}
 VkSurfaceKHR :: *VkSurfaceKHR_T;
-VkSwapchainKHR_T :: struct {}
 VkSwapchainKHR :: *VkSwapchainKHR_T;
-VkDebugReportCallbackEXT_T :: struct {}
 VkDebugReportCallbackEXT :: *VkDebugReportCallbackEXT_T;
-VkDebugUtilsMessengerEXT_T :: struct {}
 VkDebugUtilsMessengerEXT :: *VkDebugUtilsMessengerEXT_T;
-VkVideoSessionKHR_T :: struct {}
 VkVideoSessionKHR :: *VkVideoSessionKHR_T;
-VkVideoSessionParametersKHR_T :: struct {}
 VkVideoSessionParametersKHR :: *VkVideoSessionParametersKHR_T;
-VkSemaphoreSciSyncPoolNV_T :: struct {}
 VkSemaphoreSciSyncPoolNV :: *VkSemaphoreSciSyncPoolNV_T;
 VkRayTracingInvocationReorderModeNV :: VkRayTracingInvocationReorderModeEXT;
 VkPrivateDataSlotCreateFlagBitsEXT :: VkPrivateDataSlotCreateFlagBits;
@@ -250,9 +195,65 @@ VkPresentScalingFlagBitsEXT :: VkPresentScalingFlagBitsKHR;
 VkPresentGravityFlagBitsEXT :: VkPresentGravityFlagBitsKHR;
 VkMemoryUnmapFlagBitsKHR :: VkMemoryUnmapFlagBits;
 VkDriverIdKHR :: VkDriverId;
-VkCudaModuleNV_T :: struct {}
 VkCudaModuleNV :: *VkCudaModuleNV_T;
-VkCudaFunctionNV_T :: struct {}
 VkCudaFunctionNV :: *VkCudaFunctionNV_T;
-VkExternalComputeQueueNV_T :: struct {}
 VkExternalComputeQueueNV :: *VkExternalComputeQueueNV_T;
+#scope_file
+VkInstance_T :: struct {}
+VkPhysicalDevice_T :: struct {}
+VkDevice_T :: struct {}
+VkQueue_T :: struct {}
+VkCommandBuffer_T :: struct {}
+VkDeviceMemory_T :: struct {}
+VkCommandPool_T :: struct {}
+VkBuffer_T :: struct {}
+VkBufferView_T :: struct {}
+VkImage_T :: struct {}
+VkImageView_T :: struct {}
+VkShaderModule_T :: struct {}
+VkPipeline_T :: struct {}
+VkPipelineLayout_T :: struct {}
+VkSampler_T :: struct {}
+VkDescriptorSet_T :: struct {}
+VkDescriptorSetLayout_T :: struct {}
+VkDescriptorPool_T :: struct {}
+VkFence_T :: struct {}
+VkSemaphore_T :: struct {}
+VkEvent_T :: struct {}
+VkQueryPool_T :: struct {}
+VkFramebuffer_T :: struct {}
+VkRenderPass_T :: struct {}
+VkPipelineCache_T :: struct {}
+VkPipelineBinaryKHR_T :: struct {}
+VkIndirectCommandsLayoutNV_T :: struct {}
+VkIndirectCommandsLayoutEXT_T :: struct {}
+VkIndirectExecutionSetEXT_T :: struct {}
+VkDescriptorUpdateTemplate_T :: struct {}
+VkSamplerYcbcrConversion_T :: struct {}
+VkValidationCacheEXT_T :: struct {}
+VkAccelerationStructureKHR_T :: struct {}
+VkAccelerationStructureNV_T :: struct {}
+VkPerformanceConfigurationINTEL_T :: struct {}
+VkBufferCollectionFUCHSIA_T :: struct {}
+VkDeferredOperationKHR_T :: struct {}
+VkPrivateDataSlot_T :: struct {}
+VkCuModuleNVX_T :: struct {}
+VkCuFunctionNVX_T :: struct {}
+VkOpticalFlowSessionNV_T :: struct {}
+VkMicromapEXT_T :: struct {}
+VkShaderEXT_T :: struct {}
+VkTensorARM_T :: struct {}
+VkTensorViewARM_T :: struct {}
+VkDataGraphPipelineSessionARM_T :: struct {}
+VkDisplayKHR_T :: struct {}
+VkDisplayModeKHR_T :: struct {}
+VkSurfaceKHR_T :: struct {}
+VkSwapchainKHR_T :: struct {}
+VkDebugReportCallbackEXT_T :: struct {}
+VkDebugUtilsMessengerEXT_T :: struct {}
+VkVideoSessionKHR_T :: struct {}
+VkVideoSessionParametersKHR_T :: struct {}
+VkSemaphoreSciSyncPoolNV_T :: struct {}
+VkCudaModuleNV_T :: struct {}
+VkCudaFunctionNV_T :: struct {}
+VkExternalComputeQueueNV_T :: struct {}

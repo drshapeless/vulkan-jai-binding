@@ -798,12 +798,14 @@ clean_parameter_name :: (s: string) -> string {
 
 output_types :: () {
     sb: String_Builder;
+    sb_file: String_Builder;
+    append(*sb_file, "#scope_file\n");
 
     for t : vk_types {
         using t;
         if type == "handle" {
-            append(*sb, name);
-            append(*sb, "_T :: struct {}\n");
+            append(*sb_file, name);
+            append(*sb_file, "_T :: struct {}\n");
             append(*sb, name);
             append(*sb, " :: *");
             append(*sb, name);
@@ -827,6 +829,8 @@ output_types :: () {
             append(*sb, ";\n");
         }
     }
+
+    append_and_steal_buffers(*sb, *sb_file);
 
     write_entire_file("types.jai", *sb);
 }
