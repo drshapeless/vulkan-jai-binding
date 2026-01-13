@@ -52,6 +52,7 @@ generate :: () {
     } else {
         output_functions();
     }
+    output_enumeration_wrapper();
 
     output_module();
 
@@ -936,35 +937,32 @@ output_structures :: () {
     write_entire_file("structures.jai", *sb);
 }
 
+output_function_param :: (param: VK_Function_Param, sb: *String_Builder) {
+    append(sb, param.name);
+    append(sb, ": ");
+
+    repeat_string("*", param.number_of_pointer, sb);
+
+    if param.array_prefix.count > 0 {
+        append(sb, "/* ");
+        append(sb, param.array_prefix);
+        append(sb, " */");
+        // In Jai, we cannot pass fixed-size array arguments to
+        // function. Treat it as a pointer instead. However, in
+        // some rare case that the function accept 2D array, I am
+        // fucked. I have yet to see such a thing in vk.xml til
+        // now, 2025 Sep 4, drshapeless
+        append(sb, "*");
+    }
+    append(sb, param.type);
+}
+
 output_function_params :: (params: []VK_Function_Param, sb: *String_Builder) {
-    is_beginning := true;
-    for param : params {
-        if is_beginning {
-            is_beginning = false;
-        } else {
-            append(sb, ", ");
-        }
-        append(sb, param.name);
-        append(sb, ": ");
+    for i: 0..params.count - 1 {
+        if i append(sb, ", ");
 
-        n := param.number_of_pointer;
-        while n > 0 {
-            append(sb, "*");
-            n -= 1;
-        }
-
-        if param.array_prefix.count > 0 {
-            append(sb, "/* ");
-            append(sb, param.array_prefix);
-            append(sb, " */");
-            // In Jai, we cannot pass fixed-size array arguments to
-            // function. Treat it as a pointer instead. However, in
-            // some rare case that the function accept 2D array, I am
-            // fucked. I have yet to see such a thing in vk.xml til
-            // now, 2025 Sep 4, drshapeless
-            append(sb, "*");
-        }
-        append(sb, param.type);
+        param := params[i];
+        output_function_param(param, sb);
     }
 }
 
@@ -1462,6 +1460,7 @@ VkDeviceAddress   :: u64;
 #load "unions.jai";
 #load "function_pointers.jai";
 #load "video.jai";
+#load "enumeration_wrapper.jai";
 DONE
 
 MODULE_DYNAMIC_STRING :: #string DONE
@@ -1543,6 +1542,89 @@ output_module :: () {
     }
 
     write_entire_file("module.jai", *sb);
+}
+
+output_enumeration_wrapper :: () {
+    sb: String_Builder;
+
+    for func: vk_functions {
+        if func.alias != "" continue;
+
+        if func.params.count < 2 continue;
+        count_param := func.params[func.params.count - 2];
+        data_param := func.params[func.params.count - 1];
+
+        if count_param.number_of_pointer != 1 || count_param.type != "u32" continue;
+        if data_param.number_of_pointer == 0 continue;
+
+        has_return_value := func.return_type != "";
+        if has_return_value && func.return_type != "VkResult" continue;
+
+        print_to_builder(*sb, "% :: (", func.name);
+
+        for i: 0..func.params.count - 3 {
+            if i append(*sb, ", ");
+            param := func.params[i];
+            output_function_param(param, *sb);
+        }
+        append(*sb, ") -> [] ");
+        append(*sb, data_param.type);
+
+        if has_return_value {
+            append(*sb, ", VkResult");
+        }
+
+        append(*sb, " {\n");
+        append(*sb, "    count: u32;\n    data: [] ");
+        append(*sb, data_param.type);
+        append(*sb, ";\n");
+
+        if has_return_value {
+            append(*sb, "    result: VkResult;\n");
+        }
+
+        print_call :: () #expand {
+            append(*sb, "    ");
+            if has_return_value {
+                append(*sb, "result = ");
+            }
+
+            print_to_builder(*sb, "%(", func.name);
+
+            for 0..func.params.count - 3 {
+                param := func.params[it];
+                print_to_builder(*sb, "%, ", param.name);
+            }
+
+            append(*sb, "*count, data.data);\n");
+        }
+
+        print_call();
+
+        if has_return_value {
+            append(*sb, "    if result return .[], result;\n");
+        }
+
+        append(*sb, "    if count == 0 return .[]");
+        if has_return_value {
+            append(*sb, ", .SUCCESS");
+        }
+        append(*sb, ";\n");
+
+        append(*sb, "    data = NewArray(count, ");
+        append(*sb, data_param.type);
+        append(*sb, ", initialized = false);\n");
+
+        print_call();
+
+        append(*sb, "    return data");
+        if has_return_value {
+            append(*sb, ", result");
+        }
+        append(*sb, ";\n}\n\n");
+    }
+
+    write_entire_file("enumeration_wrapper.jai", *sb);
 }
 
 #import,dir "XML";
