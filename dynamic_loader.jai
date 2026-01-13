@@ -798,7 +798,7 @@ vkDebugUtilsMessengerCallbackEXT : PFN_vkDebugUtilsMessengerCallbackEXT;
 
 #scope_export
 vk_load_global_functions :: (vk_get_instance_proc_addr: *void) {
-    vkGetInstanceProcAddr = xx vk_get_instance_proc_addr;
+    vkGetInstanceProcAddr_dynamic = xx vk_get_instance_proc_addr;
 
     vkCreateInstance_dynamic                       = xx vkGetInstanceProcAddr(null, "vkCreateInstance");
     vkEnumerateInstanceVersion_dynamic             = xx vkGetInstanceProcAddr(null, "vkEnumerateInstanceVersion");

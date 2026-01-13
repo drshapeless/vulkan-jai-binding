@@ -1290,7 +1290,7 @@ output_dynamic_functions :: () {
 
     append(*sb0, "\n#scope_export\n");
     append(*sb0, "vk_load_global_functions :: (vk_get_instance_proc_addr: *void) {\n");
-    append(*sb0, "    vkGetInstanceProcAddr = xx vk_get_instance_proc_addr;\n\n");
+    append(*sb0, "    vkGetInstanceProcAddr_dynamic = xx vk_get_instance_proc_addr;\n\n");
     align_pos := longest_string(global_func);
     for f : global_func {
         append(*sb0, "    ");
