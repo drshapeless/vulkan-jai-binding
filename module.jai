@@ -97,5 +97,5 @@ VkDeviceAddress   :: u64;
 #load "video.jai";
 #load "enumeration_wrapper.jai";
 #load "functions.jai";
-#load "dynamic_functions.jai";
-#load "dynamic_loader.jai";
+#scope_file
+#import "Basic";

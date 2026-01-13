@@ -1230,6 +1230,11 @@ output_dynamic_functions :: () {
         //
         // The reason I do this is because of enumeration wrapper, if
         // the function is a variable, Jai cannot overload that.
+        //
+        // I am making a dummy #c_call function to call the actual
+        // dynamic function. I am not sure whether doing in this way
+        // will compromise performance. But this can hide the _dynamic
+        // functions from polluting user.
         append(*sb1, f.name);
         append(*sb1, " :: ");
         if f.alias != "" {
@@ -1241,10 +1246,11 @@ output_dynamic_functions :: () {
             append(*sb1, ") -> ");
             repeat_string("*", f.number_of_pointer, *sb1);
             append(*sb1, f.return_type);
-            // Make it a macro so that it should not affect runtime performance.
-            append(*sb1, " #expand {\n");
+            append(*sb1, " #c_call {\n");
             append(*sb1, "    ");
-            append(*sb1, "return "); // Always return, even if it is void.
+            if f.return_type != "void" {
+                append(*sb1, "return ");
+            }
             append(*sb1, f.name);
             append(*sb1, "_dynamic(");
             for i: 0..f.params.count - 1 {
@@ -1335,9 +1341,9 @@ output_dynamic_functions :: () {
     }
     append(*sb0, "}\n");
 
-    write_entire_file("dynamic_functions.jai", *sb);
-    write_entire_file("dynamic_loader.jai", *sb0);
-    write_entire_file("functions.jai", *sb1);
+    append_and_steal_buffers(*sb, *sb0);
+    append_and_steal_buffers(*sb, *sb1);
+    write_entire_file("functions.jai", *sb);
 }
 
 longest_string :: (ss: []string) -> int {
@@ -1506,11 +1512,8 @@ VkDeviceAddress   :: u64;
 #load "video.jai";
 #load "enumeration_wrapper.jai";
 #load "functions.jai";
-DONE
-
-MODULE_DYNAMIC_STRING :: #string DONE
-#load "dynamic_functions.jai";
-#load "dynamic_loader.jai";
+#scope_file
+#import "Basic";
 DONE
 
 MODULE_EXTERNAL_TYPE :: #string DONE
@@ -1577,10 +1580,6 @@ output_module :: () {
     append(*sb, MODULE_EXTERNAL_TYPE);
 
     append(*sb, MODULE_COMMON_STRING);
-
-    #if DYNAMIC_LOADER {
-        append(*sb, MODULE_DYNAMIC_STRING);
-    }
 
     write_entire_file("module.jai", *sb);
 }
