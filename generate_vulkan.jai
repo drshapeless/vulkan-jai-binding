@@ -1573,12 +1573,14 @@ output_enumeration_wrapper :: () {
             param := func.params[i];
             output_function_param(param, *sb);
         }
-        append(*sb, ") -> [] ");
+        append(*sb, ") -> ");
+        if has_return_value {
+            append(*sb, "VkResult, ");
+        }
+
+        append(*sb, "[] ");
         append(*sb, data_param.type);
 
-        if has_return_value {
-            append(*sb, ", VkResult");
-        }
 
         append(*sb, " {\n");
         append(*sb, "    count: u32;\n    data: [] ");
@@ -1608,14 +1610,14 @@ output_enumeration_wrapper :: () {
         print_call();
 
         if has_return_value {
-            append(*sb, "    if result return .[], result;\n");
+            append(*sb, "    if result return result, .[];\n");
         }
 
-        append(*sb, "    if count == 0 return .[]");
+        append(*sb, "    if count == 0 return ");
         if has_return_value {
-            append(*sb, ", .SUCCESS");
+            append(*sb, ".SUCCESS, ");
         }
-        append(*sb, ";\n");
+        append(*sb, ".[];\n");
 
         append(*sb, "    data = NewArray(count, ");
         append(*sb, data_param.type);
@@ -1623,11 +1625,11 @@ output_enumeration_wrapper :: () {
 
         print_call();
 
-        append(*sb, "    return data");
+        append(*sb, "    return ");
         if has_return_value {
-            append(*sb, ", result");
+            append(*sb, "result, ");
         }
-        append(*sb, ";\n}\n\n");
+        append(*sb, "data;\n}\n\n");
     }
 
     write_entire_file("enumeration_wrapper.jai", *sb);

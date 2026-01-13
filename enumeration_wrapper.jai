@@ -1,480 +1,480 @@
-vkEnumeratePhysicalDevices :: (instance: VkInstance) -> [] VkPhysicalDevice, VkResult {
+vkEnumeratePhysicalDevices :: (instance: VkInstance) -> VkResult, [] VkPhysicalDevice {
     count: u32;
     data: [] VkPhysicalDevice;
     result: VkResult;
     result = vkEnumeratePhysicalDevices(instance, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPhysicalDevice, initialized = false);
     result = vkEnumeratePhysicalDevices(instance, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkEnumerateInstanceLayerProperties :: () -> [] VkLayerProperties, VkResult {
+vkEnumerateInstanceLayerProperties :: () -> VkResult, [] VkLayerProperties {
     count: u32;
     data: [] VkLayerProperties;
     result: VkResult;
     result = vkEnumerateInstanceLayerProperties(*count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkLayerProperties, initialized = false);
     result = vkEnumerateInstanceLayerProperties(*count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkEnumerateInstanceExtensionProperties :: (pLayerName: *u8) -> [] VkExtensionProperties, VkResult {
+vkEnumerateInstanceExtensionProperties :: (pLayerName: *u8) -> VkResult, [] VkExtensionProperties {
     count: u32;
     data: [] VkExtensionProperties;
     result: VkResult;
     result = vkEnumerateInstanceExtensionProperties(pLayerName, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkExtensionProperties, initialized = false);
     result = vkEnumerateInstanceExtensionProperties(pLayerName, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkEnumerateDeviceLayerProperties :: (physicalDevice: VkPhysicalDevice) -> [] VkLayerProperties, VkResult {
+vkEnumerateDeviceLayerProperties :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkLayerProperties {
     count: u32;
     data: [] VkLayerProperties;
     result: VkResult;
     result = vkEnumerateDeviceLayerProperties(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkLayerProperties, initialized = false);
     result = vkEnumerateDeviceLayerProperties(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkEnumerateDeviceExtensionProperties :: (physicalDevice: VkPhysicalDevice, pLayerName: *u8) -> [] VkExtensionProperties, VkResult {
+vkEnumerateDeviceExtensionProperties :: (physicalDevice: VkPhysicalDevice, pLayerName: *u8) -> VkResult, [] VkExtensionProperties {
     count: u32;
     data: [] VkExtensionProperties;
     result: VkResult;
     result = vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkExtensionProperties, initialized = false);
     result = vkEnumerateDeviceExtensionProperties(physicalDevice, pLayerName, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceDisplayPropertiesKHR :: (physicalDevice: VkPhysicalDevice) -> [] VkDisplayPropertiesKHR, VkResult {
+vkGetPhysicalDeviceDisplayPropertiesKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkDisplayPropertiesKHR {
     count: u32;
     data: [] VkDisplayPropertiesKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDisplayPropertiesKHR, initialized = false);
     result = vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceDisplayPlanePropertiesKHR :: (physicalDevice: VkPhysicalDevice) -> [] VkDisplayPlanePropertiesKHR, VkResult {
+vkGetPhysicalDeviceDisplayPlanePropertiesKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkDisplayPlanePropertiesKHR {
     count: u32;
     data: [] VkDisplayPlanePropertiesKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDisplayPlanePropertiesKHR, initialized = false);
     result = vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetDisplayPlaneSupportedDisplaysKHR :: (physicalDevice: VkPhysicalDevice, planeIndex: u32) -> [] VkDisplayKHR, VkResult {
+vkGetDisplayPlaneSupportedDisplaysKHR :: (physicalDevice: VkPhysicalDevice, planeIndex: u32) -> VkResult, [] VkDisplayKHR {
     count: u32;
     data: [] VkDisplayKHR;
     result: VkResult;
     result = vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDisplayKHR, initialized = false);
     result = vkGetDisplayPlaneSupportedDisplaysKHR(physicalDevice, planeIndex, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetDisplayModePropertiesKHR :: (physicalDevice: VkPhysicalDevice, display: VkDisplayKHR) -> [] VkDisplayModePropertiesKHR, VkResult {
+vkGetDisplayModePropertiesKHR :: (physicalDevice: VkPhysicalDevice, display: VkDisplayKHR) -> VkResult, [] VkDisplayModePropertiesKHR {
     count: u32;
     data: [] VkDisplayModePropertiesKHR;
     result: VkResult;
     result = vkGetDisplayModePropertiesKHR(physicalDevice, display, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDisplayModePropertiesKHR, initialized = false);
     result = vkGetDisplayModePropertiesKHR(physicalDevice, display, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceSurfaceFormatsKHR :: (physicalDevice: VkPhysicalDevice, surface: VkSurfaceKHR) -> [] VkSurfaceFormatKHR, VkResult {
+vkGetPhysicalDeviceSurfaceFormatsKHR :: (physicalDevice: VkPhysicalDevice, surface: VkSurfaceKHR) -> VkResult, [] VkSurfaceFormatKHR {
     count: u32;
     data: [] VkSurfaceFormatKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkSurfaceFormatKHR, initialized = false);
     result = vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceSurfacePresentModesKHR :: (physicalDevice: VkPhysicalDevice, surface: VkSurfaceKHR) -> [] VkPresentModeKHR, VkResult {
+vkGetPhysicalDeviceSurfacePresentModesKHR :: (physicalDevice: VkPhysicalDevice, surface: VkSurfaceKHR) -> VkResult, [] VkPresentModeKHR {
     count: u32;
     data: [] VkPresentModeKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPresentModeKHR, initialized = false);
     result = vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetSwapchainImagesKHR :: (device: VkDevice, swapchain: VkSwapchainKHR) -> [] VkImage, VkResult {
+vkGetSwapchainImagesKHR :: (device: VkDevice, swapchain: VkSwapchainKHR) -> VkResult, [] VkImage {
     count: u32;
     data: [] VkImage;
     result: VkResult;
     result = vkGetSwapchainImagesKHR(device, swapchain, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkImage, initialized = false);
     result = vkGetSwapchainImagesKHR(device, swapchain, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkEnumeratePhysicalDeviceGroups :: (instance: VkInstance) -> [] VkPhysicalDeviceGroupProperties, VkResult {
+vkEnumeratePhysicalDeviceGroups :: (instance: VkInstance) -> VkResult, [] VkPhysicalDeviceGroupProperties {
     count: u32;
     data: [] VkPhysicalDeviceGroupProperties;
     result: VkResult;
     result = vkEnumeratePhysicalDeviceGroups(instance, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPhysicalDeviceGroupProperties, initialized = false);
     result = vkEnumeratePhysicalDeviceGroups(instance, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDevicePresentRectanglesKHR :: (physicalDevice: VkPhysicalDevice, surface: VkSurfaceKHR) -> [] VkRect2D, VkResult {
+vkGetPhysicalDevicePresentRectanglesKHR :: (physicalDevice: VkPhysicalDevice, surface: VkSurfaceKHR) -> VkResult, [] VkRect2D {
     count: u32;
     data: [] VkRect2D;
     result: VkResult;
     result = vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkRect2D, initialized = false);
     result = vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice, surface, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPastPresentationTimingGOOGLE :: (device: VkDevice, swapchain: VkSwapchainKHR) -> [] VkPastPresentationTimingGOOGLE, VkResult {
+vkGetPastPresentationTimingGOOGLE :: (device: VkDevice, swapchain: VkSwapchainKHR) -> VkResult, [] VkPastPresentationTimingGOOGLE {
     count: u32;
     data: [] VkPastPresentationTimingGOOGLE;
     result: VkResult;
     result = vkGetPastPresentationTimingGOOGLE(device, swapchain, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPastPresentationTimingGOOGLE, initialized = false);
     result = vkGetPastPresentationTimingGOOGLE(device, swapchain, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceSurfaceFormats2KHR :: (physicalDevice: VkPhysicalDevice, pSurfaceInfo: *VkPhysicalDeviceSurfaceInfo2KHR) -> [] VkSurfaceFormat2KHR, VkResult {
+vkGetPhysicalDeviceSurfaceFormats2KHR :: (physicalDevice: VkPhysicalDevice, pSurfaceInfo: *VkPhysicalDeviceSurfaceInfo2KHR) -> VkResult, [] VkSurfaceFormat2KHR {
     count: u32;
     data: [] VkSurfaceFormat2KHR;
     result: VkResult;
     result = vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkSurfaceFormat2KHR, initialized = false);
     result = vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice, pSurfaceInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceDisplayProperties2KHR :: (physicalDevice: VkPhysicalDevice) -> [] VkDisplayProperties2KHR, VkResult {
+vkGetPhysicalDeviceDisplayProperties2KHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkDisplayProperties2KHR {
     count: u32;
     data: [] VkDisplayProperties2KHR;
     result: VkResult;
     result = vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDisplayProperties2KHR, initialized = false);
     result = vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceDisplayPlaneProperties2KHR :: (physicalDevice: VkPhysicalDevice) -> [] VkDisplayPlaneProperties2KHR, VkResult {
+vkGetPhysicalDeviceDisplayPlaneProperties2KHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkDisplayPlaneProperties2KHR {
     count: u32;
     data: [] VkDisplayPlaneProperties2KHR;
     result: VkResult;
     result = vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDisplayPlaneProperties2KHR, initialized = false);
     result = vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetDisplayModeProperties2KHR :: (physicalDevice: VkPhysicalDevice, display: VkDisplayKHR) -> [] VkDisplayModeProperties2KHR, VkResult {
+vkGetDisplayModeProperties2KHR :: (physicalDevice: VkPhysicalDevice, display: VkDisplayKHR) -> VkResult, [] VkDisplayModeProperties2KHR {
     count: u32;
     data: [] VkDisplayModeProperties2KHR;
     result: VkResult;
     result = vkGetDisplayModeProperties2KHR(physicalDevice, display, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDisplayModeProperties2KHR, initialized = false);
     result = vkGetDisplayModeProperties2KHR(physicalDevice, display, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR :: (physicalDevice: VkPhysicalDevice) -> [] VkTimeDomainKHR, VkResult {
+vkGetPhysicalDeviceCalibrateableTimeDomainsKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkTimeDomainKHR {
     count: u32;
     data: [] VkTimeDomainKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkTimeDomainKHR, initialized = false);
     result = vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceCooperativeMatrixPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> [] VkCooperativeMatrixPropertiesNV, VkResult {
+vkGetPhysicalDeviceCooperativeMatrixPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkCooperativeMatrixPropertiesNV {
     count: u32;
     data: [] VkCooperativeMatrixPropertiesNV;
     result: VkResult;
     result = vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkCooperativeMatrixPropertiesNV, initialized = false);
     result = vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceSurfacePresentModes2EXT :: (physicalDevice: VkPhysicalDevice, pSurfaceInfo: *VkPhysicalDeviceSurfaceInfo2KHR) -> [] VkPresentModeKHR, VkResult {
+vkGetPhysicalDeviceSurfacePresentModes2EXT :: (physicalDevice: VkPhysicalDevice, pSurfaceInfo: *VkPhysicalDeviceSurfaceInfo2KHR) -> VkResult, [] VkPresentModeKHR {
     count: u32;
     data: [] VkPresentModeKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPresentModeKHR, initialized = false);
     result = vkGetPhysicalDeviceSurfacePresentModes2EXT(physicalDevice, pSurfaceInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV :: (physicalDevice: VkPhysicalDevice) -> [] VkFramebufferMixedSamplesCombinationNV, VkResult {
+vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkFramebufferMixedSamplesCombinationNV {
     count: u32;
     data: [] VkFramebufferMixedSamplesCombinationNV;
     result: VkResult;
     result = vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkFramebufferMixedSamplesCombinationNV, initialized = false);
     result = vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPipelineExecutablePropertiesKHR :: (device: VkDevice, pPipelineInfo: *VkPipelineInfoKHR) -> [] VkPipelineExecutablePropertiesKHR, VkResult {
+vkGetPipelineExecutablePropertiesKHR :: (device: VkDevice, pPipelineInfo: *VkPipelineInfoKHR) -> VkResult, [] VkPipelineExecutablePropertiesKHR {
     count: u32;
     data: [] VkPipelineExecutablePropertiesKHR;
     result: VkResult;
     result = vkGetPipelineExecutablePropertiesKHR(device, pPipelineInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPipelineExecutablePropertiesKHR, initialized = false);
     result = vkGetPipelineExecutablePropertiesKHR(device, pPipelineInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPipelineExecutableStatisticsKHR :: (device: VkDevice, pExecutableInfo: *VkPipelineExecutableInfoKHR) -> [] VkPipelineExecutableStatisticKHR, VkResult {
+vkGetPipelineExecutableStatisticsKHR :: (device: VkDevice, pExecutableInfo: *VkPipelineExecutableInfoKHR) -> VkResult, [] VkPipelineExecutableStatisticKHR {
     count: u32;
     data: [] VkPipelineExecutableStatisticKHR;
     result: VkResult;
     result = vkGetPipelineExecutableStatisticsKHR(device, pExecutableInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPipelineExecutableStatisticKHR, initialized = false);
     result = vkGetPipelineExecutableStatisticsKHR(device, pExecutableInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPipelineExecutableInternalRepresentationsKHR :: (device: VkDevice, pExecutableInfo: *VkPipelineExecutableInfoKHR) -> [] VkPipelineExecutableInternalRepresentationKHR, VkResult {
+vkGetPipelineExecutableInternalRepresentationsKHR :: (device: VkDevice, pExecutableInfo: *VkPipelineExecutableInfoKHR) -> VkResult, [] VkPipelineExecutableInternalRepresentationKHR {
     count: u32;
     data: [] VkPipelineExecutableInternalRepresentationKHR;
     result: VkResult;
     result = vkGetPipelineExecutableInternalRepresentationsKHR(device, pExecutableInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPipelineExecutableInternalRepresentationKHR, initialized = false);
     result = vkGetPipelineExecutableInternalRepresentationsKHR(device, pExecutableInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetFaultData :: (device: VkDevice, faultQueryBehavior: VkFaultQueryBehavior, pUnrecordedFaults: *VkBool32) -> [] VkFaultData, VkResult {
+vkGetFaultData :: (device: VkDevice, faultQueryBehavior: VkFaultQueryBehavior, pUnrecordedFaults: *VkBool32) -> VkResult, [] VkFaultData {
     count: u32;
     data: [] VkFaultData;
     result: VkResult;
     result = vkGetFaultData(device, faultQueryBehavior, pUnrecordedFaults, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkFaultData, initialized = false);
     result = vkGetFaultData(device, faultQueryBehavior, pUnrecordedFaults, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceToolProperties :: (physicalDevice: VkPhysicalDevice) -> [] VkPhysicalDeviceToolProperties, VkResult {
+vkGetPhysicalDeviceToolProperties :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkPhysicalDeviceToolProperties {
     count: u32;
     data: [] VkPhysicalDeviceToolProperties;
     result: VkResult;
     result = vkGetPhysicalDeviceToolProperties(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPhysicalDeviceToolProperties, initialized = false);
     result = vkGetPhysicalDeviceToolProperties(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceRefreshableObjectTypesKHR :: (physicalDevice: VkPhysicalDevice) -> [] VkObjectType, VkResult {
+vkGetPhysicalDeviceRefreshableObjectTypesKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkObjectType {
     count: u32;
     data: [] VkObjectType;
     result: VkResult;
     result = vkGetPhysicalDeviceRefreshableObjectTypesKHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkObjectType, initialized = false);
     result = vkGetPhysicalDeviceRefreshableObjectTypesKHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceFragmentShadingRatesKHR :: (physicalDevice: VkPhysicalDevice) -> [] VkPhysicalDeviceFragmentShadingRateKHR, VkResult {
+vkGetPhysicalDeviceFragmentShadingRatesKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkPhysicalDeviceFragmentShadingRateKHR {
     count: u32;
     data: [] VkPhysicalDeviceFragmentShadingRateKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkPhysicalDeviceFragmentShadingRateKHR, initialized = false);
     result = vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceVideoFormatPropertiesKHR :: (physicalDevice: VkPhysicalDevice, pVideoFormatInfo: *VkPhysicalDeviceVideoFormatInfoKHR) -> [] VkVideoFormatPropertiesKHR, VkResult {
+vkGetPhysicalDeviceVideoFormatPropertiesKHR :: (physicalDevice: VkPhysicalDevice, pVideoFormatInfo: *VkPhysicalDeviceVideoFormatInfoKHR) -> VkResult, [] VkVideoFormatPropertiesKHR {
     count: u32;
     data: [] VkVideoFormatPropertiesKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceVideoFormatPropertiesKHR(physicalDevice, pVideoFormatInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkVideoFormatPropertiesKHR, initialized = false);
     result = vkGetPhysicalDeviceVideoFormatPropertiesKHR(physicalDevice, pVideoFormatInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetVideoSessionMemoryRequirementsKHR :: (device: VkDevice, videoSession: VkVideoSessionKHR) -> [] VkVideoSessionMemoryRequirementsKHR, VkResult {
+vkGetVideoSessionMemoryRequirementsKHR :: (device: VkDevice, videoSession: VkVideoSessionKHR) -> VkResult, [] VkVideoSessionMemoryRequirementsKHR {
     count: u32;
     data: [] VkVideoSessionMemoryRequirementsKHR;
     result: VkResult;
     result = vkGetVideoSessionMemoryRequirementsKHR(device, videoSession, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkVideoSessionMemoryRequirementsKHR, initialized = false);
     result = vkGetVideoSessionMemoryRequirementsKHR(device, videoSession, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetFramebufferTilePropertiesQCOM :: (device: VkDevice, framebuffer: VkFramebuffer) -> [] VkTilePropertiesQCOM, VkResult {
+vkGetFramebufferTilePropertiesQCOM :: (device: VkDevice, framebuffer: VkFramebuffer) -> VkResult, [] VkTilePropertiesQCOM {
     count: u32;
     data: [] VkTilePropertiesQCOM;
     result: VkResult;
     result = vkGetFramebufferTilePropertiesQCOM(device, framebuffer, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkTilePropertiesQCOM, initialized = false);
     result = vkGetFramebufferTilePropertiesQCOM(device, framebuffer, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceOpticalFlowImageFormatsNV :: (physicalDevice: VkPhysicalDevice, pOpticalFlowImageFormatInfo: *VkOpticalFlowImageFormatInfoNV) -> [] VkOpticalFlowImageFormatPropertiesNV, VkResult {
+vkGetPhysicalDeviceOpticalFlowImageFormatsNV :: (physicalDevice: VkPhysicalDevice, pOpticalFlowImageFormatInfo: *VkOpticalFlowImageFormatInfoNV) -> VkResult, [] VkOpticalFlowImageFormatPropertiesNV {
     count: u32;
     data: [] VkOpticalFlowImageFormatPropertiesNV;
     result: VkResult;
     result = vkGetPhysicalDeviceOpticalFlowImageFormatsNV(physicalDevice, pOpticalFlowImageFormatInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkOpticalFlowImageFormatPropertiesNV, initialized = false);
     result = vkGetPhysicalDeviceOpticalFlowImageFormatsNV(physicalDevice, pOpticalFlowImageFormatInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR :: (physicalDevice: VkPhysicalDevice) -> [] VkCooperativeMatrixPropertiesKHR, VkResult {
+vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkCooperativeMatrixPropertiesKHR {
     count: u32;
     data: [] VkCooperativeMatrixPropertiesKHR;
     result: VkResult;
     result = vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkCooperativeMatrixPropertiesKHR, initialized = false);
     result = vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> [] VkCooperativeMatrixFlexibleDimensionsPropertiesNV, VkResult {
+vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkCooperativeMatrixFlexibleDimensionsPropertiesNV {
     count: u32;
     data: [] VkCooperativeMatrixFlexibleDimensionsPropertiesNV;
     result: VkResult;
     result = vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkCooperativeMatrixFlexibleDimensionsPropertiesNV, initialized = false);
     result = vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceCooperativeVectorPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> [] VkCooperativeVectorPropertiesNV, VkResult {
+vkGetPhysicalDeviceCooperativeVectorPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkCooperativeVectorPropertiesNV {
     count: u32;
     data: [] VkCooperativeVectorPropertiesNV;
     result: VkResult;
     result = vkGetPhysicalDeviceCooperativeVectorPropertiesNV(physicalDevice, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkCooperativeVectorPropertiesNV, initialized = false);
     result = vkGetPhysicalDeviceCooperativeVectorPropertiesNV(physicalDevice, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetDataGraphPipelineSessionBindPointRequirementsARM :: (device: VkDevice, pInfo: *VkDataGraphPipelineSessionBindPointRequirementsInfoARM) -> [] VkDataGraphPipelineSessionBindPointRequirementARM, VkResult {
+vkGetDataGraphPipelineSessionBindPointRequirementsARM :: (device: VkDevice, pInfo: *VkDataGraphPipelineSessionBindPointRequirementsInfoARM) -> VkResult, [] VkDataGraphPipelineSessionBindPointRequirementARM {
     count: u32;
     data: [] VkDataGraphPipelineSessionBindPointRequirementARM;
     result: VkResult;
     result = vkGetDataGraphPipelineSessionBindPointRequirementsARM(device, pInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDataGraphPipelineSessionBindPointRequirementARM, initialized = false);
     result = vkGetDataGraphPipelineSessionBindPointRequirementsARM(device, pInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetDataGraphPipelineAvailablePropertiesARM :: (device: VkDevice, pPipelineInfo: *VkDataGraphPipelineInfoARM) -> [] VkDataGraphPipelinePropertyARM, VkResult {
+vkGetDataGraphPipelineAvailablePropertiesARM :: (device: VkDevice, pPipelineInfo: *VkDataGraphPipelineInfoARM) -> VkResult, [] VkDataGraphPipelinePropertyARM {
     count: u32;
     data: [] VkDataGraphPipelinePropertyARM;
     result: VkResult;
     result = vkGetDataGraphPipelineAvailablePropertiesARM(device, pPipelineInfo, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkDataGraphPipelinePropertyARM, initialized = false);
     result = vkGetDataGraphPipelineAvailablePropertiesARM(device, pPipelineInfo, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
-vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM :: (physicalDevice: VkPhysicalDevice, queueFamilyIndex: u32) -> [] VkQueueFamilyDataGraphPropertiesARM, VkResult {
+vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM :: (physicalDevice: VkPhysicalDevice, queueFamilyIndex: u32) -> VkResult, [] VkQueueFamilyDataGraphPropertiesARM {
     count: u32;
     data: [] VkQueueFamilyDataGraphPropertiesARM;
     result: VkResult;
     result = vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM(physicalDevice, queueFamilyIndex, *count, data.data);
-    if result return .[], result;
-    if count == 0 return .[], .SUCCESS;
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
     data = NewArray(count, VkQueueFamilyDataGraphPropertiesARM, initialized = false);
     result = vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM(physicalDevice, queueFamilyIndex, *count, data.data);
-    return data, result;
+    return result, data;
 }
 
