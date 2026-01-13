@@ -1193,10 +1193,13 @@ output_constants :: () {
 output_dynamic_functions :: () {
     sb: String_Builder;
     sb0: String_Builder;
+    sb1: String_Builder;
 
     device_func   : [..]string;
     instance_func : [..]string;
     global_func   : [..]string;
+
+    append(*sb0, "#scope_file\n");
 
     for f : vk_functions {
         // This part generate function pointer.
@@ -1218,9 +1221,33 @@ output_dynamic_functions :: () {
 
         // This part generate loader.
         append(*sb0, f.name);
+        append(*sb0, "_dynamic"); // Add a suffix to facilitate overloading
         append(*sb0, " : PFN_");
         append(*sb0, f.name);
         append(*sb0, ";\n");
+
+        // This generate a dumb function to call the real dynamic function.
+        //
+        // The reason I do this is because of enumeration wrapper, if
+        // the function is a variable, Jai cannot overload that.
+        append(*sb1, f.name);
+        append(*sb1, " :: (");
+        output_function_params(f.params, *sb1);
+        append(*sb1, ") -> ");
+        repeat_string("*", f.number_of_pointer, *sb1);
+        append(*sb1, f.return_type);
+        // Make it a macro so that it should not affect runtime performance.
+        append(*sb1, " #expand {\n");
+        append(*sb1, "    ");
+        append(*sb1, "return "); // Always return, even if it is void.
+        append(*sb1, f.name);
+        append(*sb1, "_dynamic(");
+        for i: 0..f.params.count - 1 {
+            if i append(*sb1, ", ");
+            param := f.params[i];
+            append(*sb1, param.name);
+        }
+        append(*sb1, ");\n}\n\n");
 
         // Check if the first param is VkDevice, VkInstance or VkPhysicalDevice
         if f.params.count > 0 {
@@ -1252,23 +1279,28 @@ output_dynamic_functions :: () {
             }
         }
     }
-
     // Hard code the debug util messenger to global func
     append(*sb0, "vkDebugUtilsMessengerCallbackEXT : PFN_vkDebugUtilsMessengerCallbackEXT;\n");
-    array_add(*global_func, "vkDebugUtilsMessengerCallbackEXT");
 
-    append(*sb0, "\n");
+    append(*sb0, "\n#scope_export\n");
     append(*sb0, "vk_load_global_functions :: (vk_get_instance_proc_addr: *void) {\n");
     append(*sb0, "    vkGetInstanceProcAddr = xx vk_get_instance_proc_addr;\n\n");
     align_pos := longest_string(global_func);
     for f : global_func {
         append(*sb0, "    ");
         append(*sb0, f);
+        append(*sb0, "_dynamic");
         repeat_string(" ", align_pos - f.count, *sb0);
         append(*sb0, " = xx vkGetInstanceProcAddr(null, \"");
         append(*sb0, f);
         append(*sb0, "\");\n");
     }
+
+    // TODO: Clean up this debug util mess
+    append(*sb0, "    vkDebugUtilsMessengerCallbackEXT");
+    DEBUG_UTIL_STRING :: "vkDebugUtilsMessengerCallbackEXT";
+    repeat_string(" ", align_pos + 8 - DEBUG_UTIL_STRING.count, *sb0); // +8 is for _dynamic
+    append(*sb0, " = xx vkGetInstanceProcAddr(null, \"vkDebugUtilsMessengerCallbackEXT\");\n");
     append(*sb0, "}\n\n");
 
     append(*sb0, "vk_load_instance_functions :: (instance: VkInstance) {\n");
@@ -1276,6 +1308,7 @@ output_dynamic_functions :: () {
     for f : instance_func {
         append(*sb0, "    ");
         append(*sb0, f);
+        append(*sb0, "_dynamic");
         repeat_string(" ", align_pos - f.count, *sb0);
         append(*sb0, " = xx vkGetInstanceProcAddr(instance, \"");
         append(*sb0, f);
@@ -1288,6 +1321,7 @@ output_dynamic_functions :: () {
     for f : device_func {
         append(*sb0, "    ");
         append(*sb0, f);
+        append(*sb0, "_dynamic");
         repeat_string(" ", align_pos - f.count, *sb0);
         append(*sb0, " = xx vkGetDeviceProcAddr(device, \"");
         append(*sb0, f);
@@ -1295,9 +1329,9 @@ output_dynamic_functions :: () {
     }
     append(*sb0, "}\n");
 
-    // Maybe in the future I will just generate to functions.jai
     write_entire_file("dynamic_functions.jai", *sb);
     write_entire_file("dynamic_loader.jai", *sb0);
+    write_entire_file("functions.jai", *sb1);
 }
 
 longest_string :: (ss: []string) -> int {
@@ -1465,15 +1499,12 @@ VkDeviceAddress   :: u64;
 #load "function_pointers.jai";
 #load "video.jai";
 #load "enumeration_wrapper.jai";
+#load "functions.jai";
 DONE
 
 MODULE_DYNAMIC_STRING :: #string DONE
 #load "dynamic_functions.jai";
 #load "dynamic_loader.jai";
-DONE
-
-MODULE_NON_DYNAMIC_STRING :: #string DONE
-#load "functions.jai";
 DONE
 
 MODULE_EXTERNAL_TYPE :: #string DONE
@@ -1543,8 +1574,6 @@ output_module :: () {
 
     #if DYNAMIC_LOADER {
         append(*sb, MODULE_DYNAMIC_STRING);
-    } else {
-        append(*sb, MODULE_NON_DYNAMIC_STRING);
     }
 
     write_entire_file("module.jai", *sb);
@@ -1566,7 +1595,8 @@ output_enumeration_wrapper :: () {
         has_return_value := func.return_type != "void";
         if has_return_value && func.return_type != "VkResult" continue;
 
-        print_to_builder(*sb, "% :: (", func.name);
+        append(*sb, func.name);
+        append(*sb, " :: (");
 
         for i: 0..func.params.count - 3 {
             if i append(*sb, ", ");
