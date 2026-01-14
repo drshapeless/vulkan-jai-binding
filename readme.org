@@ -2,7 +2,7 @@
 
 This is a Vulkan binding generated from vk.xml. This generator is
 written from scratch, including the xml parser. Tested on Vulkan
-1.4.328 and jai version beta 0.2.023.
+1.4.328 and jai version beta 0.2.024.
 
 This has no relation to osor_io's Vulkan jai binding, [[https://github.com/osor-io/osor_vulkan][osor_vulkan]].
 
@@ -61,6 +61,73 @@ For someone who want a dynamic loader, it sucks.
 I tried to steal the binding from Odin vendor library. That route was
 a lot easier and work perfectly. But generating a binding from scratch
 means that we no longer need to depends on Ginger Bill to update.
+
+* Using dynamic loader
+Using dynamic loader require three steps.
+#+begin_src jai
+  // Or any library that provide the function pointer like GLFW
+  vk_load_global_functions(xx SDL_Vulkan_GetVkGetInstanceProcAddr());
+
+  // create instance
+  vk_load_instance_functions(instance);
+
+  // create device
+  vk_load_device_functions(device);
+#+end_src
+
+If you want to use dynamic function along side with
+Vulkan_Memory_Allocator. (You can find it in the
+jai/examples/VR/modules.)
+#+begin_src jai
+  make_vma :: (instance: VkInstance, physical_device: VkPhysicalDevice, device: VkDevice) -> VkResult, VmaAllocator {
+      vma_vulkan_functions := VmaVulkanFunctions.{
+          vkGetInstanceProcAddr = vkGetInstanceProcAddr,
+          vkGetDeviceProcAddr = vkGetDeviceProcAddr,
+      };
+
+      create_info := VmaAllocatorCreateInfo.{
+          vulkanApiVersion = VK_API_VERSION_1_4,
+          physicalDevice = physical_device,
+          device = device,
+          instance = instance,
+          flags = VMA_BUFFER_DEVICE_ADDRESS,
+          pVulkanFunctions = *vma_vulkan_functions,
+      };
+
+      allocator: VmaAllocator;
+      result := check_vk(vmaCreateAllocator(*create_info, *allocator));
+      return result, allocator;
+  }
+#+end_src
+
+* Enumeration wrapper
+Inspired by the stock Vulkan module, I ported the enumeration wrapper
+into this library. For anything that you normally need three steps to
+get in C, it is now single line.
+
+For example you can write ~vkGetPhysicalDeviceSurfaceFormatsKHR~ like this.
+#+begin_src jai
+  result, formats := vkGetPhysicalDeviceSurfaceFormatsKHR(physical_device, surface,, temp);
+#+end_src
+
+Instead of this.
+#+begin_src jai
+  format_count: u32;
+  vkGetPhysicalDeviceSurfaceFormatsKHR(physical_device, surface, *format_count, null);
+  formats := NewArray(format_count, VkSurfaceFormatKHR);
+  vkGetPhysicalDeviceSurfaceFormatsKHR(physical_device, surface, *format_count, formats.data);
+#+end_src
+
+But there is an important difference between my library and the stock
+library. The VkResult, if it is there, is in the first slot of the
+multiple return values, which is the recommended way to write a Jai
+module.
+
+* Enum naming
+For enum value that start with a digit, the generator will prepend an
+'e' in the beginning, making it valid to compile. This is consistant
+with [[https://github.com/KhronosGroup/Vulkan-Hpp][Vulkan-Hpp]]. Maybe I could just put an underscore in front, but
+whatever.
 
 * Roadmap
 I planned to add a switch to strip the vk prefix, but have not
