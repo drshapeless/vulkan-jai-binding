@@ -119,3 +119,7 @@ remove_right :: (s: string, target: string) -> string, found:bool {
 
     return s, false;
 }
+
+#scope_file
+#import "Basic";
+#import "String";
