@@ -120,6 +120,15 @@ remove_right :: (s: string, target: string) -> string, found:bool {
     return s, false;
 }
 
+
+// This is a helper function to get the inner text of an element, I
+// wonder if I should put this into the XML library instead.
+inner_text :: (xml: *XML, idx: XML.Node.IDX) -> string {
+    root_node := get_node(xml, idx);
+    return get_node(xml, root_node.first_child_idx).text;
+}
+
 #scope_file
 #import "Basic";
 #import "String";
+#import,dir "XML";

@@ -835,13 +835,6 @@ clean_parameter_name :: (s: string) -> string {
     return trim(ss, DEFAULT_PARAMETER_TRIM);
 }
 
-// This is a helper function to get the inner text of an element, I
-// wonder if I should put this into the XML library instead.
-inner_text :: (xml: *XML, idx: XML.Node.IDX) -> string {
-    root_node := get_node(xml, idx);
-    return get_node(xml, root_node.first_child_idx).text;
-}
-
 output_types :: () {
     sb: String_Builder;
     sb_file: String_Builder;
