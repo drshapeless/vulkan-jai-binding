@@ -1274,6 +1274,21 @@ VkStructureType :: enum u32 {
     EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX                            :: 1000134002;
     EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX                             :: 1000134003;
     PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX                           :: 1000134004;
+    TEXEL_BUFFER_DESCRIPTOR_INFO_EXT                                      :: 1000135000;
+    IMAGE_DESCRIPTOR_INFO_EXT                                             :: 1000135001;
+    RESOURCE_DESCRIPTOR_INFO_EXT                                          :: 1000135002;
+    BIND_HEAP_INFO_EXT                                                    :: 1000135003;
+    PUSH_DATA_INFO_EXT                                                    :: 1000135004;
+    DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT                                :: 1000135005;
+    SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT                    :: 1000135006;
+    OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT                                   :: 1000135007;
+    PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT                        :: 1000135008;
+    PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT                          :: 1000135009;
+    COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT                   :: 1000135010;
+    SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT                     :: 1000135011;
+    INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV                           :: 1000135012;
+    SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT                                :: 1000135013;
+    PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM                 :: 1000135014;
     ATTACHMENT_SAMPLE_COUNT_INFO_AMD                                      :: 1000044008;
     PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES_EXT                     :: PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES;
     PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES_EXT                   :: PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES;
@@ -1560,6 +1575,7 @@ VkStructureType :: enum u32 {
     SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT                           :: 1000287000;
     PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT                    :: 1000287001;
     PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT                      :: 1000287002;
+    PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT              :: 1000288000;
     PIPELINE_LIBRARY_CREATE_INFO_KHR                                      :: 1000290000;
     PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV                           :: 1000292000;
     SURFACE_CAPABILITIES_PRESENT_BARRIER_NV                               :: 1000292001;
@@ -1938,6 +1954,7 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM                   :: 1000497001;
     PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT           :: 1000498000;
     PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT     :: 1000499000;
+    PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR           :: 1000504000;
     LATENCY_SLEEP_MODE_INFO_NV                                            :: 1000505000;
     LATENCY_SLEEP_INFO_NV                                                 :: 1000505001;
     SET_LATENCY_MARKER_INFO_NV                                            :: 1000505002;
@@ -2114,6 +2131,9 @@ VkStructureType :: enum u32 {
     PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA               :: 1000575001;
     IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA                              :: 1000575002;
     PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR                               :: 1000579000;
+    PUSH_CONSTANT_BANK_INFO_NV                                            :: 1000580000;
+    PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV                        :: 1000580001;
+    PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV                      :: 1000580002;
     PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT           :: 1000581000;
     PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT         :: 1000581001;
     PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT                      :: 1000582000;
@@ -2170,8 +2190,13 @@ VkStructureType :: enum u32 {
     RENDERING_ATTACHMENT_FLAGS_INFO_KHR                                   :: 1000630002;
     RENDERING_END_INFO_KHR                                                :: 1000619003;
     RESOLVE_IMAGE_MODE_INFO_KHR                                           :: 1000630004;
+    PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT                       :: 1000635000;
+    PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT                     :: 1000635001;
     PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC          :: 1000637000;
     PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT      :: 1000642000;
+    COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV                              :: 1000645000;
+    PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV                :: 1000645001;
+    PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT              :: 1000662000;
 }
 
 VkSubpassContents :: enum u32 {
@@ -2461,6 +2486,7 @@ VkQueueFlags :: enum_flags u32 {
     OPTICAL_FLOW_NV  :: 1 << 8;
     DATA_GRAPH_ARM   :: 1 << 10;
     RESERVED_12_EXT  :: 1 << 12;
+    RESERVED_9_EXT   :: 1 << 9;
     RESERVED_13_EXT  :: 1 << 13;
     RESERVED_11_ARM  :: 1 << 11;
 }
@@ -2483,9 +2509,9 @@ VkRenderPassCreateFlags :: enum_flags u32 {
 
 VkDeviceQueueCreateFlagBits :: VkDeviceQueueCreateFlags;
 VkDeviceQueueCreateFlags :: enum_flags u32 {
-    PROTECTED       :: 1 << 0; /* Queue is a protected-capable device queue */
-    RESERVED_1_QCOM :: 1 << 1;
-    RESERVED_2_EXT  :: 1 << 2;
+    PROTECTED                   :: 1 << 0; /* Queue is a protected-capable device queue */
+    RESERVED_1_QCOM             :: 1 << 1;
+    INTERNALLY_SYNCHRONIZED_KHR :: 1 << 2;
 }
 
 VkMemoryPropertyFlagBits :: VkMemoryPropertyFlags;
@@ -2567,7 +2593,7 @@ VkBufferUsageFlags :: enum_flags u32 {
     TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT            :: 1 << 12;
     CONDITIONAL_RENDERING_EXT                        :: 1 << 9; /* Specifies the buffer can be used as predicate in conditional rendering */
     EXECUTION_GRAPH_SCRATCH_AMDX                     :: 1 << 25;
-    RESERVED_28_KHR                                  :: 1 << 28;
+    DESCRIPTOR_HEAP_EXT                              :: 1 << 28;
     ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR :: 1 << 19;
     ACCELERATION_STRUCTURE_STORAGE_KHR               :: 1 << 20;
     SHADER_BINDING_TABLE_KHR                         :: 1 << 10;
@@ -2597,7 +2623,7 @@ VkBufferUsageFlags2 :: enum_flags u64 {
     INDIRECT_BUFFER                                  :: 1 << 8;
     SHADER_DEVICE_ADDRESS                            :: 1 << 17;
     EXECUTION_GRAPH_SCRATCH_AMDX                     :: 1 << 25;
-    RESERVED_28_KHR                                  :: 1 << 28;
+    DESCRIPTOR_HEAP_EXT                              :: 1 << 28;
     TRANSFER_SRC_KHR                                 :: TRANSFER_SRC;
     TRANSFER_DST_KHR                                 :: TRANSFER_DST;
     UNIFORM_TEXEL_BUFFER_KHR                         :: UNIFORM_TEXEL_BUFFER;
@@ -2738,11 +2764,12 @@ VkImageCreateFlags :: enum_flags u32 {
     RESERVED_21_IMG                           :: 1 << 21;
     BLOCK_TEXEL_VIEW_COMPATIBLE_KHR           :: BLOCK_TEXEL_VIEW_COMPATIBLE;
     EXTENDED_USAGE_KHR                        :: EXTENDED_USAGE;
+    DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT        :: 1 << 16;
     SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT     :: 1 << 12;
     DISJOINT_KHR                              :: DISJOINT;
     ALIAS_KHR                                 :: ALIAS;
     SUBSAMPLED_EXT                            :: 1 << 14;
-    DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT      :: 1 << 16;
+    DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT      :: DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
     MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT :: 1 << 18;
     e2D_VIEW_COMPATIBLE_EXT                   :: 1 << 17; /* Image is created with a layout where individual slices are capable of being used as 2D images */
     FRAGMENT_DENSITY_MAP_OFFSET_QCOM          :: FRAGMENT_DENSITY_MAP_OFFSET_EXT;
@@ -2823,8 +2850,7 @@ VkPipelineCreateFlags2 :: enum_flags u64 {
     PROTECTED_ACCESS_ONLY                                 :: 1 << 30;
     RESERVED_46_IMG                                       :: 1 << 46;
     EXECUTION_GRAPH_AMDX                                  :: 1 << 32;
-    VK_PIPELINE_CREATE_RESERVED_36_KHR                    :: 1 << 36;
-    VK_PIPELINE_CREATE_RESERVED_39_KHR                    :: 1 << 39;
+    DESCRIPTOR_HEAP_EXT                                   :: 1 << 36;
     RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR              :: RAY_TRACING_SKIP_TRIANGLES_KHR;
     VK_PIPELINE_CREATE_RESERVED_44_KHR                    :: 1 << 44;
     RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV :: 1 << 33;
@@ -2960,6 +2986,7 @@ VkCommandBufferUsageFlags :: enum_flags u32 {
     RENDER_PASS_CONTINUE :: 1 << 1;
     SIMULTANEOUS_USE     :: 1 << 2; /* Command buffer may be submitted/executed more than once simultaneously */
     RESERVED_3_HUAWEI    :: 1 << 3;
+    RESERVED_4_HUAWEI    :: 1 << 4;
 }
 
 VkQueryPipelineStatisticFlagBits :: VkQueryPipelineStatisticFlags;
@@ -3412,9 +3439,10 @@ VkSubgroupFeatureFlags :: enum_flags u32 {
     QUAD                 :: 1 << 7; /* Quad subgroup operations */
     ROTATE               :: 1 << 9;
     ROTATE_CLUSTERED     :: 1 << 10;
-    PARTITIONED_NV       :: 1 << 8;
+    PARTITIONED_NV       :: PARTITIONED_EXT;
     ROTATE_KHR           :: ROTATE;
     ROTATE_CLUSTERED_KHR :: ROTATE_CLUSTERED;
+    PARTITIONED_EXT      :: 1 << 8;
 }
 
 VkIndirectCommandsLayoutUsageFlagBitsNV :: VkIndirectCommandsLayoutUsageFlagsNV;
@@ -3438,6 +3466,7 @@ VkIndirectCommandsTokenTypeNV :: enum u32 {
     DRAW_INDEXED    :: 5;
     DRAW            :: 6;
     DRAW_TASKS      :: 7;
+    PUSH_DATA       :: 1000135000;
     DRAW_MESH_TASKS :: 1000328000;
     PIPELINE        :: 1000428003;
     DISPATCH        :: 1000428004;
@@ -4281,16 +4310,15 @@ VkAccessFlags2 :: enum_flags u64 {
     MEMORY_READ                               :: 1 << 15;
     MEMORY_WRITE                              :: 1 << 16;
 /*
-bitpos 17-31 are specified by extensions to the original VkAccessFlagBits enum
+comment
 */
     SHADER_SAMPLED_READ                       :: 1 << 32;
     SHADER_STORAGE_READ                       :: 1 << 33;
     SHADER_STORAGE_WRITE                      :: 1 << 34;
     VIDEO_DECODE_READ_KHR                     :: 1 << 35;
     VIDEO_DECODE_WRITE_KHR                    :: 1 << 36;
-    RESERVED_57_KHR                           :: 1 << 57;
-    RESERVED_58_KHR                           :: 1 << 58;
-    RESERVED_59_KHR                           :: 1 << 59;
+    SAMPLER_HEAP_READ_EXT                     :: 1 << 57;
+    RESOURCE_HEAP_READ_EXT                    :: 1 << 58;
     RESERVED_46_INTEL                         :: 1 << 46;
     VIDEO_ENCODE_READ_KHR                     :: 1 << 37;
     VIDEO_ENCODE_WRITE_KHR                    :: 1 << 38;
@@ -4344,6 +4372,8 @@ bitpos 17-31 are specified by extensions to the original VkAccessFlagBits enum
     DATA_GRAPH_WRITE_ARM                      :: 1 << 48;
     MEMORY_DECOMPRESSION_READ_EXT             :: 1 << 55;
     MEMORY_DECOMPRESSION_WRITE_EXT            :: 1 << 56;
+    RESERVED_62_EXT                           :: 1 << 62;
+    RESERVED_63_EXT                           :: 1 << 63;
     RESERVED_60_KHR                           :: 1 << 60;
     RESERVED_61_KHR                           :: 1 << 61;
     RESERVED_49_ARM                           :: 1 << 49;
@@ -4372,7 +4402,7 @@ VkPipelineStageFlags2 :: enum_flags u64 {
     ALL_GRAPHICS                         :: 1 << 15;
     ALL_COMMANDS                         :: 1 << 16;
 /*
-bitpos 17-31 are specified by extensions to the original VkPipelineStageFlagBits enum
+comment
 */
     COPY                                 :: 1 << 32;
     RESOLVE                              :: 1 << 33;
@@ -4435,6 +4465,7 @@ bitpos 17-31 are specified by extensions to the original VkPipelineStageFlagBits
     DATA_GRAPH_ARM                       :: 1 << 42;
     COPY_INDIRECT_KHR                    :: 1 << 46;
     MEMORY_DECOMPRESSION_EXT             :: 1 << 45;
+    RESERVED_49_EXT                      :: 1 << 49;
     RESERVED_47_KHR                      :: 1 << 47;
     RESERVED_43_ARM                      :: 1 << 43;
     RESERVED_48_HUAWEI                   :: 1 << 48;
@@ -4829,7 +4860,7 @@ VkFormatFeatureFlags2 :: enum_flags u64 {
     BLIT_DST                                                                    :: 1 << 11;
     SAMPLED_IMAGE_FILTER_LINEAR                                                 :: 1 << 12;
 /*
-bitpos 13 is an extension interaction with VK_EXT_filter_cubic"
+comment
 */
     TRANSFER_SRC                                                                :: 1 << 14;
     TRANSFER_DST                                                                :: 1 << 15;
@@ -4854,6 +4885,7 @@ bitpos 13 is an extension interaction with VK_EXT_filter_cubic"
     HOST_IMAGE_TRANSFER_EXT                                                     :: HOST_IMAGE_TRANSFER; /* Host image copies are supported */
     VIDEO_ENCODE_INPUT_KHR                                                      :: 1 << 27;
     VIDEO_ENCODE_DPB_KHR                                                        :: 1 << 28;
+    RESERVED_44_QCOM                                                            :: 1 << 44;
     SAMPLED_IMAGE_KHR                                                           :: SAMPLED_IMAGE;
     STORAGE_IMAGE_KHR                                                           :: STORAGE_IMAGE;
     STORAGE_IMAGE_ATOMIC_KHR                                                    :: STORAGE_IMAGE_ATOMIC;
@@ -5252,6 +5284,8 @@ VkIndirectCommandsTokenTypeEXT :: enum u32 {
     DRAW_INDEXED_COUNT       :: 7;
     DRAW_COUNT               :: 8;
     DISPATCH                 :: 9;
+    PUSH_DATA                :: 1000135000;
+    PUSH_DATA_SEQUENCE_INDEX :: 1000135001;
     DRAW_MESH_TASKS_NV       :: 1000202002;
     DRAW_MESH_TASKS_COUNT_NV :: 1000202003;
     DRAW_MESH_TASKS          :: 1000328000;
@@ -5269,8 +5303,7 @@ VkShaderCreateFlagBitsEXT :: VkShaderCreateFlagsEXT;
 VkShaderCreateFlagsEXT :: enum_flags u32 {
     LINK_STAGE                       :: 1 << 0;
     RESERVED_17_IMG                  :: 1 << 17;
-    RESERVED_10_KHR                  :: 1 << 10;
-    RESERVED_11_KHR                  :: 1 << 11;
+    DESCRIPTOR_HEAP                  :: 1 << 10;
     RESERVED_16_KHR                  :: 1 << 16;
     ALLOW_VARYING_SUBGROUP_SIZE      :: 1 << 1;
     REQUIRE_FULL_SUBGROUPS           :: 1 << 2;
@@ -5427,7 +5460,7 @@ VkTensorCreateFlagBitsARM :: VkTensorCreateFlagsARM;
 VkTensorCreateFlagsARM :: enum_flags u64 {
     MUTABLE_FORMAT                   :: 1 << 0;
     PROTECTED                        :: 1 << 1;
-    RESERVED_3                       :: 1 << 3;
+    DESCRIPTOR_HEAP_CAPTURE_REPLAY   :: 1 << 3;
     DESCRIPTOR_BUFFER_CAPTURE_REPLAY :: 1 << 2;
 }
 
@@ -5517,5 +5550,34 @@ VkVideoEncodeRgbChromaOffsetFlagsVALVE :: enum_flags u32 {
 VkSwapchainImageUsageFlagBitsOHOS :: VkSwapchainImageUsageFlagsOHOS;
 VkSwapchainImageUsageFlagsOHOS :: enum_flags u32 {
     SHARED :: 1 << 0;
+}
+
+VkDescriptorMappingSourceEXT :: enum u32 {
+    HEAP_WITH_CONSTANT_OFFSET      :: 0;
+    HEAP_WITH_PUSH_INDEX           :: 1;
+    HEAP_WITH_INDIRECT_INDEX       :: 2;
+    HEAP_WITH_INDIRECT_INDEX_ARRAY :: 3;
+    RESOURCE_HEAP_DATA             :: 4;
+    PUSH_DATA                      :: 5;
+    PUSH_ADDRESS                   :: 6;
+    INDIRECT_ADDRESS               :: 7;
+    HEAP_WITH_SHADER_RECORD_INDEX  :: 8;
+    SHADER_RECORD_DATA             :: 9;
+    SHADER_RECORD_ADDRESS          :: 10;
+}
+
+VkSpirvResourceTypeFlagBitsEXT :: VkSpirvResourceTypeFlagsEXT;
+VkSpirvResourceTypeFlagsEXT :: enum_flags u32 {
+    ALL                       :: 0x7FFFFFFF;
+    SAMPLER                   :: 1 << 0;
+    SAMPLED_IMAGE             :: 1 << 1;
+    READ_ONLY_IMAGE           :: 1 << 2;
+    READ_WRITE_IMAGE          :: 1 << 3;
+    COMBINED_SAMPLED_IMAGE    :: 1 << 4;
+    UNIFORM_BUFFER            :: 1 << 5;
+    READ_ONLY_STORAGE_BUFFER  :: 1 << 6;
+    READ_WRITE_STORAGE_BUFFER :: 1 << 7;
+    ACCELERATION_STRUCTURE    :: 1 << 8;
+    TENSOR_ARM                :: 1 << 9;
 }
 

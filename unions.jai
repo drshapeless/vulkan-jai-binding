@@ -77,3 +77,22 @@ VkAccelerationStructureMotionInstanceDataNV :: union {
     matrixMotionInstance: VkAccelerationStructureMatrixMotionInstanceNV;
     srtMotionInstance: VkAccelerationStructureSRTMotionInstanceNV;
 }
+VkResourceDescriptorDataEXT :: union {
+    pImage: *VkImageDescriptorInfoEXT;
+    pTexelBuffer: *VkTexelBufferDescriptorInfoEXT;
+    pAddressRange: *VkDeviceAddressRangeEXT;
+    pTensorARM: *VkTensorViewCreateInfoARM;
+}
+VkDescriptorMappingSourceDataEXT :: union {
+    constantOffset: VkDescriptorMappingSourceConstantOffsetEXT;
+    pushIndex: VkDescriptorMappingSourcePushIndexEXT;
+    indirectIndex: VkDescriptorMappingSourceIndirectIndexEXT;
+    indirectIndexArray: VkDescriptorMappingSourceIndirectIndexArrayEXT;
+    heapData: VkDescriptorMappingSourceHeapDataEXT;
+    pushDataOffset: u32;
+    pushAddressOffset: u32;
+    indirectAddress: VkDescriptorMappingSourceIndirectAddressEXT;
+    shaderRecordIndex: VkDescriptorMappingSourceShaderRecordIndexEXT;
+    shaderRecordDataOffset: u32;
+    shaderRecordAddressOffset: u32;
+}

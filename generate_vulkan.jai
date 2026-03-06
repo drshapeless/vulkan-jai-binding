@@ -466,7 +466,7 @@ handle_enum_constants :: (xml: *XML, idx: XML.Node.IDX) {
         constant.type = convert_type(type_string);
 
         ok=, value_string := find_attribute(xml, it_index, "value");
-        value_string = trim(value_string, "()ULF");
+        value_string = trim(value_string, "()ULFf");
 
         constant.flip = begins_with(value_string, "~");
         if constant.flip {

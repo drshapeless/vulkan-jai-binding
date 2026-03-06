@@ -1630,6 +1630,27 @@ VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV :: struct {
     deviceGeneratedCommands: VkBool32;
 }
 
+VkPushConstantBankInfoNV :: struct {
+    sType: VkStructureType = .PUSH_CONSTANT_BANK_INFO_NV;
+    pNext: *void;
+    bank: u32;
+}
+
+VkPhysicalDevicePushConstantBankFeaturesNV :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV;
+    pNext: *void;
+    pushConstantBank: VkBool32;
+}
+
+VkPhysicalDevicePushConstantBankPropertiesNV :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV;
+    pNext: *void;
+    maxGraphicsPushConstantBanks: u32;
+    maxComputePushConstantBanks: u32;
+    maxGraphicsPushDataBanks: u32;
+    maxComputePushDataBanks: u32;
+}
+
 VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV :: struct {
     sType: VkStructureType = .PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV;
     pNext: *void;
@@ -9863,6 +9884,12 @@ VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT :: struct {
     dynamicRenderingUnusedAttachments: VkBool32;
 }
 
+VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR;
+    pNext: *void;
+    internallySynchronizedQueues: VkBool32;
+}
+
 VkSurfacePresentModeKHR :: struct {
     sType: VkStructureType = .SURFACE_PRESENT_MODE_KHR;
     pNext: *void;
@@ -10216,7 +10243,7 @@ VkExecutionGraphPipelineCreateInfoAMDX :: struct {
     stageCount: u32;
     pStages: *VkPipelineShaderStageCreateInfo;
     pLibraryInfo: *VkPipelineLibraryCreateInfoKHR;
-    layout: VkPipelineLayout;
+    layout: VkPipelineLayout; /* Interface layout of the pipeline */
     basePipelineHandle: VkPipeline;
     basePipelineIndex: s32;
 }
@@ -11528,5 +11555,254 @@ VkRenderPassPerformanceCountersByRegionBeginInfoARM :: struct {
     serializeRegions: VkBool32;
     counterIndexCount: u32;
     pCounterIndices: *u32;
+}
+
+VkComputeOccupancyPriorityParametersNV :: struct {
+    sType: VkStructureType = .COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV;
+    pNext: *void;
+    occupancyPriority: float;
+    occupancyThrottling: float;
+}
+
+VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV;
+    pNext: *void;
+    computeOccupancyPriority: VkBool32;
+}
+
+VkPhysicalDeviceShaderLongVectorFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT;
+    pNext: *void;
+    longVector: VkBool32;
+}
+
+VkPhysicalDeviceShaderLongVectorPropertiesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT;
+    pNext: *void;
+    maxVectorComponents: u32;
+}
+
+VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT;
+    pNext: *void;
+    textureCompressionASTC_3D: VkBool32;
+}
+
+VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT;
+    pNext: *void;
+    shaderSubgroupPartitioned: VkBool32;
+}
+
+VkHostAddressRangeEXT :: struct {
+    address: *void;
+    size: u64;
+}
+
+VkHostAddressRangeConstEXT :: struct {
+    address: *void;
+    size: u64;
+}
+
+VkDeviceAddressRangeEXT :: struct {
+    address: VkDeviceAddress;
+    size: VkDeviceSize;
+}
+
+VkTexelBufferDescriptorInfoEXT :: struct {
+    sType: VkStructureType = .TEXEL_BUFFER_DESCRIPTOR_INFO_EXT;
+    pNext: *void;
+    format: VkFormat;
+    addressRange: VkDeviceAddressRangeEXT;
+}
+
+VkImageDescriptorInfoEXT :: struct {
+    sType: VkStructureType = .IMAGE_DESCRIPTOR_INFO_EXT;
+    pNext: *void;
+    pView: *VkImageViewCreateInfo;
+    layout: VkImageLayout;
+}
+
+VkResourceDescriptorInfoEXT :: struct {
+    sType: VkStructureType = .RESOURCE_DESCRIPTOR_INFO_EXT;
+    pNext: *void;
+    type: VkDescriptorType;
+    data: VkResourceDescriptorDataEXT;
+}
+
+VkBindHeapInfoEXT :: struct {
+    sType: VkStructureType = .BIND_HEAP_INFO_EXT;
+    pNext: *void;
+    heapRange: VkDeviceAddressRangeEXT;
+    reservedRangeOffset: VkDeviceSize;
+    reservedRangeSize: VkDeviceSize;
+}
+
+VkPushDataInfoEXT :: struct {
+    sType: VkStructureType = .PUSH_DATA_INFO_EXT;
+    pNext: *void;
+    offset: u32;
+    data: VkHostAddressRangeConstEXT;
+}
+
+VkDescriptorMappingSourceConstantOffsetEXT :: struct {
+    heapOffset: u32;
+    heapArrayStride: u32;
+    pEmbeddedSampler: *VkSamplerCreateInfo;
+    samplerHeapOffset: u32;
+    samplerHeapArrayStride: u32;
+}
+
+VkDescriptorMappingSourcePushIndexEXT :: struct {
+    heapOffset: u32;
+    pushOffset: u32;
+    heapIndexStride: u32;
+    heapArrayStride: u32;
+    pEmbeddedSampler: *VkSamplerCreateInfo;
+    useCombinedImageSamplerIndex: VkBool32;
+    samplerHeapOffset: u32;
+    samplerPushOffset: u32;
+    samplerHeapIndexStride: u32;
+    samplerHeapArrayStride: u32;
+}
+
+VkDescriptorMappingSourceIndirectIndexEXT :: struct {
+    heapOffset: u32;
+    pushOffset: u32;
+    addressOffset: u32;
+    heapIndexStride: u32;
+    heapArrayStride: u32;
+    pEmbeddedSampler: *VkSamplerCreateInfo;
+    useCombinedImageSamplerIndex: VkBool32;
+    samplerHeapOffset: u32;
+    samplerPushOffset: u32;
+    samplerAddressOffset: u32;
+    samplerHeapIndexStride: u32;
+    samplerHeapArrayStride: u32;
+}
+
+VkDescriptorMappingSourceIndirectIndexArrayEXT :: struct {
+    heapOffset: u32;
+    pushOffset: u32;
+    addressOffset: u32;
+    heapIndexStride: u32;
+    pEmbeddedSampler: *VkSamplerCreateInfo;
+    useCombinedImageSamplerIndex: VkBool32;
+    samplerHeapOffset: u32;
+    samplerPushOffset: u32;
+    samplerAddressOffset: u32;
+    samplerHeapIndexStride: u32;
+}
+
+VkDescriptorMappingSourceHeapDataEXT :: struct {
+    heapOffset: u32;
+    pushOffset: u32;
+}
+
+VkDescriptorMappingSourceShaderRecordIndexEXT :: struct {
+    heapOffset: u32;
+    shaderRecordOffset: u32;
+    heapIndexStride: u32;
+    heapArrayStride: u32;
+    pEmbeddedSampler: *VkSamplerCreateInfo;
+    useCombinedImageSamplerIndex: VkBool32;
+    samplerHeapOffset: u32;
+    samplerShaderRecordOffset: u32;
+    samplerHeapIndexStride: u32;
+    samplerHeapArrayStride: u32;
+}
+
+VkDescriptorMappingSourceIndirectAddressEXT :: struct {
+    pushOffset: u32;
+    addressOffset: u32;
+}
+
+VkDescriptorSetAndBindingMappingEXT :: struct {
+    sType: VkStructureType = .DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT;
+    pNext: *void;
+    descriptorSet: u32;
+    firstBinding: u32;
+    bindingCount: u32;
+    resourceMask: VkSpirvResourceTypeFlagsEXT;
+    source: VkDescriptorMappingSourceEXT;
+    sourceData: VkDescriptorMappingSourceDataEXT;
+}
+
+VkShaderDescriptorSetAndBindingMappingInfoEXT :: struct {
+    sType: VkStructureType = .SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT;
+    pNext: *void;
+    mappingCount: u32;
+    pMappings: *VkDescriptorSetAndBindingMappingEXT;
+}
+
+VkSamplerCustomBorderColorIndexCreateInfoEXT :: struct {
+    sType: VkStructureType = .SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT;
+    pNext: *void;
+    index: u32;
+}
+
+VkOpaqueCaptureDataCreateInfoEXT :: struct {
+    sType: VkStructureType = .OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT;
+    pNext: *void;
+    pData: *VkHostAddressRangeConstEXT;
+}
+
+VkIndirectCommandsLayoutPushDataTokenNV :: struct {
+    sType: VkStructureType = .INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV;
+    pNext: *void;
+    pushDataOffset: u32;
+    pushDataSize: u32;
+}
+
+VkSubsampledImageFormatPropertiesEXT :: struct {
+    sType: VkStructureType = .SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT;
+    pNext: *void;
+    subsampledImageDescriptorCount: u32;
+}
+
+VkPhysicalDeviceDescriptorHeapFeaturesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT;
+    pNext: *void;
+    descriptorHeap: VkBool32;
+    descriptorHeapCaptureReplay: VkBool32;
+}
+
+VkPhysicalDeviceDescriptorHeapPropertiesEXT :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT;
+    pNext: *void;
+    samplerHeapAlignment: VkDeviceSize;
+    resourceHeapAlignment: VkDeviceSize;
+    maxSamplerHeapSize: VkDeviceSize;
+    maxResourceHeapSize: VkDeviceSize;
+    minSamplerHeapReservedRange: VkDeviceSize;
+    minSamplerHeapReservedRangeWithEmbedded: VkDeviceSize;
+    minResourceHeapReservedRange: VkDeviceSize;
+    samplerDescriptorSize: VkDeviceSize;
+    imageDescriptorSize: VkDeviceSize;
+    bufferDescriptorSize: VkDeviceSize;
+    samplerDescriptorAlignment: VkDeviceSize;
+    imageDescriptorAlignment: VkDeviceSize;
+    bufferDescriptorAlignment: VkDeviceSize;
+    maxPushDataSize: VkDeviceSize;
+    imageCaptureReplayOpaqueDataSize: u64;
+    maxDescriptorHeapEmbeddedSamplers: u32;
+    samplerYcbcrConversionCount: u32;
+    sparseDescriptorHeaps: VkBool32;
+    protectedDescriptorHeaps: VkBool32;
+}
+
+VkCommandBufferInheritanceDescriptorHeapInfoEXT :: struct {
+    sType: VkStructureType = .COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT;
+    pNext: *void;
+    pSamplerHeapBindInfo: *VkBindHeapInfoEXT;
+    pResourceHeapBindInfo: *VkBindHeapInfoEXT;
+}
+
+VkPhysicalDeviceDescriptorHeapTensorPropertiesARM :: struct {
+    sType: VkStructureType = .PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM;
+    pNext: *void;
+    tensorDescriptorSize: VkDeviceSize;
+    tensorDescriptorAlignment: VkDeviceSize;
+    tensorCaptureReplayOpaqueDataSize: u64;
 }
 

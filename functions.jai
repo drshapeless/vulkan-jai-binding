@@ -450,6 +450,7 @@ PFN_vkCmdSetRayTracingPipelineStackSizeKHR :: #type (commandBuffer: VkCommandBuf
 PFN_vkGetImageViewHandleNVX :: #type (device: VkDevice, pInfo: *VkImageViewHandleInfoNVX) -> u32 #c_call;
 PFN_vkGetImageViewHandle64NVX :: #type (device: VkDevice, pInfo: *VkImageViewHandleInfoNVX) -> u64 #c_call;
 PFN_vkGetImageViewAddressNVX :: #type (device: VkDevice, imageView: VkImageView, pProperties: *VkImageViewAddressPropertiesNVX) -> VkResult #c_call;
+PFN_vkGetDeviceCombinedImageSamplerIndexNVX :: #type (device: VkDevice, imageViewIndex: u64, samplerIndex: u64) -> u64 #c_call;
 PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT :: #type (physicalDevice: VkPhysicalDevice, pSurfaceInfo: *VkPhysicalDeviceSurfaceInfo2KHR, pPresentModeCount: *u32, pPresentModes: *VkPresentModeKHR) -> VkResult #c_call;
 PFN_vkGetDeviceGroupSurfacePresentModes2EXT :: #type (device: VkDevice, pSurfaceInfo: *VkPhysicalDeviceSurfaceInfo2KHR, pModes: *VkDeviceGroupPresentModeFlagsKHR) -> VkResult #c_call;
 PFN_vkAcquireFullScreenExclusiveModeEXT :: #type (device: VkDevice, swapchain: VkSwapchainKHR) -> VkResult #c_call;
@@ -793,6 +794,17 @@ PFN_vkGetSwapchainGrallocUsageOHOS :: #type (device: VkDevice, format: VkFormat,
 PFN_vkAcquireImageOHOS :: #type (device: VkDevice, image: VkImage, nativeFenceFd: s32, semaphore: VkSemaphore, fence: VkFence) -> VkResult #c_call;
 PFN_vkQueueSignalReleaseImageOHOS :: #type (queue: VkQueue, waitSemaphoreCount: u32, pWaitSemaphores: *VkSemaphore, image: VkImage, pNativeFenceFd: *s32) -> VkResult #c_call;
 PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM :: #type (physicalDevice: VkPhysicalDevice, queueFamilyIndex: u32, pCounterCount: *u32, pCounters: *VkPerformanceCounterARM, pCounterDescriptions: *VkPerformanceCounterDescriptionARM) -> VkResult #c_call;
+PFN_vkCmdSetComputeOccupancyPriorityNV :: #type (commandBuffer: VkCommandBuffer, pParameters: *VkComputeOccupancyPriorityParametersNV) -> void #c_call;
+PFN_vkWriteSamplerDescriptorsEXT :: #type (device: VkDevice, samplerCount: u32, pSamplers: *VkSamplerCreateInfo, pDescriptors: *VkHostAddressRangeEXT) -> VkResult #c_call;
+PFN_vkWriteResourceDescriptorsEXT :: #type (device: VkDevice, resourceCount: u32, pResources: *VkResourceDescriptorInfoEXT, pDescriptors: *VkHostAddressRangeEXT) -> VkResult #c_call;
+PFN_vkCmdBindSamplerHeapEXT :: #type (commandBuffer: VkCommandBuffer, pBindInfo: *VkBindHeapInfoEXT) -> void #c_call;
+PFN_vkCmdBindResourceHeapEXT :: #type (commandBuffer: VkCommandBuffer, pBindInfo: *VkBindHeapInfoEXT) -> void #c_call;
+PFN_vkCmdPushDataEXT :: #type (commandBuffer: VkCommandBuffer, pPushDataInfo: *VkPushDataInfoEXT) -> void #c_call;
+PFN_vkRegisterCustomBorderColorEXT :: #type (device: VkDevice, pBorderColor: *VkSamplerCustomBorderColorCreateInfoEXT, requestIndex: VkBool32, pIndex: *u32) -> VkResult #c_call;
+PFN_vkUnregisterCustomBorderColorEXT :: #type (device: VkDevice, index: u32) -> void #c_call;
+PFN_vkGetImageOpaqueCaptureDataEXT :: #type (device: VkDevice, imageCount: u32, pImages: *VkImage, pDatas: *VkHostAddressRangeEXT) -> VkResult #c_call;
+PFN_vkGetPhysicalDeviceDescriptorSizeEXT :: #type (physicalDevice: VkPhysicalDevice, descriptorType: VkDescriptorType) -> VkDeviceSize #c_call;
+PFN_vkGetTensorOpaqueCaptureDataARM :: #type (device: VkDevice, tensorCount: u32, pTensors: *VkTensorARM, pDatas: *VkHostAddressRangeEXT) -> VkResult #c_call;
 #scope_file
 vkCreateInstance_dynamic : PFN_vkCreateInstance;
 vkDestroyInstance_dynamic : PFN_vkDestroyInstance;
@@ -1246,6 +1258,7 @@ vkCmdSetRayTracingPipelineStackSizeKHR_dynamic : PFN_vkCmdSetRayTracingPipelineS
 vkGetImageViewHandleNVX_dynamic : PFN_vkGetImageViewHandleNVX;
 vkGetImageViewHandle64NVX_dynamic : PFN_vkGetImageViewHandle64NVX;
 vkGetImageViewAddressNVX_dynamic : PFN_vkGetImageViewAddressNVX;
+vkGetDeviceCombinedImageSamplerIndexNVX_dynamic : PFN_vkGetDeviceCombinedImageSamplerIndexNVX;
 vkGetPhysicalDeviceSurfacePresentModes2EXT_dynamic : PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT;
 vkGetDeviceGroupSurfacePresentModes2EXT_dynamic : PFN_vkGetDeviceGroupSurfacePresentModes2EXT;
 vkAcquireFullScreenExclusiveModeEXT_dynamic : PFN_vkAcquireFullScreenExclusiveModeEXT;
@@ -1589,6 +1602,17 @@ vkGetSwapchainGrallocUsageOHOS_dynamic : PFN_vkGetSwapchainGrallocUsageOHOS;
 vkAcquireImageOHOS_dynamic : PFN_vkAcquireImageOHOS;
 vkQueueSignalReleaseImageOHOS_dynamic : PFN_vkQueueSignalReleaseImageOHOS;
 vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM_dynamic : PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM;
+vkCmdSetComputeOccupancyPriorityNV_dynamic : PFN_vkCmdSetComputeOccupancyPriorityNV;
+vkWriteSamplerDescriptorsEXT_dynamic : PFN_vkWriteSamplerDescriptorsEXT;
+vkWriteResourceDescriptorsEXT_dynamic : PFN_vkWriteResourceDescriptorsEXT;
+vkCmdBindSamplerHeapEXT_dynamic : PFN_vkCmdBindSamplerHeapEXT;
+vkCmdBindResourceHeapEXT_dynamic : PFN_vkCmdBindResourceHeapEXT;
+vkCmdPushDataEXT_dynamic : PFN_vkCmdPushDataEXT;
+vkRegisterCustomBorderColorEXT_dynamic : PFN_vkRegisterCustomBorderColorEXT;
+vkUnregisterCustomBorderColorEXT_dynamic : PFN_vkUnregisterCustomBorderColorEXT;
+vkGetImageOpaqueCaptureDataEXT_dynamic : PFN_vkGetImageOpaqueCaptureDataEXT;
+vkGetPhysicalDeviceDescriptorSizeEXT_dynamic : PFN_vkGetPhysicalDeviceDescriptorSizeEXT;
+vkGetTensorOpaqueCaptureDataARM_dynamic : PFN_vkGetTensorOpaqueCaptureDataARM;
 vkDebugUtilsMessengerCallbackEXT : PFN_vkDebugUtilsMessengerCallbackEXT;
 
 #scope_export
@@ -1706,6 +1730,7 @@ vk_load_instance_functions :: (instance: VkInstance) {
     vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM_dynamic                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM");
     vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM");
     vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM_dynamic   = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM");
+    vkGetPhysicalDeviceDescriptorSizeEXT_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDescriptorSizeEXT");
 }
 
 vk_load_device_functions :: (device: VkDevice) {
@@ -2027,6 +2052,7 @@ vk_load_device_functions :: (device: VkDevice) {
     vkGetImageViewHandleNVX_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkGetImageViewHandleNVX");
     vkGetImageViewHandle64NVX_dynamic                                = xx vkGetDeviceProcAddr(device, "vkGetImageViewHandle64NVX");
     vkGetImageViewAddressNVX_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetImageViewAddressNVX");
+    vkGetDeviceCombinedImageSamplerIndexNVX_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetDeviceCombinedImageSamplerIndexNVX");
     vkGetDeviceGroupSurfacePresentModes2EXT_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetDeviceGroupSurfacePresentModes2EXT");
     vkAcquireFullScreenExclusiveModeEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkAcquireFullScreenExclusiveModeEXT");
     vkReleaseFullScreenExclusiveModeEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkReleaseFullScreenExclusiveModeEXT");
@@ -2291,6 +2317,16 @@ vk_load_device_functions :: (device: VkDevice) {
     vkGetSwapchainGrallocUsageOHOS_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetSwapchainGrallocUsageOHOS");
     vkAcquireImageOHOS_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkAcquireImageOHOS");
     vkQueueSignalReleaseImageOHOS_dynamic                            = xx vkGetDeviceProcAddr(device, "vkQueueSignalReleaseImageOHOS");
+    vkCmdSetComputeOccupancyPriorityNV_dynamic                       = xx vkGetDeviceProcAddr(device, "vkCmdSetComputeOccupancyPriorityNV");
+    vkWriteSamplerDescriptorsEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkWriteSamplerDescriptorsEXT");
+    vkWriteResourceDescriptorsEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkWriteResourceDescriptorsEXT");
+    vkCmdBindSamplerHeapEXT_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdBindSamplerHeapEXT");
+    vkCmdBindResourceHeapEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdBindResourceHeapEXT");
+    vkCmdPushDataEXT_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdPushDataEXT");
+    vkRegisterCustomBorderColorEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkRegisterCustomBorderColorEXT");
+    vkUnregisterCustomBorderColorEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkUnregisterCustomBorderColorEXT");
+    vkGetImageOpaqueCaptureDataEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetImageOpaqueCaptureDataEXT");
+    vkGetTensorOpaqueCaptureDataARM_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetTensorOpaqueCaptureDataARM");
 }
 vkCreateInstance :: (pCreateInfo: *VkInstanceCreateInfo, pAllocator: *VkAllocationCallbacks, pInstance: *VkInstance) -> VkResult #c_call {
     return vkCreateInstance_dynamic(pCreateInfo, pAllocator, pInstance);
@@ -4006,6 +4042,10 @@ vkGetImageViewAddressNVX :: (device: VkDevice, imageView: VkImageView, pProperti
     return vkGetImageViewAddressNVX_dynamic(device, imageView, pProperties);
 }
 
+vkGetDeviceCombinedImageSamplerIndexNVX :: (device: VkDevice, imageViewIndex: u64, samplerIndex: u64) -> u64 #c_call {
+    return vkGetDeviceCombinedImageSamplerIndexNVX_dynamic(device, imageViewIndex, samplerIndex);
+}
+
 vkGetPhysicalDeviceSurfacePresentModes2EXT :: (physicalDevice: VkPhysicalDevice, pSurfaceInfo: *VkPhysicalDeviceSurfaceInfo2KHR, pPresentModeCount: *u32, pPresentModes: *VkPresentModeKHR) -> VkResult #c_call {
     return vkGetPhysicalDeviceSurfacePresentModes2EXT_dynamic(physicalDevice, pSurfaceInfo, pPresentModeCount, pPresentModes);
 }
@@ -5260,5 +5300,49 @@ vkQueueSignalReleaseImageOHOS :: (queue: VkQueue, waitSemaphoreCount: u32, pWait
 
 vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM :: (physicalDevice: VkPhysicalDevice, queueFamilyIndex: u32, pCounterCount: *u32, pCounters: *VkPerformanceCounterARM, pCounterDescriptions: *VkPerformanceCounterDescriptionARM) -> VkResult #c_call {
     return vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM_dynamic(physicalDevice, queueFamilyIndex, pCounterCount, pCounters, pCounterDescriptions);
+}
+
+vkCmdSetComputeOccupancyPriorityNV :: (commandBuffer: VkCommandBuffer, pParameters: *VkComputeOccupancyPriorityParametersNV) -> void #c_call {
+    vkCmdSetComputeOccupancyPriorityNV_dynamic(commandBuffer, pParameters);
+}
+
+vkWriteSamplerDescriptorsEXT :: (device: VkDevice, samplerCount: u32, pSamplers: *VkSamplerCreateInfo, pDescriptors: *VkHostAddressRangeEXT) -> VkResult #c_call {
+    return vkWriteSamplerDescriptorsEXT_dynamic(device, samplerCount, pSamplers, pDescriptors);
+}
+
+vkWriteResourceDescriptorsEXT :: (device: VkDevice, resourceCount: u32, pResources: *VkResourceDescriptorInfoEXT, pDescriptors: *VkHostAddressRangeEXT) -> VkResult #c_call {
+    return vkWriteResourceDescriptorsEXT_dynamic(device, resourceCount, pResources, pDescriptors);
+}
+
+vkCmdBindSamplerHeapEXT :: (commandBuffer: VkCommandBuffer, pBindInfo: *VkBindHeapInfoEXT) -> void #c_call {
+    vkCmdBindSamplerHeapEXT_dynamic(commandBuffer, pBindInfo);
+}
+
+vkCmdBindResourceHeapEXT :: (commandBuffer: VkCommandBuffer, pBindInfo: *VkBindHeapInfoEXT) -> void #c_call {
+    vkCmdBindResourceHeapEXT_dynamic(commandBuffer, pBindInfo);
+}
+
+vkCmdPushDataEXT :: (commandBuffer: VkCommandBuffer, pPushDataInfo: *VkPushDataInfoEXT) -> void #c_call {
+    vkCmdPushDataEXT_dynamic(commandBuffer, pPushDataInfo);
+}
+
+vkRegisterCustomBorderColorEXT :: (device: VkDevice, pBorderColor: *VkSamplerCustomBorderColorCreateInfoEXT, requestIndex: VkBool32, pIndex: *u32) -> VkResult #c_call {
+    return vkRegisterCustomBorderColorEXT_dynamic(device, pBorderColor, requestIndex, pIndex);
+}
+
+vkUnregisterCustomBorderColorEXT :: (device: VkDevice, index: u32) -> void #c_call {
+    vkUnregisterCustomBorderColorEXT_dynamic(device, index);
+}
+
+vkGetImageOpaqueCaptureDataEXT :: (device: VkDevice, imageCount: u32, pImages: *VkImage, pDatas: *VkHostAddressRangeEXT) -> VkResult #c_call {
+    return vkGetImageOpaqueCaptureDataEXT_dynamic(device, imageCount, pImages, pDatas);
+}
+
+vkGetPhysicalDeviceDescriptorSizeEXT :: (physicalDevice: VkPhysicalDevice, descriptorType: VkDescriptorType) -> VkDeviceSize #c_call {
+    return vkGetPhysicalDeviceDescriptorSizeEXT_dynamic(physicalDevice, descriptorType);
+}
+
+vkGetTensorOpaqueCaptureDataARM :: (device: VkDevice, tensorCount: u32, pTensors: *VkTensorARM, pDatas: *VkHostAddressRangeEXT) -> VkResult #c_call {
+    return vkGetTensorOpaqueCaptureDataARM_dynamic(device, tensorCount, pTensors, pDatas);
 }
 

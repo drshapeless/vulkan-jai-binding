@@ -2,7 +2,7 @@
 
 This is a Vulkan binding generated from vk.xml. This generator is
 written from scratch, including the xml parser. Tested on Vulkan
-1.4.328 and jai version beta 0.2.024.
+1.4.335 and jai version beta 0.2.026.
 
 This has no relation to osor_io's Vulkan jai binding, [[https://github.com/osor-io/osor_vulkan][osor_vulkan]].
 
@@ -158,3 +158,8 @@ e.g. 4.2s on 9950x3d and 3s on M1 pro.
 
 But that is properly because I made a lot more allocation calls
 instead of referencing all the string to the original input string.
+
+Mar 6, 2026 update
+
+I rewrote the xml-parser to minimize allocation, now the generation is
+3.5s on 9950x3d.
