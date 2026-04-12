@@ -858,7 +858,6 @@ vkCreateQueryPool_dynamic : PFN_vkCreateQueryPool;
 vkDestroyQueryPool_dynamic : PFN_vkDestroyQueryPool;
 vkGetQueryPoolResults_dynamic : PFN_vkGetQueryPoolResults;
 vkResetQueryPool_dynamic : PFN_vkResetQueryPool;
-vkResetQueryPoolEXT_dynamic : PFN_vkResetQueryPoolEXT;
 vkCreateBuffer_dynamic : PFN_vkCreateBuffer;
 vkDestroyBuffer_dynamic : PFN_vkDestroyBuffer;
 vkCreateBufferView_dynamic : PFN_vkCreateBufferView;
@@ -901,7 +900,6 @@ vkCreateRenderPass_dynamic : PFN_vkCreateRenderPass;
 vkDestroyRenderPass_dynamic : PFN_vkDestroyRenderPass;
 vkGetRenderAreaGranularity_dynamic : PFN_vkGetRenderAreaGranularity;
 vkGetRenderingAreaGranularity_dynamic : PFN_vkGetRenderingAreaGranularity;
-vkGetRenderingAreaGranularityKHR_dynamic : PFN_vkGetRenderingAreaGranularityKHR;
 vkCreateCommandPool_dynamic : PFN_vkCreateCommandPool;
 vkDestroyCommandPool_dynamic : PFN_vkDestroyCommandPool;
 vkResetCommandPool_dynamic : PFN_vkResetCommandPool;
@@ -1029,25 +1027,15 @@ vkDestroyIndirectExecutionSetEXT_dynamic : PFN_vkDestroyIndirectExecutionSetEXT;
 vkUpdateIndirectExecutionSetPipelineEXT_dynamic : PFN_vkUpdateIndirectExecutionSetPipelineEXT;
 vkUpdateIndirectExecutionSetShaderEXT_dynamic : PFN_vkUpdateIndirectExecutionSetShaderEXT;
 vkGetPhysicalDeviceFeatures2_dynamic : PFN_vkGetPhysicalDeviceFeatures2;
-vkGetPhysicalDeviceFeatures2KHR_dynamic : PFN_vkGetPhysicalDeviceFeatures2KHR;
 vkGetPhysicalDeviceProperties2_dynamic : PFN_vkGetPhysicalDeviceProperties2;
-vkGetPhysicalDeviceProperties2KHR_dynamic : PFN_vkGetPhysicalDeviceProperties2KHR;
 vkGetPhysicalDeviceFormatProperties2_dynamic : PFN_vkGetPhysicalDeviceFormatProperties2;
-vkGetPhysicalDeviceFormatProperties2KHR_dynamic : PFN_vkGetPhysicalDeviceFormatProperties2KHR;
 vkGetPhysicalDeviceImageFormatProperties2_dynamic : PFN_vkGetPhysicalDeviceImageFormatProperties2;
-vkGetPhysicalDeviceImageFormatProperties2KHR_dynamic : PFN_vkGetPhysicalDeviceImageFormatProperties2KHR;
 vkGetPhysicalDeviceQueueFamilyProperties2_dynamic : PFN_vkGetPhysicalDeviceQueueFamilyProperties2;
-vkGetPhysicalDeviceQueueFamilyProperties2KHR_dynamic : PFN_vkGetPhysicalDeviceQueueFamilyProperties2KHR;
 vkGetPhysicalDeviceMemoryProperties2_dynamic : PFN_vkGetPhysicalDeviceMemoryProperties2;
-vkGetPhysicalDeviceMemoryProperties2KHR_dynamic : PFN_vkGetPhysicalDeviceMemoryProperties2KHR;
 vkGetPhysicalDeviceSparseImageFormatProperties2_dynamic : PFN_vkGetPhysicalDeviceSparseImageFormatProperties2;
-vkGetPhysicalDeviceSparseImageFormatProperties2KHR_dynamic : PFN_vkGetPhysicalDeviceSparseImageFormatProperties2KHR;
 vkCmdPushDescriptorSet_dynamic : PFN_vkCmdPushDescriptorSet;
-vkCmdPushDescriptorSetKHR_dynamic : PFN_vkCmdPushDescriptorSetKHR;
 vkTrimCommandPool_dynamic : PFN_vkTrimCommandPool;
-vkTrimCommandPoolKHR_dynamic : PFN_vkTrimCommandPoolKHR;
 vkGetPhysicalDeviceExternalBufferProperties_dynamic : PFN_vkGetPhysicalDeviceExternalBufferProperties;
-vkGetPhysicalDeviceExternalBufferPropertiesKHR_dynamic : PFN_vkGetPhysicalDeviceExternalBufferPropertiesKHR;
 vkGetMemoryWin32HandleKHR_dynamic : PFN_vkGetMemoryWin32HandleKHR;
 vkGetMemoryWin32HandlePropertiesKHR_dynamic : PFN_vkGetMemoryWin32HandlePropertiesKHR;
 vkGetMemoryFdKHR_dynamic : PFN_vkGetMemoryFdKHR;
@@ -1059,7 +1047,6 @@ vkGetMemorySciBufNV_dynamic : PFN_vkGetMemorySciBufNV;
 vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV_dynamic : PFN_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV;
 vkGetPhysicalDeviceSciBufAttributesNV_dynamic : PFN_vkGetPhysicalDeviceSciBufAttributesNV;
 vkGetPhysicalDeviceExternalSemaphoreProperties_dynamic : PFN_vkGetPhysicalDeviceExternalSemaphoreProperties;
-vkGetPhysicalDeviceExternalSemaphorePropertiesKHR_dynamic : PFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR;
 vkGetSemaphoreWin32HandleKHR_dynamic : PFN_vkGetSemaphoreWin32HandleKHR;
 vkImportSemaphoreWin32HandleKHR_dynamic : PFN_vkImportSemaphoreWin32HandleKHR;
 vkGetSemaphoreFdKHR_dynamic : PFN_vkGetSemaphoreFdKHR;
@@ -1067,7 +1054,6 @@ vkImportSemaphoreFdKHR_dynamic : PFN_vkImportSemaphoreFdKHR;
 vkGetSemaphoreZirconHandleFUCHSIA_dynamic : PFN_vkGetSemaphoreZirconHandleFUCHSIA;
 vkImportSemaphoreZirconHandleFUCHSIA_dynamic : PFN_vkImportSemaphoreZirconHandleFUCHSIA;
 vkGetPhysicalDeviceExternalFenceProperties_dynamic : PFN_vkGetPhysicalDeviceExternalFenceProperties;
-vkGetPhysicalDeviceExternalFencePropertiesKHR_dynamic : PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR;
 vkGetFenceWin32HandleKHR_dynamic : PFN_vkGetFenceWin32HandleKHR;
 vkImportFenceWin32HandleKHR_dynamic : PFN_vkImportFenceWin32HandleKHR;
 vkGetFenceFdKHR_dynamic : PFN_vkGetFenceFdKHR;
@@ -1092,29 +1078,19 @@ vkRegisterDisplayEventEXT_dynamic : PFN_vkRegisterDisplayEventEXT;
 vkGetSwapchainCounterEXT_dynamic : PFN_vkGetSwapchainCounterEXT;
 vkGetPhysicalDeviceSurfaceCapabilities2EXT_dynamic : PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT;
 vkEnumeratePhysicalDeviceGroups_dynamic : PFN_vkEnumeratePhysicalDeviceGroups;
-vkEnumeratePhysicalDeviceGroupsKHR_dynamic : PFN_vkEnumeratePhysicalDeviceGroupsKHR;
 vkGetDeviceGroupPeerMemoryFeatures_dynamic : PFN_vkGetDeviceGroupPeerMemoryFeatures;
-vkGetDeviceGroupPeerMemoryFeaturesKHR_dynamic : PFN_vkGetDeviceGroupPeerMemoryFeaturesKHR;
 vkBindBufferMemory2_dynamic : PFN_vkBindBufferMemory2;
-vkBindBufferMemory2KHR_dynamic : PFN_vkBindBufferMemory2KHR;
 vkBindImageMemory2_dynamic : PFN_vkBindImageMemory2;
-vkBindImageMemory2KHR_dynamic : PFN_vkBindImageMemory2KHR;
 vkCmdSetDeviceMask_dynamic : PFN_vkCmdSetDeviceMask;
-vkCmdSetDeviceMaskKHR_dynamic : PFN_vkCmdSetDeviceMaskKHR;
 vkGetDeviceGroupPresentCapabilitiesKHR_dynamic : PFN_vkGetDeviceGroupPresentCapabilitiesKHR;
 vkGetDeviceGroupSurfacePresentModesKHR_dynamic : PFN_vkGetDeviceGroupSurfacePresentModesKHR;
 vkAcquireNextImage2KHR_dynamic : PFN_vkAcquireNextImage2KHR;
 vkCmdDispatchBase_dynamic : PFN_vkCmdDispatchBase;
-vkCmdDispatchBaseKHR_dynamic : PFN_vkCmdDispatchBaseKHR;
 vkGetPhysicalDevicePresentRectanglesKHR_dynamic : PFN_vkGetPhysicalDevicePresentRectanglesKHR;
 vkCreateDescriptorUpdateTemplate_dynamic : PFN_vkCreateDescriptorUpdateTemplate;
-vkCreateDescriptorUpdateTemplateKHR_dynamic : PFN_vkCreateDescriptorUpdateTemplateKHR;
 vkDestroyDescriptorUpdateTemplate_dynamic : PFN_vkDestroyDescriptorUpdateTemplate;
-vkDestroyDescriptorUpdateTemplateKHR_dynamic : PFN_vkDestroyDescriptorUpdateTemplateKHR;
 vkUpdateDescriptorSetWithTemplate_dynamic : PFN_vkUpdateDescriptorSetWithTemplate;
-vkUpdateDescriptorSetWithTemplateKHR_dynamic : PFN_vkUpdateDescriptorSetWithTemplateKHR;
 vkCmdPushDescriptorSetWithTemplate_dynamic : PFN_vkCmdPushDescriptorSetWithTemplate;
-vkCmdPushDescriptorSetWithTemplateKHR_dynamic : PFN_vkCmdPushDescriptorSetWithTemplateKHR;
 vkSetHdrMetadataEXT_dynamic : PFN_vkSetHdrMetadataEXT;
 vkGetSwapchainStatusKHR_dynamic : PFN_vkGetSwapchainStatusKHR;
 vkGetRefreshCycleDurationGOOGLE_dynamic : PFN_vkGetRefreshCycleDurationGOOGLE;
@@ -1135,28 +1111,19 @@ vkGetPhysicalDeviceDisplayPlaneProperties2KHR_dynamic : PFN_vkGetPhysicalDeviceD
 vkGetDisplayModeProperties2KHR_dynamic : PFN_vkGetDisplayModeProperties2KHR;
 vkGetDisplayPlaneCapabilities2KHR_dynamic : PFN_vkGetDisplayPlaneCapabilities2KHR;
 vkGetBufferMemoryRequirements2_dynamic : PFN_vkGetBufferMemoryRequirements2;
-vkGetBufferMemoryRequirements2KHR_dynamic : PFN_vkGetBufferMemoryRequirements2KHR;
 vkGetImageMemoryRequirements2_dynamic : PFN_vkGetImageMemoryRequirements2;
-vkGetImageMemoryRequirements2KHR_dynamic : PFN_vkGetImageMemoryRequirements2KHR;
 vkGetImageSparseMemoryRequirements2_dynamic : PFN_vkGetImageSparseMemoryRequirements2;
-vkGetImageSparseMemoryRequirements2KHR_dynamic : PFN_vkGetImageSparseMemoryRequirements2KHR;
 vkGetDeviceBufferMemoryRequirements_dynamic : PFN_vkGetDeviceBufferMemoryRequirements;
-vkGetDeviceBufferMemoryRequirementsKHR_dynamic : PFN_vkGetDeviceBufferMemoryRequirementsKHR;
 vkGetDeviceImageMemoryRequirements_dynamic : PFN_vkGetDeviceImageMemoryRequirements;
-vkGetDeviceImageMemoryRequirementsKHR_dynamic : PFN_vkGetDeviceImageMemoryRequirementsKHR;
 vkGetDeviceImageSparseMemoryRequirements_dynamic : PFN_vkGetDeviceImageSparseMemoryRequirements;
-vkGetDeviceImageSparseMemoryRequirementsKHR_dynamic : PFN_vkGetDeviceImageSparseMemoryRequirementsKHR;
 vkCreateSamplerYcbcrConversion_dynamic : PFN_vkCreateSamplerYcbcrConversion;
-vkCreateSamplerYcbcrConversionKHR_dynamic : PFN_vkCreateSamplerYcbcrConversionKHR;
 vkDestroySamplerYcbcrConversion_dynamic : PFN_vkDestroySamplerYcbcrConversion;
-vkDestroySamplerYcbcrConversionKHR_dynamic : PFN_vkDestroySamplerYcbcrConversionKHR;
 vkGetDeviceQueue2_dynamic : PFN_vkGetDeviceQueue2;
 vkCreateValidationCacheEXT_dynamic : PFN_vkCreateValidationCacheEXT;
 vkDestroyValidationCacheEXT_dynamic : PFN_vkDestroyValidationCacheEXT;
 vkGetValidationCacheDataEXT_dynamic : PFN_vkGetValidationCacheDataEXT;
 vkMergeValidationCachesEXT_dynamic : PFN_vkMergeValidationCachesEXT;
 vkGetDescriptorSetLayoutSupport_dynamic : PFN_vkGetDescriptorSetLayoutSupport;
-vkGetDescriptorSetLayoutSupportKHR_dynamic : PFN_vkGetDescriptorSetLayoutSupportKHR;
 vkGetSwapchainGrallocUsageANDROID_dynamic : PFN_vkGetSwapchainGrallocUsageANDROID;
 vkGetSwapchainGrallocUsage2ANDROID_dynamic : PFN_vkGetSwapchainGrallocUsage2ANDROID;
 vkAcquireImageANDROID_dynamic : PFN_vkAcquireImageANDROID;
@@ -1164,9 +1131,7 @@ vkQueueSignalReleaseImageANDROID_dynamic : PFN_vkQueueSignalReleaseImageANDROID;
 vkGetShaderInfoAMD_dynamic : PFN_vkGetShaderInfoAMD;
 vkSetLocalDimmingAMD_dynamic : PFN_vkSetLocalDimmingAMD;
 vkGetPhysicalDeviceCalibrateableTimeDomainsKHR_dynamic : PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR;
-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT_dynamic : PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT;
 vkGetCalibratedTimestampsKHR_dynamic : PFN_vkGetCalibratedTimestampsKHR;
-vkGetCalibratedTimestampsEXT_dynamic : PFN_vkGetCalibratedTimestampsEXT;
 vkSetDebugUtilsObjectNameEXT_dynamic : PFN_vkSetDebugUtilsObjectNameEXT;
 vkSetDebugUtilsObjectTagEXT_dynamic : PFN_vkSetDebugUtilsObjectTagEXT;
 vkQueueBeginDebugUtilsLabelEXT_dynamic : PFN_vkQueueBeginDebugUtilsLabelEXT;
@@ -1181,27 +1146,16 @@ vkSubmitDebugUtilsMessageEXT_dynamic : PFN_vkSubmitDebugUtilsMessageEXT;
 vkGetMemoryHostPointerPropertiesEXT_dynamic : PFN_vkGetMemoryHostPointerPropertiesEXT;
 vkCmdWriteBufferMarkerAMD_dynamic : PFN_vkCmdWriteBufferMarkerAMD;
 vkCreateRenderPass2_dynamic : PFN_vkCreateRenderPass2;
-vkCreateRenderPass2KHR_dynamic : PFN_vkCreateRenderPass2KHR;
 vkCmdBeginRenderPass2_dynamic : PFN_vkCmdBeginRenderPass2;
-vkCmdBeginRenderPass2KHR_dynamic : PFN_vkCmdBeginRenderPass2KHR;
 vkCmdNextSubpass2_dynamic : PFN_vkCmdNextSubpass2;
-vkCmdNextSubpass2KHR_dynamic : PFN_vkCmdNextSubpass2KHR;
 vkCmdEndRenderPass2_dynamic : PFN_vkCmdEndRenderPass2;
-vkCmdEndRenderPass2KHR_dynamic : PFN_vkCmdEndRenderPass2KHR;
 vkGetSemaphoreCounterValue_dynamic : PFN_vkGetSemaphoreCounterValue;
-vkGetSemaphoreCounterValueKHR_dynamic : PFN_vkGetSemaphoreCounterValueKHR;
 vkWaitSemaphores_dynamic : PFN_vkWaitSemaphores;
-vkWaitSemaphoresKHR_dynamic : PFN_vkWaitSemaphoresKHR;
 vkSignalSemaphore_dynamic : PFN_vkSignalSemaphore;
-vkSignalSemaphoreKHR_dynamic : PFN_vkSignalSemaphoreKHR;
 vkGetAndroidHardwareBufferPropertiesANDROID_dynamic : PFN_vkGetAndroidHardwareBufferPropertiesANDROID;
 vkGetMemoryAndroidHardwareBufferANDROID_dynamic : PFN_vkGetMemoryAndroidHardwareBufferANDROID;
 vkCmdDrawIndirectCount_dynamic : PFN_vkCmdDrawIndirectCount;
-vkCmdDrawIndirectCountKHR_dynamic : PFN_vkCmdDrawIndirectCountKHR;
-vkCmdDrawIndirectCountAMD_dynamic : PFN_vkCmdDrawIndirectCountAMD;
 vkCmdDrawIndexedIndirectCount_dynamic : PFN_vkCmdDrawIndexedIndirectCount;
-vkCmdDrawIndexedIndirectCountKHR_dynamic : PFN_vkCmdDrawIndexedIndirectCountKHR;
-vkCmdDrawIndexedIndirectCountAMD_dynamic : PFN_vkCmdDrawIndexedIndirectCountAMD;
 vkCmdSetCheckpointNV_dynamic : PFN_vkCmdSetCheckpointNV;
 vkGetQueueCheckpointDataNV_dynamic : PFN_vkGetQueueCheckpointDataNV;
 vkCmdBindTransformFeedbackBuffersEXT_dynamic : PFN_vkCmdBindTransformFeedbackBuffersEXT;
@@ -1242,7 +1196,6 @@ vkWriteAccelerationStructuresPropertiesKHR_dynamic : PFN_vkWriteAccelerationStru
 vkCmdTraceRaysKHR_dynamic : PFN_vkCmdTraceRaysKHR;
 vkCmdTraceRaysNV_dynamic : PFN_vkCmdTraceRaysNV;
 vkGetRayTracingShaderGroupHandlesKHR_dynamic : PFN_vkGetRayTracingShaderGroupHandlesKHR;
-vkGetRayTracingShaderGroupHandlesNV_dynamic : PFN_vkGetRayTracingShaderGroupHandlesNV;
 vkGetRayTracingCaptureReplayShaderGroupHandlesKHR_dynamic : PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR;
 vkGetAccelerationStructureHandleNV_dynamic : PFN_vkGetAccelerationStructureHandleNV;
 vkCreateRayTracingPipelinesNV_dynamic : PFN_vkCreateRayTracingPipelinesNV;
@@ -1269,10 +1222,7 @@ vkAcquireProfilingLockKHR_dynamic : PFN_vkAcquireProfilingLockKHR;
 vkReleaseProfilingLockKHR_dynamic : PFN_vkReleaseProfilingLockKHR;
 vkGetImageDrmFormatModifierPropertiesEXT_dynamic : PFN_vkGetImageDrmFormatModifierPropertiesEXT;
 vkGetBufferOpaqueCaptureAddress_dynamic : PFN_vkGetBufferOpaqueCaptureAddress;
-vkGetBufferOpaqueCaptureAddressKHR_dynamic : PFN_vkGetBufferOpaqueCaptureAddressKHR;
 vkGetBufferDeviceAddress_dynamic : PFN_vkGetBufferDeviceAddress;
-vkGetBufferDeviceAddressKHR_dynamic : PFN_vkGetBufferDeviceAddressKHR;
-vkGetBufferDeviceAddressEXT_dynamic : PFN_vkGetBufferDeviceAddressEXT;
 vkCreateHeadlessSurfaceEXT_dynamic : PFN_vkCreateHeadlessSurfaceEXT;
 vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV_dynamic : PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV;
 vkInitializePerformanceApiINTEL_dynamic : PFN_vkInitializePerformanceApiINTEL;
@@ -1285,16 +1235,12 @@ vkReleasePerformanceConfigurationINTEL_dynamic : PFN_vkReleasePerformanceConfigu
 vkQueueSetPerformanceConfigurationINTEL_dynamic : PFN_vkQueueSetPerformanceConfigurationINTEL;
 vkGetPerformanceParameterINTEL_dynamic : PFN_vkGetPerformanceParameterINTEL;
 vkGetDeviceMemoryOpaqueCaptureAddress_dynamic : PFN_vkGetDeviceMemoryOpaqueCaptureAddress;
-vkGetDeviceMemoryOpaqueCaptureAddressKHR_dynamic : PFN_vkGetDeviceMemoryOpaqueCaptureAddressKHR;
 vkGetPipelineExecutablePropertiesKHR_dynamic : PFN_vkGetPipelineExecutablePropertiesKHR;
 vkGetPipelineExecutableStatisticsKHR_dynamic : PFN_vkGetPipelineExecutableStatisticsKHR;
 vkGetPipelineExecutableInternalRepresentationsKHR_dynamic : PFN_vkGetPipelineExecutableInternalRepresentationsKHR;
 vkCmdSetLineStipple_dynamic : PFN_vkCmdSetLineStipple;
-vkCmdSetLineStippleKHR_dynamic : PFN_vkCmdSetLineStippleKHR;
-vkCmdSetLineStippleEXT_dynamic : PFN_vkCmdSetLineStippleEXT;
 vkGetFaultData_dynamic : PFN_vkGetFaultData;
 vkGetPhysicalDeviceToolProperties_dynamic : PFN_vkGetPhysicalDeviceToolProperties;
-vkGetPhysicalDeviceToolPropertiesEXT_dynamic : PFN_vkGetPhysicalDeviceToolPropertiesEXT;
 vkCreateAccelerationStructureKHR_dynamic : PFN_vkCreateAccelerationStructureKHR;
 vkCmdBuildAccelerationStructuresKHR_dynamic : PFN_vkCmdBuildAccelerationStructuresKHR;
 vkCmdBuildAccelerationStructuresIndirectKHR_dynamic : PFN_vkCmdBuildAccelerationStructuresIndirectKHR;
@@ -1309,39 +1255,23 @@ vkGetPipelineIndirectMemoryRequirementsNV_dynamic : PFN_vkGetPipelineIndirectMem
 vkGetPipelineIndirectDeviceAddressNV_dynamic : PFN_vkGetPipelineIndirectDeviceAddressNV;
 vkAntiLagUpdateAMD_dynamic : PFN_vkAntiLagUpdateAMD;
 vkCmdSetCullMode_dynamic : PFN_vkCmdSetCullMode;
-vkCmdSetCullModeEXT_dynamic : PFN_vkCmdSetCullModeEXT;
 vkCmdSetFrontFace_dynamic : PFN_vkCmdSetFrontFace;
-vkCmdSetFrontFaceEXT_dynamic : PFN_vkCmdSetFrontFaceEXT;
 vkCmdSetPrimitiveTopology_dynamic : PFN_vkCmdSetPrimitiveTopology;
-vkCmdSetPrimitiveTopologyEXT_dynamic : PFN_vkCmdSetPrimitiveTopologyEXT;
 vkCmdSetViewportWithCount_dynamic : PFN_vkCmdSetViewportWithCount;
-vkCmdSetViewportWithCountEXT_dynamic : PFN_vkCmdSetViewportWithCountEXT;
 vkCmdSetScissorWithCount_dynamic : PFN_vkCmdSetScissorWithCount;
-vkCmdSetScissorWithCountEXT_dynamic : PFN_vkCmdSetScissorWithCountEXT;
 vkCmdBindIndexBuffer2_dynamic : PFN_vkCmdBindIndexBuffer2;
-vkCmdBindIndexBuffer2KHR_dynamic : PFN_vkCmdBindIndexBuffer2KHR;
 vkCmdBindVertexBuffers2_dynamic : PFN_vkCmdBindVertexBuffers2;
-vkCmdBindVertexBuffers2EXT_dynamic : PFN_vkCmdBindVertexBuffers2EXT;
 vkCmdSetDepthTestEnable_dynamic : PFN_vkCmdSetDepthTestEnable;
-vkCmdSetDepthTestEnableEXT_dynamic : PFN_vkCmdSetDepthTestEnableEXT;
 vkCmdSetDepthWriteEnable_dynamic : PFN_vkCmdSetDepthWriteEnable;
-vkCmdSetDepthWriteEnableEXT_dynamic : PFN_vkCmdSetDepthWriteEnableEXT;
 vkCmdSetDepthCompareOp_dynamic : PFN_vkCmdSetDepthCompareOp;
-vkCmdSetDepthCompareOpEXT_dynamic : PFN_vkCmdSetDepthCompareOpEXT;
 vkCmdSetDepthBoundsTestEnable_dynamic : PFN_vkCmdSetDepthBoundsTestEnable;
-vkCmdSetDepthBoundsTestEnableEXT_dynamic : PFN_vkCmdSetDepthBoundsTestEnableEXT;
 vkCmdSetStencilTestEnable_dynamic : PFN_vkCmdSetStencilTestEnable;
-vkCmdSetStencilTestEnableEXT_dynamic : PFN_vkCmdSetStencilTestEnableEXT;
 vkCmdSetStencilOp_dynamic : PFN_vkCmdSetStencilOp;
-vkCmdSetStencilOpEXT_dynamic : PFN_vkCmdSetStencilOpEXT;
 vkCmdSetPatchControlPointsEXT_dynamic : PFN_vkCmdSetPatchControlPointsEXT;
 vkCmdSetRasterizerDiscardEnable_dynamic : PFN_vkCmdSetRasterizerDiscardEnable;
-vkCmdSetRasterizerDiscardEnableEXT_dynamic : PFN_vkCmdSetRasterizerDiscardEnableEXT;
 vkCmdSetDepthBiasEnable_dynamic : PFN_vkCmdSetDepthBiasEnable;
-vkCmdSetDepthBiasEnableEXT_dynamic : PFN_vkCmdSetDepthBiasEnableEXT;
 vkCmdSetLogicOpEXT_dynamic : PFN_vkCmdSetLogicOpEXT;
 vkCmdSetPrimitiveRestartEnable_dynamic : PFN_vkCmdSetPrimitiveRestartEnable;
-vkCmdSetPrimitiveRestartEnableEXT_dynamic : PFN_vkCmdSetPrimitiveRestartEnableEXT;
 vkCmdSetTessellationDomainOriginEXT_dynamic : PFN_vkCmdSetTessellationDomainOriginEXT;
 vkCmdSetDepthClampEnableEXT_dynamic : PFN_vkCmdSetDepthClampEnableEXT;
 vkCmdSetPolygonModeEXT_dynamic : PFN_vkCmdSetPolygonModeEXT;
@@ -1374,25 +1304,15 @@ vkCmdSetShadingRateImageEnableNV_dynamic : PFN_vkCmdSetShadingRateImageEnableNV;
 vkCmdSetCoverageReductionModeNV_dynamic : PFN_vkCmdSetCoverageReductionModeNV;
 vkCmdSetRepresentativeFragmentTestEnableNV_dynamic : PFN_vkCmdSetRepresentativeFragmentTestEnableNV;
 vkCreatePrivateDataSlot_dynamic : PFN_vkCreatePrivateDataSlot;
-vkCreatePrivateDataSlotEXT_dynamic : PFN_vkCreatePrivateDataSlotEXT;
 vkDestroyPrivateDataSlot_dynamic : PFN_vkDestroyPrivateDataSlot;
-vkDestroyPrivateDataSlotEXT_dynamic : PFN_vkDestroyPrivateDataSlotEXT;
 vkSetPrivateData_dynamic : PFN_vkSetPrivateData;
-vkSetPrivateDataEXT_dynamic : PFN_vkSetPrivateDataEXT;
 vkGetPrivateData_dynamic : PFN_vkGetPrivateData;
-vkGetPrivateDataEXT_dynamic : PFN_vkGetPrivateDataEXT;
 vkCmdCopyBuffer2_dynamic : PFN_vkCmdCopyBuffer2;
-vkCmdCopyBuffer2KHR_dynamic : PFN_vkCmdCopyBuffer2KHR;
 vkCmdCopyImage2_dynamic : PFN_vkCmdCopyImage2;
-vkCmdCopyImage2KHR_dynamic : PFN_vkCmdCopyImage2KHR;
 vkCmdBlitImage2_dynamic : PFN_vkCmdBlitImage2;
-vkCmdBlitImage2KHR_dynamic : PFN_vkCmdBlitImage2KHR;
 vkCmdCopyBufferToImage2_dynamic : PFN_vkCmdCopyBufferToImage2;
-vkCmdCopyBufferToImage2KHR_dynamic : PFN_vkCmdCopyBufferToImage2KHR;
 vkCmdCopyImageToBuffer2_dynamic : PFN_vkCmdCopyImageToBuffer2;
-vkCmdCopyImageToBuffer2KHR_dynamic : PFN_vkCmdCopyImageToBuffer2KHR;
 vkCmdResolveImage2_dynamic : PFN_vkCmdResolveImage2;
-vkCmdResolveImage2KHR_dynamic : PFN_vkCmdResolveImage2KHR;
 vkCmdRefreshObjectsKHR_dynamic : PFN_vkCmdRefreshObjectsKHR;
 vkGetPhysicalDeviceRefreshableObjectTypesKHR_dynamic : PFN_vkGetPhysicalDeviceRefreshableObjectTypesKHR;
 vkCmdSetFragmentShadingRateKHR_dynamic : PFN_vkCmdSetFragmentShadingRateKHR;
@@ -1402,27 +1322,17 @@ vkGetAccelerationStructureBuildSizesKHR_dynamic : PFN_vkGetAccelerationStructure
 vkCmdSetVertexInputEXT_dynamic : PFN_vkCmdSetVertexInputEXT;
 vkCmdSetColorWriteEnableEXT_dynamic : PFN_vkCmdSetColorWriteEnableEXT;
 vkCmdSetEvent2_dynamic : PFN_vkCmdSetEvent2;
-vkCmdSetEvent2KHR_dynamic : PFN_vkCmdSetEvent2KHR;
 vkCmdResetEvent2_dynamic : PFN_vkCmdResetEvent2;
-vkCmdResetEvent2KHR_dynamic : PFN_vkCmdResetEvent2KHR;
 vkCmdWaitEvents2_dynamic : PFN_vkCmdWaitEvents2;
-vkCmdWaitEvents2KHR_dynamic : PFN_vkCmdWaitEvents2KHR;
 vkCmdPipelineBarrier2_dynamic : PFN_vkCmdPipelineBarrier2;
-vkCmdPipelineBarrier2KHR_dynamic : PFN_vkCmdPipelineBarrier2KHR;
 vkQueueSubmit2_dynamic : PFN_vkQueueSubmit2;
-vkQueueSubmit2KHR_dynamic : PFN_vkQueueSubmit2KHR;
 vkCmdWriteTimestamp2_dynamic : PFN_vkCmdWriteTimestamp2;
-vkCmdWriteTimestamp2KHR_dynamic : PFN_vkCmdWriteTimestamp2KHR;
 vkCmdWriteBufferMarker2AMD_dynamic : PFN_vkCmdWriteBufferMarker2AMD;
 vkGetQueueCheckpointData2NV_dynamic : PFN_vkGetQueueCheckpointData2NV;
 vkCopyMemoryToImage_dynamic : PFN_vkCopyMemoryToImage;
-vkCopyMemoryToImageEXT_dynamic : PFN_vkCopyMemoryToImageEXT;
 vkCopyImageToMemory_dynamic : PFN_vkCopyImageToMemory;
-vkCopyImageToMemoryEXT_dynamic : PFN_vkCopyImageToMemoryEXT;
 vkCopyImageToImage_dynamic : PFN_vkCopyImageToImage;
-vkCopyImageToImageEXT_dynamic : PFN_vkCopyImageToImageEXT;
 vkTransitionImageLayout_dynamic : PFN_vkTransitionImageLayout;
-vkTransitionImageLayoutEXT_dynamic : PFN_vkTransitionImageLayoutEXT;
 vkGetCommandPoolMemoryConsumption_dynamic : PFN_vkGetCommandPoolMemoryConsumption;
 vkGetPhysicalDeviceVideoCapabilitiesKHR_dynamic : PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR;
 vkGetPhysicalDeviceVideoFormatPropertiesKHR_dynamic : PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR;
@@ -1479,11 +1389,8 @@ vkDestroyCudaModuleNV_dynamic : PFN_vkDestroyCudaModuleNV;
 vkDestroyCudaFunctionNV_dynamic : PFN_vkDestroyCudaFunctionNV;
 vkCmdCudaLaunchKernelNV_dynamic : PFN_vkCmdCudaLaunchKernelNV;
 vkCmdBeginRendering_dynamic : PFN_vkCmdBeginRendering;
-vkCmdBeginRenderingKHR_dynamic : PFN_vkCmdBeginRenderingKHR;
 vkCmdEndRendering_dynamic : PFN_vkCmdEndRendering;
 vkCmdEndRendering2KHR_dynamic : PFN_vkCmdEndRendering2KHR;
-vkCmdEndRendering2EXT_dynamic : PFN_vkCmdEndRendering2EXT;
-vkCmdEndRenderingKHR_dynamic : PFN_vkCmdEndRenderingKHR;
 vkGetDescriptorSetLayoutHostMappingInfoVALVE_dynamic : PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE;
 vkGetDescriptorSetHostMappingVALVE_dynamic : PFN_vkGetDescriptorSetHostMappingVALVE;
 vkCreateMicromapEXT_dynamic : PFN_vkCreateMicromapEXT;
@@ -1503,8 +1410,6 @@ vkGetMicromapBuildSizesEXT_dynamic : PFN_vkGetMicromapBuildSizesEXT;
 vkGetShaderModuleIdentifierEXT_dynamic : PFN_vkGetShaderModuleIdentifierEXT;
 vkGetShaderModuleCreateInfoIdentifierEXT_dynamic : PFN_vkGetShaderModuleCreateInfoIdentifierEXT;
 vkGetImageSubresourceLayout2_dynamic : PFN_vkGetImageSubresourceLayout2;
-vkGetImageSubresourceLayout2KHR_dynamic : PFN_vkGetImageSubresourceLayout2KHR;
-vkGetImageSubresourceLayout2EXT_dynamic : PFN_vkGetImageSubresourceLayout2EXT;
 vkGetPipelinePropertiesEXT_dynamic : PFN_vkGetPipelinePropertiesEXT;
 vkExportMetalObjectsEXT_dynamic : PFN_vkExportMetalObjectsEXT;
 vkCmdBindTileMemoryQCOM_dynamic : PFN_vkCmdBindTileMemoryQCOM;
@@ -1518,13 +1423,9 @@ vkCmdOpticalFlowExecuteNV_dynamic : PFN_vkCmdOpticalFlowExecuteNV;
 vkGetDeviceFaultInfoEXT_dynamic : PFN_vkGetDeviceFaultInfoEXT;
 vkCmdSetDepthBias2EXT_dynamic : PFN_vkCmdSetDepthBias2EXT;
 vkReleaseSwapchainImagesKHR_dynamic : PFN_vkReleaseSwapchainImagesKHR;
-vkReleaseSwapchainImagesEXT_dynamic : PFN_vkReleaseSwapchainImagesEXT;
 vkGetDeviceImageSubresourceLayout_dynamic : PFN_vkGetDeviceImageSubresourceLayout;
-vkGetDeviceImageSubresourceLayoutKHR_dynamic : PFN_vkGetDeviceImageSubresourceLayoutKHR;
 vkMapMemory2_dynamic : PFN_vkMapMemory2;
-vkMapMemory2KHR_dynamic : PFN_vkMapMemory2KHR;
 vkUnmapMemory2_dynamic : PFN_vkUnmapMemory2;
-vkUnmapMemory2KHR_dynamic : PFN_vkUnmapMemory2KHR;
 vkCreateShadersEXT_dynamic : PFN_vkCreateShadersEXT;
 vkDestroyShaderEXT_dynamic : PFN_vkDestroyShaderEXT;
 vkGetShaderBinaryDataEXT_dynamic : PFN_vkGetShaderBinaryDataEXT;
@@ -1543,13 +1444,9 @@ vkCmdDispatchGraphAMDX_dynamic : PFN_vkCmdDispatchGraphAMDX;
 vkCmdDispatchGraphIndirectAMDX_dynamic : PFN_vkCmdDispatchGraphIndirectAMDX;
 vkCmdDispatchGraphIndirectCountAMDX_dynamic : PFN_vkCmdDispatchGraphIndirectCountAMDX;
 vkCmdBindDescriptorSets2_dynamic : PFN_vkCmdBindDescriptorSets2;
-vkCmdBindDescriptorSets2KHR_dynamic : PFN_vkCmdBindDescriptorSets2KHR;
 vkCmdPushConstants2_dynamic : PFN_vkCmdPushConstants2;
-vkCmdPushConstants2KHR_dynamic : PFN_vkCmdPushConstants2KHR;
 vkCmdPushDescriptorSet2_dynamic : PFN_vkCmdPushDescriptorSet2;
-vkCmdPushDescriptorSet2KHR_dynamic : PFN_vkCmdPushDescriptorSet2KHR;
 vkCmdPushDescriptorSetWithTemplate2_dynamic : PFN_vkCmdPushDescriptorSetWithTemplate2;
-vkCmdPushDescriptorSetWithTemplate2KHR_dynamic : PFN_vkCmdPushDescriptorSetWithTemplate2KHR;
 vkCmdSetDescriptorBufferOffsets2EXT_dynamic : PFN_vkCmdSetDescriptorBufferOffsets2EXT;
 vkCmdBindDescriptorBufferEmbeddedSamplers2EXT_dynamic : PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT;
 vkSetLatencySleepModeNV_dynamic : PFN_vkSetLatencySleepModeNV;
@@ -1558,9 +1455,7 @@ vkSetLatencyMarkerNV_dynamic : PFN_vkSetLatencyMarkerNV;
 vkGetLatencyTimingsNV_dynamic : PFN_vkGetLatencyTimingsNV;
 vkQueueNotifyOutOfBandNV_dynamic : PFN_vkQueueNotifyOutOfBandNV;
 vkCmdSetRenderingAttachmentLocations_dynamic : PFN_vkCmdSetRenderingAttachmentLocations;
-vkCmdSetRenderingAttachmentLocationsKHR_dynamic : PFN_vkCmdSetRenderingAttachmentLocationsKHR;
 vkCmdSetRenderingInputAttachmentIndices_dynamic : PFN_vkCmdSetRenderingInputAttachmentIndices;
-vkCmdSetRenderingInputAttachmentIndicesKHR_dynamic : PFN_vkCmdSetRenderingInputAttachmentIndicesKHR;
 vkCmdSetDepthClampRangeEXT_dynamic : PFN_vkCmdSetDepthClampRangeEXT;
 vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV_dynamic : PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV;
 vkGetMemoryMetalHandleEXT_dynamic : PFN_vkGetMemoryMetalHandleEXT;
@@ -1731,6 +1626,45 @@ vk_load_instance_functions :: (instance: VkInstance) {
     vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM");
     vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM_dynamic   = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM");
     vkGetPhysicalDeviceDescriptorSizeEXT_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDescriptorSizeEXT");
+    if vkGetPhysicalDeviceFeatures2_dynamic == null {
+        vkGetPhysicalDeviceFeatures2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFeatures2KHR");
+    }
+    if vkGetPhysicalDeviceProperties2_dynamic == null {
+        vkGetPhysicalDeviceProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceProperties2KHR");
+    }
+    if vkGetPhysicalDeviceFormatProperties2_dynamic == null {
+        vkGetPhysicalDeviceFormatProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFormatProperties2KHR");
+    }
+    if vkGetPhysicalDeviceImageFormatProperties2_dynamic == null {
+        vkGetPhysicalDeviceImageFormatProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceImageFormatProperties2KHR");
+    }
+    if vkGetPhysicalDeviceQueueFamilyProperties2_dynamic == null {
+        vkGetPhysicalDeviceQueueFamilyProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyProperties2KHR");
+    }
+    if vkGetPhysicalDeviceMemoryProperties2_dynamic == null {
+        vkGetPhysicalDeviceMemoryProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceMemoryProperties2KHR");
+    }
+    if vkGetPhysicalDeviceSparseImageFormatProperties2_dynamic == null {
+        vkGetPhysicalDeviceSparseImageFormatProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSparseImageFormatProperties2KHR");
+    }
+    if vkGetPhysicalDeviceExternalBufferProperties_dynamic == null {
+        vkGetPhysicalDeviceExternalBufferProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalBufferPropertiesKHR");
+    }
+    if vkGetPhysicalDeviceExternalSemaphoreProperties_dynamic == null {
+        vkGetPhysicalDeviceExternalSemaphoreProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalSemaphorePropertiesKHR");
+    }
+    if vkGetPhysicalDeviceExternalFenceProperties_dynamic == null {
+        vkGetPhysicalDeviceExternalFenceProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalFencePropertiesKHR");
+    }
+    if vkEnumeratePhysicalDeviceGroups_dynamic == null {
+        vkEnumeratePhysicalDeviceGroups_dynamic = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceGroupsKHR");
+    }
+    if vkGetPhysicalDeviceCalibrateableTimeDomainsKHR_dynamic == null {
+        vkGetPhysicalDeviceCalibrateableTimeDomainsKHR_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
+    }
+    if vkGetPhysicalDeviceToolProperties_dynamic == null {
+        vkGetPhysicalDeviceToolProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceToolPropertiesEXT");
+    }
 }
 
 vk_load_device_functions :: (device: VkDevice) {
@@ -2327,7 +2261,284 @@ vk_load_device_functions :: (device: VkDevice) {
     vkUnregisterCustomBorderColorEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkUnregisterCustomBorderColorEXT");
     vkGetImageOpaqueCaptureDataEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetImageOpaqueCaptureDataEXT");
     vkGetTensorOpaqueCaptureDataARM_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetTensorOpaqueCaptureDataARM");
+    if vkResetQueryPool_dynamic == null {
+        vkResetQueryPool_dynamic = xx vkGetDeviceProcAddr(device, "vkResetQueryPoolEXT");
+    }
+    if vkGetRenderingAreaGranularity_dynamic == null {
+        vkGetRenderingAreaGranularity_dynamic = xx vkGetDeviceProcAddr(device, "vkGetRenderingAreaGranularityKHR");
+    }
+    if vkCmdPushDescriptorSet_dynamic == null {
+        vkCmdPushDescriptorSet_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetKHR");
+    }
+    if vkTrimCommandPool_dynamic == null {
+        vkTrimCommandPool_dynamic = xx vkGetDeviceProcAddr(device, "vkTrimCommandPoolKHR");
+    }
+    if vkGetDeviceGroupPeerMemoryFeatures_dynamic == null {
+        vkGetDeviceGroupPeerMemoryFeatures_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceGroupPeerMemoryFeaturesKHR");
+    }
+    if vkBindBufferMemory2_dynamic == null {
+        vkBindBufferMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkBindBufferMemory2KHR");
+    }
+    if vkBindImageMemory2_dynamic == null {
+        vkBindImageMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkBindImageMemory2KHR");
+    }
+    if vkCmdSetDeviceMask_dynamic == null {
+        vkCmdSetDeviceMask_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDeviceMaskKHR");
+    }
+    if vkCmdDispatchBase_dynamic == null {
+        vkCmdDispatchBase_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDispatchBaseKHR");
+    }
+    if vkCreateDescriptorUpdateTemplate_dynamic == null {
+        vkCreateDescriptorUpdateTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkCreateDescriptorUpdateTemplateKHR");
+    }
+    if vkDestroyDescriptorUpdateTemplate_dynamic == null {
+        vkDestroyDescriptorUpdateTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkDestroyDescriptorUpdateTemplateKHR");
+    }
+    if vkUpdateDescriptorSetWithTemplate_dynamic == null {
+        vkUpdateDescriptorSetWithTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkUpdateDescriptorSetWithTemplateKHR");
+    }
+    if vkCmdPushDescriptorSetWithTemplate_dynamic == null {
+        vkCmdPushDescriptorSetWithTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetWithTemplateKHR");
+    }
+    if vkGetBufferMemoryRequirements2_dynamic == null {
+        vkGetBufferMemoryRequirements2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferMemoryRequirements2KHR");
+    }
+    if vkGetImageMemoryRequirements2_dynamic == null {
+        vkGetImageMemoryRequirements2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageMemoryRequirements2KHR");
+    }
+    if vkGetImageSparseMemoryRequirements2_dynamic == null {
+        vkGetImageSparseMemoryRequirements2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageSparseMemoryRequirements2KHR");
+    }
+    if vkGetDeviceBufferMemoryRequirements_dynamic == null {
+        vkGetDeviceBufferMemoryRequirements_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceBufferMemoryRequirementsKHR");
+    }
+    if vkGetDeviceImageMemoryRequirements_dynamic == null {
+        vkGetDeviceImageMemoryRequirements_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageMemoryRequirementsKHR");
+    }
+    if vkGetDeviceImageSparseMemoryRequirements_dynamic == null {
+        vkGetDeviceImageSparseMemoryRequirements_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageSparseMemoryRequirementsKHR");
+    }
+    if vkCreateSamplerYcbcrConversion_dynamic == null {
+        vkCreateSamplerYcbcrConversion_dynamic = xx vkGetDeviceProcAddr(device, "vkCreateSamplerYcbcrConversionKHR");
+    }
+    if vkDestroySamplerYcbcrConversion_dynamic == null {
+        vkDestroySamplerYcbcrConversion_dynamic = xx vkGetDeviceProcAddr(device, "vkDestroySamplerYcbcrConversionKHR");
+    }
+    if vkGetDescriptorSetLayoutSupport_dynamic == null {
+        vkGetDescriptorSetLayoutSupport_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetLayoutSupportKHR");
+    }
+    if vkGetCalibratedTimestampsKHR_dynamic == null {
+        vkGetCalibratedTimestampsKHR_dynamic = xx vkGetDeviceProcAddr(device, "vkGetCalibratedTimestampsEXT");
+    }
+    if vkCreateRenderPass2_dynamic == null {
+        vkCreateRenderPass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCreateRenderPass2KHR");
+    }
+    if vkCmdBeginRenderPass2_dynamic == null {
+        vkCmdBeginRenderPass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBeginRenderPass2KHR");
+    }
+    if vkCmdNextSubpass2_dynamic == null {
+        vkCmdNextSubpass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdNextSubpass2KHR");
+    }
+    if vkCmdEndRenderPass2_dynamic == null {
+        vkCmdEndRenderPass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdEndRenderPass2KHR");
+    }
+    if vkGetSemaphoreCounterValue_dynamic == null {
+        vkGetSemaphoreCounterValue_dynamic = xx vkGetDeviceProcAddr(device, "vkGetSemaphoreCounterValueKHR");
+    }
+    if vkWaitSemaphores_dynamic == null {
+        vkWaitSemaphores_dynamic = xx vkGetDeviceProcAddr(device, "vkWaitSemaphoresKHR");
+    }
+    if vkSignalSemaphore_dynamic == null {
+        vkSignalSemaphore_dynamic = xx vkGetDeviceProcAddr(device, "vkSignalSemaphoreKHR");
+    }
+    if vkCmdDrawIndirectCount_dynamic == null {
+        vkCmdDrawIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndirectCountKHR");
+    }
+    if vkCmdDrawIndirectCount_dynamic == null {
+        vkCmdDrawIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndirectCountAMD");
+    }
+    if vkCmdDrawIndexedIndirectCount_dynamic == null {
+        vkCmdDrawIndexedIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndexedIndirectCountKHR");
+    }
+    if vkCmdDrawIndexedIndirectCount_dynamic == null {
+        vkCmdDrawIndexedIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndexedIndirectCountAMD");
+    }
+    if vkGetRayTracingShaderGroupHandlesKHR_dynamic == null {
+        vkGetRayTracingShaderGroupHandlesKHR_dynamic = xx vkGetDeviceProcAddr(device, "vkGetRayTracingShaderGroupHandlesNV");
+    }
+    if vkGetBufferOpaqueCaptureAddress_dynamic == null {
+        vkGetBufferOpaqueCaptureAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferOpaqueCaptureAddressKHR");
+    }
+    if vkGetBufferDeviceAddress_dynamic == null {
+        vkGetBufferDeviceAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferDeviceAddressKHR");
+    }
+    if vkGetBufferDeviceAddress_dynamic == null {
+        vkGetBufferDeviceAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferDeviceAddressEXT");
+    }
+    if vkGetDeviceMemoryOpaqueCaptureAddress_dynamic == null {
+        vkGetDeviceMemoryOpaqueCaptureAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceMemoryOpaqueCaptureAddressKHR");
+    }
+    if vkCmdSetLineStipple_dynamic == null {
+        vkCmdSetLineStipple_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetLineStippleKHR");
+    }
+    if vkCmdSetLineStipple_dynamic == null {
+        vkCmdSetLineStipple_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetLineStippleEXT");
+    }
+    if vkCmdSetCullMode_dynamic == null {
+        vkCmdSetCullMode_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetCullModeEXT");
+    }
+    if vkCmdSetFrontFace_dynamic == null {
+        vkCmdSetFrontFace_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetFrontFaceEXT");
+    }
+    if vkCmdSetPrimitiveTopology_dynamic == null {
+        vkCmdSetPrimitiveTopology_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetPrimitiveTopologyEXT");
+    }
+    if vkCmdSetViewportWithCount_dynamic == null {
+        vkCmdSetViewportWithCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetViewportWithCountEXT");
+    }
+    if vkCmdSetScissorWithCount_dynamic == null {
+        vkCmdSetScissorWithCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetScissorWithCountEXT");
+    }
+    if vkCmdBindIndexBuffer2_dynamic == null {
+        vkCmdBindIndexBuffer2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBindIndexBuffer2KHR");
+    }
+    if vkCmdBindVertexBuffers2_dynamic == null {
+        vkCmdBindVertexBuffers2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBindVertexBuffers2EXT");
+    }
+    if vkCmdSetDepthTestEnable_dynamic == null {
+        vkCmdSetDepthTestEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthTestEnableEXT");
+    }
+    if vkCmdSetDepthWriteEnable_dynamic == null {
+        vkCmdSetDepthWriteEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthWriteEnableEXT");
+    }
+    if vkCmdSetDepthCompareOp_dynamic == null {
+        vkCmdSetDepthCompareOp_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthCompareOpEXT");
+    }
+    if vkCmdSetDepthBoundsTestEnable_dynamic == null {
+        vkCmdSetDepthBoundsTestEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBoundsTestEnableEXT");
+    }
+    if vkCmdSetStencilTestEnable_dynamic == null {
+        vkCmdSetStencilTestEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilTestEnableEXT");
+    }
+    if vkCmdSetStencilOp_dynamic == null {
+        vkCmdSetStencilOp_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilOpEXT");
+    }
+    if vkCmdSetRasterizerDiscardEnable_dynamic == null {
+        vkCmdSetRasterizerDiscardEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetRasterizerDiscardEnableEXT");
+    }
+    if vkCmdSetDepthBiasEnable_dynamic == null {
+        vkCmdSetDepthBiasEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBiasEnableEXT");
+    }
+    if vkCmdSetPrimitiveRestartEnable_dynamic == null {
+        vkCmdSetPrimitiveRestartEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetPrimitiveRestartEnableEXT");
+    }
+    if vkCreatePrivateDataSlot_dynamic == null {
+        vkCreatePrivateDataSlot_dynamic = xx vkGetDeviceProcAddr(device, "vkCreatePrivateDataSlotEXT");
+    }
+    if vkDestroyPrivateDataSlot_dynamic == null {
+        vkDestroyPrivateDataSlot_dynamic = xx vkGetDeviceProcAddr(device, "vkDestroyPrivateDataSlotEXT");
+    }
+    if vkSetPrivateData_dynamic == null {
+        vkSetPrivateData_dynamic = xx vkGetDeviceProcAddr(device, "vkSetPrivateDataEXT");
+    }
+    if vkGetPrivateData_dynamic == null {
+        vkGetPrivateData_dynamic = xx vkGetDeviceProcAddr(device, "vkGetPrivateDataEXT");
+    }
+    if vkCmdCopyBuffer2_dynamic == null {
+        vkCmdCopyBuffer2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyBuffer2KHR");
+    }
+    if vkCmdCopyImage2_dynamic == null {
+        vkCmdCopyImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyImage2KHR");
+    }
+    if vkCmdBlitImage2_dynamic == null {
+        vkCmdBlitImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBlitImage2KHR");
+    }
+    if vkCmdCopyBufferToImage2_dynamic == null {
+        vkCmdCopyBufferToImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyBufferToImage2KHR");
+    }
+    if vkCmdCopyImageToBuffer2_dynamic == null {
+        vkCmdCopyImageToBuffer2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyImageToBuffer2KHR");
+    }
+    if vkCmdResolveImage2_dynamic == null {
+        vkCmdResolveImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdResolveImage2KHR");
+    }
+    if vkCmdSetEvent2_dynamic == null {
+        vkCmdSetEvent2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetEvent2KHR");
+    }
+    if vkCmdResetEvent2_dynamic == null {
+        vkCmdResetEvent2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdResetEvent2KHR");
+    }
+    if vkCmdWaitEvents2_dynamic == null {
+        vkCmdWaitEvents2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdWaitEvents2KHR");
+    }
+    if vkCmdPipelineBarrier2_dynamic == null {
+        vkCmdPipelineBarrier2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPipelineBarrier2KHR");
+    }
+    if vkQueueSubmit2_dynamic == null {
+        vkQueueSubmit2_dynamic = xx vkGetDeviceProcAddr(device, "vkQueueSubmit2KHR");
+    }
+    if vkCmdWriteTimestamp2_dynamic == null {
+        vkCmdWriteTimestamp2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdWriteTimestamp2KHR");
+    }
+    if vkCopyMemoryToImage_dynamic == null {
+        vkCopyMemoryToImage_dynamic = xx vkGetDeviceProcAddr(device, "vkCopyMemoryToImageEXT");
+    }
+    if vkCopyImageToMemory_dynamic == null {
+        vkCopyImageToMemory_dynamic = xx vkGetDeviceProcAddr(device, "vkCopyImageToMemoryEXT");
+    }
+    if vkCopyImageToImage_dynamic == null {
+        vkCopyImageToImage_dynamic = xx vkGetDeviceProcAddr(device, "vkCopyImageToImageEXT");
+    }
+    if vkTransitionImageLayout_dynamic == null {
+        vkTransitionImageLayout_dynamic = xx vkGetDeviceProcAddr(device, "vkTransitionImageLayoutEXT");
+    }
+    if vkCmdBeginRendering_dynamic == null {
+        vkCmdBeginRendering_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBeginRenderingKHR");
+    }
+    if vkCmdEndRendering2KHR_dynamic == null {
+        vkCmdEndRendering2KHR_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdEndRendering2EXT");
+    }
+    if vkCmdEndRendering_dynamic == null {
+        vkCmdEndRendering_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdEndRenderingKHR");
+    }
+    if vkGetImageSubresourceLayout2_dynamic == null {
+        vkGetImageSubresourceLayout2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageSubresourceLayout2KHR");
+    }
+    if vkGetImageSubresourceLayout2_dynamic == null {
+        vkGetImageSubresourceLayout2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageSubresourceLayout2EXT");
+    }
+    if vkReleaseSwapchainImagesKHR_dynamic == null {
+        vkReleaseSwapchainImagesKHR_dynamic = xx vkGetDeviceProcAddr(device, "vkReleaseSwapchainImagesEXT");
+    }
+    if vkGetDeviceImageSubresourceLayout_dynamic == null {
+        vkGetDeviceImageSubresourceLayout_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageSubresourceLayoutKHR");
+    }
+    if vkMapMemory2_dynamic == null {
+        vkMapMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkMapMemory2KHR");
+    }
+    if vkUnmapMemory2_dynamic == null {
+        vkUnmapMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkUnmapMemory2KHR");
+    }
+    if vkCmdBindDescriptorSets2_dynamic == null {
+        vkCmdBindDescriptorSets2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBindDescriptorSets2KHR");
+    }
+    if vkCmdPushConstants2_dynamic == null {
+        vkCmdPushConstants2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushConstants2KHR");
+    }
+    if vkCmdPushDescriptorSet2_dynamic == null {
+        vkCmdPushDescriptorSet2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSet2KHR");
+    }
+    if vkCmdPushDescriptorSetWithTemplate2_dynamic == null {
+        vkCmdPushDescriptorSetWithTemplate2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetWithTemplate2KHR");
+    }
+    if vkCmdSetRenderingAttachmentLocations_dynamic == null {
+        vkCmdSetRenderingAttachmentLocations_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetRenderingAttachmentLocationsKHR");
+    }
+    if vkCmdSetRenderingInputAttachmentIndices_dynamic == null {
+        vkCmdSetRenderingInputAttachmentIndices_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetRenderingInputAttachmentIndicesKHR");
+    }
 }
+
 vkCreateInstance :: (pCreateInfo: *VkInstanceCreateInfo, pAllocator: *VkAllocationCallbacks, pInstance: *VkInstance) -> VkResult #c_call {
     return vkCreateInstance_dynamic(pCreateInfo, pAllocator, pInstance);
 }

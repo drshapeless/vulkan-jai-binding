@@ -1237,6 +1237,7 @@ output_dynamic_functions :: () {
     device_func   : [..]string;
     instance_func : [..]string;
     global_func   : [..]string;
+    aliased_func:   [..]VK.Function;
 
     append(*sb0, "#scope_file\n");
 
@@ -1249,6 +1250,7 @@ output_dynamic_functions :: () {
             append(*sb, "PFN_");
             append(*sb, f.alias);
             append(*sb, ";\n");
+            array_add(*aliased_func, f);
         } else {
             append(*sb, "#type (");
             output_function_params(f.params, *sb);
@@ -1256,14 +1258,13 @@ output_dynamic_functions :: () {
             repeat_string("*", f.number_of_pointer, *sb);
             append(*sb, f.return_type);
             append(*sb, " #c_call;\n");
+            // This part generate loader.
+            append(*sb0, f.name);
+            append(*sb0, "_dynamic"); // Add a suffix to facilitate overloading
+            append(*sb0, " : PFN_");
+            append(*sb0, f.name);
+            append(*sb0, ";\n");
         }
-
-        // This part generate loader.
-        append(*sb0, f.name);
-        append(*sb0, "_dynamic"); // Add a suffix to facilitate overloading
-        append(*sb0, " : PFN_");
-        append(*sb0, f.name);
-        append(*sb0, ";\n");
 
         // This generate a dumb function to call the real dynamic function.
         //
@@ -1354,33 +1355,71 @@ output_dynamic_functions :: () {
     append(*sb0, " = xx vkGetInstanceProcAddr(null, \"vkDebugUtilsMessengerCallbackEXT\");\n");
     append(*sb0, "}\n\n");
 
-    append(*sb0, "vk_load_instance_functions :: (instance: VkInstance) {\n");
+    sb_load_instance_functions: String_Builder;
+    append(*sb_load_instance_functions, "vk_load_instance_functions :: (instance: VkInstance) {\n");
     align_pos = longest_string(instance_func);
     for f : instance_func {
-        append(*sb0, "    ");
-        append(*sb0, f);
-        append(*sb0, "_dynamic");
-        repeat_string(" ", align_pos - f.count, *sb0);
-        append(*sb0, " = xx vkGetInstanceProcAddr(instance, \"");
-        append(*sb0, f);
-        append(*sb0, "\");\n");
+        append(*sb_load_instance_functions, "    ");
+        append(*sb_load_instance_functions, f);
+        append(*sb_load_instance_functions, "_dynamic");
+        repeat_string(" ", align_pos - f.count, *sb_load_instance_functions);
+        append(*sb_load_instance_functions, " = xx vkGetInstanceProcAddr(instance, \"");
+        append(*sb_load_instance_functions, f);
+        append(*sb_load_instance_functions, "\");\n");
     }
-    append(*sb0, "}\n\n");
 
-    append(*sb0, "vk_load_device_functions :: (device: VkDevice) {\n");
+    sb_load_device_functions: String_Builder;
+    append(*sb_load_device_functions, "vk_load_device_functions :: (device: VkDevice) {\n");
     align_pos = longest_string(device_func);
     for f : device_func {
-        append(*sb0, "    ");
-        append(*sb0, f);
-        append(*sb0, "_dynamic");
-        repeat_string(" ", align_pos - f.count, *sb0);
-        append(*sb0, " = xx vkGetDeviceProcAddr(device, \"");
-        append(*sb0, f);
-        append(*sb0, "\");\n");
+        append(*sb_load_device_functions, "    ");
+        append(*sb_load_device_functions, f);
+        append(*sb_load_device_functions, "_dynamic");
+        repeat_string(" ", align_pos - f.count, *sb_load_device_functions);
+        append(*sb_load_device_functions, " = xx vkGetDeviceProcAddr(device, \"");
+        append(*sb_load_device_functions, f);
+        append(*sb_load_device_functions, "\");\n");
     }
-    append(*sb0, "}\n");
+
+    // We load the same function twice after checking is because when
+    // we use an extension, the available function would be suffixed
+    // by KHR or EXT, the function we want would be null. So that if
+    // the function is null, we replace it with another attempt of
+    // loading its KHR variant.
+    // On April 21, 2026, there are no aliased global function.
+    for fn: aliased_func {
+        if array_find(instance_func, fn.alias) {
+            append(*sb_load_instance_functions, "    if ");
+            append(*sb_load_instance_functions, fn.alias);
+            append(*sb_load_instance_functions, "_dynamic == null {\n        ");
+            append(*sb_load_instance_functions, fn.alias);
+            append(*sb_load_instance_functions, "_dynamic");
+            append(*sb_load_instance_functions, " = xx vkGetInstanceProcAddr(instance, \"");
+            append(*sb_load_instance_functions, fn.name);
+            append(*sb_load_instance_functions, "\");\n");
+            append(*sb_load_instance_functions, "    }\n");
+            continue;
+        }
+
+        if array_find(device_func, fn.alias) {
+            append(*sb_load_device_functions, "    if ");
+            append(*sb_load_device_functions, fn.alias);
+            append(*sb_load_device_functions, "_dynamic == null {\n        ");
+            append(*sb_load_device_functions, fn.alias);
+            append(*sb_load_device_functions, "_dynamic");
+            append(*sb_load_device_functions, " = xx vkGetDeviceProcAddr(device, \"");
+            append(*sb_load_device_functions, fn.name);
+            append(*sb_load_device_functions, "\");\n");
+            append(*sb_load_device_functions, "    }\n");
+            continue;
+        }
+    }
+    append(*sb_load_instance_functions, "}\n\n");
+    append(*sb_load_device_functions, "}\n\n");
 
     append_and_steal_buffers(*sb, *sb0);
+    append_and_steal_buffers(*sb, *sb_load_instance_functions);
+    append_and_steal_buffers(*sb, *sb_load_device_functions);
     append_and_steal_buffers(*sb, *sb1);
     write_entire_file("functions.jai", *sb);
 }
