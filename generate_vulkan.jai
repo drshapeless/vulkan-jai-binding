@@ -1331,54 +1331,46 @@ output_dynamic_functions :: () {
             }
         }
     }
-    // Hard code the debug util messenger to global func
-    append(*sb0, "vkDebugUtilsMessengerCallbackEXT : PFN_vkDebugUtilsMessengerCallbackEXT;\n");
+
+    FUNCTION_MAKER_DEFINITION :: #string DONE
+
+make_dynamic_global_function :: (dynamic_name: string) -> string {
+    return sprint("%_dynamic = xx vkGetInstanceProcAddr(null, \"%\");", dynamic_name, dynamic_name);
+}
+make_dynamic_instance_function :: (dynamic_name: string) -> string {
+    return sprint("%_dynamic = xx vkGetInstanceProcAddr(instance, \"%\");", dynamic_name, dynamic_name);
+}
+make_dynamic_instance_function_maybe :: (dynamic_name: string, real_name: string) -> string {
+    return sprint("if %_dynamic == null %_dynamic = xx vkGetInstanceProcAddr(instance, \"%\");", dynamic_name, dynamic_name, real_name);
+}
+make_dynamic_device_function :: (dynamic_name: string) -> string {
+    return sprint("%_dynamic = xx vkGetDeviceProcAddr(device, \"%\");", dynamic_name, dynamic_name);
+}
+make_dynamic_device_function_maybe :: (dynamic_name: string, real_name: string) -> string {
+    return sprint("if %_dynamic == null %_dynamic = xx vkGetDeviceProcAddr(device, \"%\");", dynamic_name, dynamic_name, real_name);
+}
+    DONE;
+
+    append(*sb0, FUNCTION_MAKER_DEFINITION);
 
     append(*sb0, "\n#scope_export\n");
     append(*sb0, "vk_load_global_functions :: (vk_get_instance_proc_addr: *void) {\n");
     append(*sb0, "    vkGetInstanceProcAddr_dynamic = xx vk_get_instance_proc_addr;\n\n");
-    align_pos := longest_string(global_func);
     for f : global_func {
-        append(*sb0, "    ");
-        append(*sb0, f);
-        append(*sb0, "_dynamic");
-        repeat_string(" ", align_pos - f.count, *sb0);
-        append(*sb0, " = xx vkGetInstanceProcAddr(null, \"");
-        append(*sb0, f);
-        append(*sb0, "\");\n");
+        print_to_builder(*sb0, "    #insert #run make_dynamic_global_function(\"%\");\n", f);
     }
-
-    // TODO: Clean up this debug util mess
-    append(*sb0, "    vkDebugUtilsMessengerCallbackEXT");
-    DEBUG_UTIL_STRING :: "vkDebugUtilsMessengerCallbackEXT";
-    repeat_string(" ", align_pos + 8 - DEBUG_UTIL_STRING.count, *sb0); // +8 is for _dynamic
-    append(*sb0, " = xx vkGetInstanceProcAddr(null, \"vkDebugUtilsMessengerCallbackEXT\");\n");
     append(*sb0, "}\n\n");
 
     sb_load_instance_functions: String_Builder;
     append(*sb_load_instance_functions, "vk_load_instance_functions :: (instance: VkInstance) {\n");
-    align_pos = longest_string(instance_func);
     for f : instance_func {
-        append(*sb_load_instance_functions, "    ");
-        append(*sb_load_instance_functions, f);
-        append(*sb_load_instance_functions, "_dynamic");
-        repeat_string(" ", align_pos - f.count, *sb_load_instance_functions);
-        append(*sb_load_instance_functions, " = xx vkGetInstanceProcAddr(instance, \"");
-        append(*sb_load_instance_functions, f);
-        append(*sb_load_instance_functions, "\");\n");
+        print_to_builder(*sb_load_instance_functions, "    #insert #run make_dynamic_instance_function(\"%\");\n", f);
     }
 
     sb_load_device_functions: String_Builder;
     append(*sb_load_device_functions, "vk_load_device_functions :: (device: VkDevice) {\n");
-    align_pos = longest_string(device_func);
     for f : device_func {
-        append(*sb_load_device_functions, "    ");
-        append(*sb_load_device_functions, f);
-        append(*sb_load_device_functions, "_dynamic");
-        repeat_string(" ", align_pos - f.count, *sb_load_device_functions);
-        append(*sb_load_device_functions, " = xx vkGetDeviceProcAddr(device, \"");
-        append(*sb_load_device_functions, f);
-        append(*sb_load_device_functions, "\");\n");
+        print_to_builder(*sb_load_device_functions, "    #insert #run make_dynamic_device_function(\"%\");\n", f);
     }
 
     // We load the same function twice after checking is because when
@@ -1389,28 +1381,12 @@ output_dynamic_functions :: () {
     // On April 21, 2026, there are no aliased global function.
     for fn: aliased_func {
         if array_find(instance_func, fn.alias) {
-            append(*sb_load_instance_functions, "    if ");
-            append(*sb_load_instance_functions, fn.alias);
-            append(*sb_load_instance_functions, "_dynamic == null {\n        ");
-            append(*sb_load_instance_functions, fn.alias);
-            append(*sb_load_instance_functions, "_dynamic");
-            append(*sb_load_instance_functions, " = xx vkGetInstanceProcAddr(instance, \"");
-            append(*sb_load_instance_functions, fn.name);
-            append(*sb_load_instance_functions, "\");\n");
-            append(*sb_load_instance_functions, "    }\n");
+            print_to_builder(*sb_load_instance_functions, "    #insert #run make_dynamic_instance_function_maybe(\"%\", \"%\");\n", fn.alias, fn.name);
             continue;
         }
 
         if array_find(device_func, fn.alias) {
-            append(*sb_load_device_functions, "    if ");
-            append(*sb_load_device_functions, fn.alias);
-            append(*sb_load_device_functions, "_dynamic == null {\n        ");
-            append(*sb_load_device_functions, fn.alias);
-            append(*sb_load_device_functions, "_dynamic");
-            append(*sb_load_device_functions, " = xx vkGetDeviceProcAddr(device, \"");
-            append(*sb_load_device_functions, fn.name);
-            append(*sb_load_device_functions, "\");\n");
-            append(*sb_load_device_functions, "    }\n");
+            print_to_builder(*sb_load_device_functions, "    #insert #run make_dynamic_device_function_maybe(\"%\", \"%\");\n", fn.alias, fn.name);
             continue;
         }
     }
@@ -1422,17 +1398,6 @@ output_dynamic_functions :: () {
     append_and_steal_buffers(*sb, *sb_load_device_functions);
     append_and_steal_buffers(*sb, *sb1);
     write_entire_file("functions.jai", *sb);
-}
-
-longest_string :: (ss: []string) -> int {
-    n : int;
-    for s : ss {
-        if s.count > n {
-            n = s.count;
-        }
-    }
-
-    return n;
 }
 
 is_upper :: (byte: u8) -> bool {

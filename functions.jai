@@ -1508,1035 +1508,839 @@ vkUnregisterCustomBorderColorEXT_dynamic : PFN_vkUnregisterCustomBorderColorEXT;
 vkGetImageOpaqueCaptureDataEXT_dynamic : PFN_vkGetImageOpaqueCaptureDataEXT;
 vkGetPhysicalDeviceDescriptorSizeEXT_dynamic : PFN_vkGetPhysicalDeviceDescriptorSizeEXT;
 vkGetTensorOpaqueCaptureDataARM_dynamic : PFN_vkGetTensorOpaqueCaptureDataARM;
-vkDebugUtilsMessengerCallbackEXT : PFN_vkDebugUtilsMessengerCallbackEXT;
+
+make_dynamic_global_function :: (dynamic_name: string) -> string {
+    return sprint("%_dynamic = xx vkGetInstanceProcAddr(null, \"%\");", dynamic_name, dynamic_name);
+}
+make_dynamic_instance_function :: (dynamic_name: string) -> string {
+    return sprint("%_dynamic = xx vkGetInstanceProcAddr(instance, \"%\");", dynamic_name, dynamic_name);
+}
+make_dynamic_instance_function_maybe :: (dynamic_name: string, real_name: string) -> string {
+    return sprint("if %_dynamic == null %_dynamic = xx vkGetInstanceProcAddr(instance, \"%\");", dynamic_name, dynamic_name, real_name);
+}
+make_dynamic_device_function :: (dynamic_name: string) -> string {
+    return sprint("%_dynamic = xx vkGetDeviceProcAddr(device, \"%\");", dynamic_name, dynamic_name);
+}
+make_dynamic_device_function_maybe :: (dynamic_name: string, real_name: string) -> string {
+    return sprint("if %_dynamic == null %_dynamic = xx vkGetDeviceProcAddr(device, \"%\");", dynamic_name, dynamic_name, real_name);
+}
 
 #scope_export
 vk_load_global_functions :: (vk_get_instance_proc_addr: *void) {
     vkGetInstanceProcAddr_dynamic = xx vk_get_instance_proc_addr;
 
-    vkCreateInstance_dynamic                       = xx vkGetInstanceProcAddr(null, "vkCreateInstance");
-    vkEnumerateInstanceVersion_dynamic             = xx vkGetInstanceProcAddr(null, "vkEnumerateInstanceVersion");
-    vkEnumerateInstanceLayerProperties_dynamic     = xx vkGetInstanceProcAddr(null, "vkEnumerateInstanceLayerProperties");
-    vkEnumerateInstanceExtensionProperties_dynamic = xx vkGetInstanceProcAddr(null, "vkEnumerateInstanceExtensionProperties");
-    vkDebugUtilsMessengerCallbackEXT               = xx vkGetInstanceProcAddr(null, "vkDebugUtilsMessengerCallbackEXT");
+    #insert #run make_dynamic_global_function("vkCreateInstance");
+    #insert #run make_dynamic_global_function("vkEnumerateInstanceVersion");
+    #insert #run make_dynamic_global_function("vkEnumerateInstanceLayerProperties");
+    #insert #run make_dynamic_global_function("vkEnumerateInstanceExtensionProperties");
 }
 
 vk_load_instance_functions :: (instance: VkInstance) {
-    vkDestroyInstance_dynamic                                                    = xx vkGetInstanceProcAddr(instance, "vkDestroyInstance");
-    vkEnumeratePhysicalDevices_dynamic                                           = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDevices");
-    vkGetDeviceProcAddr_dynamic                                                  = xx vkGetInstanceProcAddr(instance, "vkGetDeviceProcAddr");
-    vkGetPhysicalDeviceProperties_dynamic                                        = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceProperties");
-    vkGetPhysicalDeviceQueueFamilyProperties_dynamic                             = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyProperties");
-    vkGetPhysicalDeviceMemoryProperties_dynamic                                  = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceMemoryProperties");
-    vkGetPhysicalDeviceFeatures_dynamic                                          = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFeatures");
-    vkGetPhysicalDeviceFormatProperties_dynamic                                  = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFormatProperties");
-    vkGetPhysicalDeviceImageFormatProperties_dynamic                             = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceImageFormatProperties");
-    vkCreateDevice_dynamic                                                       = xx vkGetInstanceProcAddr(instance, "vkCreateDevice");
-    vkEnumerateDeviceLayerProperties_dynamic                                     = xx vkGetInstanceProcAddr(instance, "vkEnumerateDeviceLayerProperties");
-    vkEnumerateDeviceExtensionProperties_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkEnumerateDeviceExtensionProperties");
-    vkGetPhysicalDeviceSparseImageFormatProperties_dynamic                       = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSparseImageFormatProperties");
-    vkCreateAndroidSurfaceKHR_dynamic                                            = xx vkGetInstanceProcAddr(instance, "vkCreateAndroidSurfaceKHR");
-    vkCreateSurfaceOHOS_dynamic                                                  = xx vkGetInstanceProcAddr(instance, "vkCreateSurfaceOHOS");
-    vkGetPhysicalDeviceDisplayPropertiesKHR_dynamic                              = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDisplayPropertiesKHR");
-    vkGetPhysicalDeviceDisplayPlanePropertiesKHR_dynamic                         = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
-    vkGetDisplayPlaneSupportedDisplaysKHR_dynamic                                = xx vkGetInstanceProcAddr(instance, "vkGetDisplayPlaneSupportedDisplaysKHR");
-    vkGetDisplayModePropertiesKHR_dynamic                                        = xx vkGetInstanceProcAddr(instance, "vkGetDisplayModePropertiesKHR");
-    vkCreateDisplayModeKHR_dynamic                                               = xx vkGetInstanceProcAddr(instance, "vkCreateDisplayModeKHR");
-    vkGetDisplayPlaneCapabilitiesKHR_dynamic                                     = xx vkGetInstanceProcAddr(instance, "vkGetDisplayPlaneCapabilitiesKHR");
-    vkCreateDisplayPlaneSurfaceKHR_dynamic                                       = xx vkGetInstanceProcAddr(instance, "vkCreateDisplayPlaneSurfaceKHR");
-    vkDestroySurfaceKHR_dynamic                                                  = xx vkGetInstanceProcAddr(instance, "vkDestroySurfaceKHR");
-    vkGetPhysicalDeviceSurfaceSupportKHR_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfaceSupportKHR");
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR_dynamic                            = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
-    vkGetPhysicalDeviceSurfaceFormatsKHR_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfaceFormatsKHR");
-    vkGetPhysicalDeviceSurfacePresentModesKHR_dynamic                            = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfacePresentModesKHR");
-    vkCreateViSurfaceNN_dynamic                                                  = xx vkGetInstanceProcAddr(instance, "vkCreateViSurfaceNN");
-    vkCreateWaylandSurfaceKHR_dynamic                                            = xx vkGetInstanceProcAddr(instance, "vkCreateWaylandSurfaceKHR");
-    vkGetPhysicalDeviceWaylandPresentationSupportKHR_dynamic                     = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceWaylandPresentationSupportKHR");
-    vkCreateWin32SurfaceKHR_dynamic                                              = xx vkGetInstanceProcAddr(instance, "vkCreateWin32SurfaceKHR");
-    vkGetPhysicalDeviceWin32PresentationSupportKHR_dynamic                       = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceWin32PresentationSupportKHR");
-    vkCreateXlibSurfaceKHR_dynamic                                               = xx vkGetInstanceProcAddr(instance, "vkCreateXlibSurfaceKHR");
-    vkGetPhysicalDeviceXlibPresentationSupportKHR_dynamic                        = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceXlibPresentationSupportKHR");
-    vkCreateXcbSurfaceKHR_dynamic                                                = xx vkGetInstanceProcAddr(instance, "vkCreateXcbSurfaceKHR");
-    vkGetPhysicalDeviceXcbPresentationSupportKHR_dynamic                         = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceXcbPresentationSupportKHR");
-    vkCreateDirectFBSurfaceEXT_dynamic                                           = xx vkGetInstanceProcAddr(instance, "vkCreateDirectFBSurfaceEXT");
-    vkGetPhysicalDeviceDirectFBPresentationSupportEXT_dynamic                    = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDirectFBPresentationSupportEXT");
-    vkCreateImagePipeSurfaceFUCHSIA_dynamic                                      = xx vkGetInstanceProcAddr(instance, "vkCreateImagePipeSurfaceFUCHSIA");
-    vkCreateStreamDescriptorSurfaceGGP_dynamic                                   = xx vkGetInstanceProcAddr(instance, "vkCreateStreamDescriptorSurfaceGGP");
-    vkCreateScreenSurfaceQNX_dynamic                                             = xx vkGetInstanceProcAddr(instance, "vkCreateScreenSurfaceQNX");
-    vkGetPhysicalDeviceScreenPresentationSupportQNX_dynamic                      = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceScreenPresentationSupportQNX");
-    vkCreateDebugReportCallbackEXT_dynamic                                       = xx vkGetInstanceProcAddr(instance, "vkCreateDebugReportCallbackEXT");
-    vkDestroyDebugReportCallbackEXT_dynamic                                      = xx vkGetInstanceProcAddr(instance, "vkDestroyDebugReportCallbackEXT");
-    vkDebugReportMessageEXT_dynamic                                              = xx vkGetInstanceProcAddr(instance, "vkDebugReportMessageEXT");
-    vkGetPhysicalDeviceExternalImageFormatPropertiesNV_dynamic                   = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
-    vkGetPhysicalDeviceFeatures2_dynamic                                         = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFeatures2");
-    vkGetPhysicalDeviceProperties2_dynamic                                       = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceProperties2");
-    vkGetPhysicalDeviceFormatProperties2_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFormatProperties2");
-    vkGetPhysicalDeviceImageFormatProperties2_dynamic                            = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceImageFormatProperties2");
-    vkGetPhysicalDeviceQueueFamilyProperties2_dynamic                            = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyProperties2");
-    vkGetPhysicalDeviceMemoryProperties2_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceMemoryProperties2");
-    vkGetPhysicalDeviceSparseImageFormatProperties2_dynamic                      = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSparseImageFormatProperties2");
-    vkGetPhysicalDeviceExternalBufferProperties_dynamic                          = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalBufferProperties");
-    vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV_dynamic                  = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV");
-    vkGetPhysicalDeviceSciBufAttributesNV_dynamic                                = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSciBufAttributesNV");
-    vkGetPhysicalDeviceExternalSemaphoreProperties_dynamic                       = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalSemaphoreProperties");
-    vkGetPhysicalDeviceExternalFenceProperties_dynamic                           = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalFenceProperties");
-    vkGetPhysicalDeviceSciSyncAttributesNV_dynamic                               = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSciSyncAttributesNV");
-    vkReleaseDisplayEXT_dynamic                                                  = xx vkGetInstanceProcAddr(instance, "vkReleaseDisplayEXT");
-    vkAcquireXlibDisplayEXT_dynamic                                              = xx vkGetInstanceProcAddr(instance, "vkAcquireXlibDisplayEXT");
-    vkGetRandROutputDisplayEXT_dynamic                                           = xx vkGetInstanceProcAddr(instance, "vkGetRandROutputDisplayEXT");
-    vkAcquireWinrtDisplayNV_dynamic                                              = xx vkGetInstanceProcAddr(instance, "vkAcquireWinrtDisplayNV");
-    vkGetWinrtDisplayNV_dynamic                                                  = xx vkGetInstanceProcAddr(instance, "vkGetWinrtDisplayNV");
-    vkGetPhysicalDeviceSurfaceCapabilities2EXT_dynamic                           = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfaceCapabilities2EXT");
-    vkEnumeratePhysicalDeviceGroups_dynamic                                      = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceGroups");
-    vkGetPhysicalDevicePresentRectanglesKHR_dynamic                              = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDevicePresentRectanglesKHR");
-    vkCreateIOSSurfaceMVK_dynamic                                                = xx vkGetInstanceProcAddr(instance, "vkCreateIOSSurfaceMVK");
-    vkCreateMacOSSurfaceMVK_dynamic                                              = xx vkGetInstanceProcAddr(instance, "vkCreateMacOSSurfaceMVK");
-    vkCreateMetalSurfaceEXT_dynamic                                              = xx vkGetInstanceProcAddr(instance, "vkCreateMetalSurfaceEXT");
-    vkGetPhysicalDeviceMultisamplePropertiesEXT_dynamic                          = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceMultisamplePropertiesEXT");
-    vkGetPhysicalDeviceSurfaceCapabilities2KHR_dynamic                           = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfaceCapabilities2KHR");
-    vkGetPhysicalDeviceSurfaceFormats2KHR_dynamic                                = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfaceFormats2KHR");
-    vkGetPhysicalDeviceDisplayProperties2KHR_dynamic                             = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDisplayProperties2KHR");
-    vkGetPhysicalDeviceDisplayPlaneProperties2KHR_dynamic                        = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
-    vkGetDisplayModeProperties2KHR_dynamic                                       = xx vkGetInstanceProcAddr(instance, "vkGetDisplayModeProperties2KHR");
-    vkGetDisplayPlaneCapabilities2KHR_dynamic                                    = xx vkGetInstanceProcAddr(instance, "vkGetDisplayPlaneCapabilities2KHR");
-    vkGetPhysicalDeviceCalibrateableTimeDomainsKHR_dynamic                       = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
-    vkCreateDebugUtilsMessengerEXT_dynamic                                       = xx vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
-    vkDestroyDebugUtilsMessengerEXT_dynamic                                      = xx vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
-    vkSubmitDebugUtilsMessageEXT_dynamic                                         = xx vkGetInstanceProcAddr(instance, "vkSubmitDebugUtilsMessageEXT");
-    vkGetPhysicalDeviceCooperativeMatrixPropertiesNV_dynamic                     = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
-    vkGetPhysicalDeviceSurfacePresentModes2EXT_dynamic                           = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSurfacePresentModes2EXT");
-    vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR_dynamic      = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
-    vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR_dynamic              = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR");
-    vkCreateHeadlessSurfaceEXT_dynamic                                           = xx vkGetInstanceProcAddr(instance, "vkCreateHeadlessSurfaceEXT");
-    vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV_dynamic    = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
-    vkGetPhysicalDeviceToolProperties_dynamic                                    = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceToolProperties");
-    vkGetPhysicalDeviceRefreshableObjectTypesKHR_dynamic                         = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceRefreshableObjectTypesKHR");
-    vkGetPhysicalDeviceFragmentShadingRatesKHR_dynamic                           = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFragmentShadingRatesKHR");
-    vkGetPhysicalDeviceVideoCapabilitiesKHR_dynamic                              = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceVideoCapabilitiesKHR");
-    vkGetPhysicalDeviceVideoFormatPropertiesKHR_dynamic                          = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceVideoFormatPropertiesKHR");
-    vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR_dynamic              = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR");
-    vkAcquireDrmDisplayEXT_dynamic                                               = xx vkGetInstanceProcAddr(instance, "vkAcquireDrmDisplayEXT");
-    vkGetDrmDisplayEXT_dynamic                                                   = xx vkGetInstanceProcAddr(instance, "vkGetDrmDisplayEXT");
-    vkGetPhysicalDeviceOpticalFlowImageFormatsNV_dynamic                         = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
-    vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR_dynamic                    = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
-    vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV_dynamic   = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV");
-    vkGetPhysicalDeviceCooperativeVectorPropertiesNV_dynamic                     = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCooperativeVectorPropertiesNV");
-    vkGetPhysicalDeviceExternalTensorPropertiesARM_dynamic                       = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalTensorPropertiesARM");
-    vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM_dynamic                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM");
-    vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM");
-    vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM_dynamic   = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM");
-    vkGetPhysicalDeviceDescriptorSizeEXT_dynamic                                 = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceDescriptorSizeEXT");
-    if vkGetPhysicalDeviceFeatures2_dynamic == null {
-        vkGetPhysicalDeviceFeatures2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFeatures2KHR");
-    }
-    if vkGetPhysicalDeviceProperties2_dynamic == null {
-        vkGetPhysicalDeviceProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceProperties2KHR");
-    }
-    if vkGetPhysicalDeviceFormatProperties2_dynamic == null {
-        vkGetPhysicalDeviceFormatProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceFormatProperties2KHR");
-    }
-    if vkGetPhysicalDeviceImageFormatProperties2_dynamic == null {
-        vkGetPhysicalDeviceImageFormatProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceImageFormatProperties2KHR");
-    }
-    if vkGetPhysicalDeviceQueueFamilyProperties2_dynamic == null {
-        vkGetPhysicalDeviceQueueFamilyProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceQueueFamilyProperties2KHR");
-    }
-    if vkGetPhysicalDeviceMemoryProperties2_dynamic == null {
-        vkGetPhysicalDeviceMemoryProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceMemoryProperties2KHR");
-    }
-    if vkGetPhysicalDeviceSparseImageFormatProperties2_dynamic == null {
-        vkGetPhysicalDeviceSparseImageFormatProperties2_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceSparseImageFormatProperties2KHR");
-    }
-    if vkGetPhysicalDeviceExternalBufferProperties_dynamic == null {
-        vkGetPhysicalDeviceExternalBufferProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalBufferPropertiesKHR");
-    }
-    if vkGetPhysicalDeviceExternalSemaphoreProperties_dynamic == null {
-        vkGetPhysicalDeviceExternalSemaphoreProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalSemaphorePropertiesKHR");
-    }
-    if vkGetPhysicalDeviceExternalFenceProperties_dynamic == null {
-        vkGetPhysicalDeviceExternalFenceProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceExternalFencePropertiesKHR");
-    }
-    if vkEnumeratePhysicalDeviceGroups_dynamic == null {
-        vkEnumeratePhysicalDeviceGroups_dynamic = xx vkGetInstanceProcAddr(instance, "vkEnumeratePhysicalDeviceGroupsKHR");
-    }
-    if vkGetPhysicalDeviceCalibrateableTimeDomainsKHR_dynamic == null {
-        vkGetPhysicalDeviceCalibrateableTimeDomainsKHR_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
-    }
-    if vkGetPhysicalDeviceToolProperties_dynamic == null {
-        vkGetPhysicalDeviceToolProperties_dynamic = xx vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceToolPropertiesEXT");
-    }
+    #insert #run make_dynamic_instance_function("vkDestroyInstance");
+    #insert #run make_dynamic_instance_function("vkEnumeratePhysicalDevices");
+    #insert #run make_dynamic_instance_function("vkGetDeviceProcAddr");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceQueueFamilyProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceMemoryProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceFeatures");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceFormatProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceImageFormatProperties");
+    #insert #run make_dynamic_instance_function("vkCreateDevice");
+    #insert #run make_dynamic_instance_function("vkEnumerateDeviceLayerProperties");
+    #insert #run make_dynamic_instance_function("vkEnumerateDeviceExtensionProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSparseImageFormatProperties");
+    #insert #run make_dynamic_instance_function("vkCreateAndroidSurfaceKHR");
+    #insert #run make_dynamic_instance_function("vkCreateSurfaceOHOS");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceDisplayPropertiesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
+    #insert #run make_dynamic_instance_function("vkGetDisplayPlaneSupportedDisplaysKHR");
+    #insert #run make_dynamic_instance_function("vkGetDisplayModePropertiesKHR");
+    #insert #run make_dynamic_instance_function("vkCreateDisplayModeKHR");
+    #insert #run make_dynamic_instance_function("vkGetDisplayPlaneCapabilitiesKHR");
+    #insert #run make_dynamic_instance_function("vkCreateDisplayPlaneSurfaceKHR");
+    #insert #run make_dynamic_instance_function("vkDestroySurfaceKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfaceSupportKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfaceFormatsKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfacePresentModesKHR");
+    #insert #run make_dynamic_instance_function("vkCreateViSurfaceNN");
+    #insert #run make_dynamic_instance_function("vkCreateWaylandSurfaceKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceWaylandPresentationSupportKHR");
+    #insert #run make_dynamic_instance_function("vkCreateWin32SurfaceKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceWin32PresentationSupportKHR");
+    #insert #run make_dynamic_instance_function("vkCreateXlibSurfaceKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceXlibPresentationSupportKHR");
+    #insert #run make_dynamic_instance_function("vkCreateXcbSurfaceKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceXcbPresentationSupportKHR");
+    #insert #run make_dynamic_instance_function("vkCreateDirectFBSurfaceEXT");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceDirectFBPresentationSupportEXT");
+    #insert #run make_dynamic_instance_function("vkCreateImagePipeSurfaceFUCHSIA");
+    #insert #run make_dynamic_instance_function("vkCreateStreamDescriptorSurfaceGGP");
+    #insert #run make_dynamic_instance_function("vkCreateScreenSurfaceQNX");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceScreenPresentationSupportQNX");
+    #insert #run make_dynamic_instance_function("vkCreateDebugReportCallbackEXT");
+    #insert #run make_dynamic_instance_function("vkDestroyDebugReportCallbackEXT");
+    #insert #run make_dynamic_instance_function("vkDebugReportMessageEXT");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceFeatures2");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceProperties2");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceFormatProperties2");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceImageFormatProperties2");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceQueueFamilyProperties2");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceMemoryProperties2");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSparseImageFormatProperties2");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceExternalBufferProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSciBufAttributesNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceExternalSemaphoreProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceExternalFenceProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSciSyncAttributesNV");
+    #insert #run make_dynamic_instance_function("vkReleaseDisplayEXT");
+    #insert #run make_dynamic_instance_function("vkAcquireXlibDisplayEXT");
+    #insert #run make_dynamic_instance_function("vkGetRandROutputDisplayEXT");
+    #insert #run make_dynamic_instance_function("vkAcquireWinrtDisplayNV");
+    #insert #run make_dynamic_instance_function("vkGetWinrtDisplayNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfaceCapabilities2EXT");
+    #insert #run make_dynamic_instance_function("vkEnumeratePhysicalDeviceGroups");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDevicePresentRectanglesKHR");
+    #insert #run make_dynamic_instance_function("vkCreateIOSSurfaceMVK");
+    #insert #run make_dynamic_instance_function("vkCreateMacOSSurfaceMVK");
+    #insert #run make_dynamic_instance_function("vkCreateMetalSurfaceEXT");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceMultisamplePropertiesEXT");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfaceCapabilities2KHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfaceFormats2KHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceDisplayProperties2KHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
+    #insert #run make_dynamic_instance_function("vkGetDisplayModeProperties2KHR");
+    #insert #run make_dynamic_instance_function("vkGetDisplayPlaneCapabilities2KHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
+    #insert #run make_dynamic_instance_function("vkCreateDebugUtilsMessengerEXT");
+    #insert #run make_dynamic_instance_function("vkDestroyDebugUtilsMessengerEXT");
+    #insert #run make_dynamic_instance_function("vkSubmitDebugUtilsMessageEXT");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSurfacePresentModes2EXT");
+    #insert #run make_dynamic_instance_function("vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR");
+    #insert #run make_dynamic_instance_function("vkCreateHeadlessSurfaceEXT");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceToolProperties");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceRefreshableObjectTypesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceFragmentShadingRatesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceVideoCapabilitiesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceVideoFormatPropertiesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR");
+    #insert #run make_dynamic_instance_function("vkAcquireDrmDisplayEXT");
+    #insert #run make_dynamic_instance_function("vkGetDrmDisplayEXT");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeVectorPropertiesNV");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceExternalTensorPropertiesARM");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM");
+    #insert #run make_dynamic_instance_function("vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceDescriptorSizeEXT");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceFeatures2", "vkGetPhysicalDeviceFeatures2KHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceProperties2", "vkGetPhysicalDeviceProperties2KHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceFormatProperties2", "vkGetPhysicalDeviceFormatProperties2KHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceImageFormatProperties2", "vkGetPhysicalDeviceImageFormatProperties2KHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceQueueFamilyProperties2", "vkGetPhysicalDeviceQueueFamilyProperties2KHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceMemoryProperties2", "vkGetPhysicalDeviceMemoryProperties2KHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceSparseImageFormatProperties2", "vkGetPhysicalDeviceSparseImageFormatProperties2KHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceExternalBufferProperties", "vkGetPhysicalDeviceExternalBufferPropertiesKHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceExternalSemaphoreProperties", "vkGetPhysicalDeviceExternalSemaphorePropertiesKHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceExternalFenceProperties", "vkGetPhysicalDeviceExternalFencePropertiesKHR");
+    #insert #run make_dynamic_instance_function_maybe("vkEnumeratePhysicalDeviceGroups", "vkEnumeratePhysicalDeviceGroupsKHR");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceCalibrateableTimeDomainsKHR", "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
+    #insert #run make_dynamic_instance_function_maybe("vkGetPhysicalDeviceToolProperties", "vkGetPhysicalDeviceToolPropertiesEXT");
 }
 
 vk_load_device_functions :: (device: VkDevice) {
-    vkDestroyDevice_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkDestroyDevice");
-    vkGetDeviceQueue_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkGetDeviceQueue");
-    vkQueueSubmit_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkQueueSubmit");
-    vkQueueWaitIdle_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkQueueWaitIdle");
-    vkDeviceWaitIdle_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkDeviceWaitIdle");
-    vkAllocateMemory_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkAllocateMemory");
-    vkFreeMemory_dynamic                                             = xx vkGetDeviceProcAddr(device, "vkFreeMemory");
-    vkMapMemory_dynamic                                              = xx vkGetDeviceProcAddr(device, "vkMapMemory");
-    vkUnmapMemory_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkUnmapMemory");
-    vkFlushMappedMemoryRanges_dynamic                                = xx vkGetDeviceProcAddr(device, "vkFlushMappedMemoryRanges");
-    vkInvalidateMappedMemoryRanges_dynamic                           = xx vkGetDeviceProcAddr(device, "vkInvalidateMappedMemoryRanges");
-    vkGetDeviceMemoryCommitment_dynamic                              = xx vkGetDeviceProcAddr(device, "vkGetDeviceMemoryCommitment");
-    vkGetBufferMemoryRequirements_dynamic                            = xx vkGetDeviceProcAddr(device, "vkGetBufferMemoryRequirements");
-    vkBindBufferMemory_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkBindBufferMemory");
-    vkGetImageMemoryRequirements_dynamic                             = xx vkGetDeviceProcAddr(device, "vkGetImageMemoryRequirements");
-    vkBindImageMemory_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkBindImageMemory");
-    vkGetImageSparseMemoryRequirements_dynamic                       = xx vkGetDeviceProcAddr(device, "vkGetImageSparseMemoryRequirements");
-    vkQueueBindSparse_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkQueueBindSparse");
-    vkCreateFence_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkCreateFence");
-    vkDestroyFence_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkDestroyFence");
-    vkResetFences_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkResetFences");
-    vkGetFenceStatus_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkGetFenceStatus");
-    vkWaitForFences_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkWaitForFences");
-    vkCreateSemaphore_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCreateSemaphore");
-    vkDestroySemaphore_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkDestroySemaphore");
-    vkCreateEvent_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkCreateEvent");
-    vkDestroyEvent_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkDestroyEvent");
-    vkGetEventStatus_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkGetEventStatus");
-    vkSetEvent_dynamic                                               = xx vkGetDeviceProcAddr(device, "vkSetEvent");
-    vkResetEvent_dynamic                                             = xx vkGetDeviceProcAddr(device, "vkResetEvent");
-    vkCreateQueryPool_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCreateQueryPool");
-    vkDestroyQueryPool_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkDestroyQueryPool");
-    vkGetQueryPoolResults_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkGetQueryPoolResults");
-    vkResetQueryPool_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkResetQueryPool");
-    vkCreateBuffer_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkCreateBuffer");
-    vkDestroyBuffer_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkDestroyBuffer");
-    vkCreateBufferView_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCreateBufferView");
-    vkDestroyBufferView_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkDestroyBufferView");
-    vkCreateImage_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkCreateImage");
-    vkDestroyImage_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkDestroyImage");
-    vkGetImageSubresourceLayout_dynamic                              = xx vkGetDeviceProcAddr(device, "vkGetImageSubresourceLayout");
-    vkCreateImageView_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCreateImageView");
-    vkDestroyImageView_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkDestroyImageView");
-    vkCreateShaderModule_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCreateShaderModule");
-    vkDestroyShaderModule_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkDestroyShaderModule");
-    vkCreatePipelineCache_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCreatePipelineCache");
-    vkDestroyPipelineCache_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkDestroyPipelineCache");
-    vkGetPipelineCacheData_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkGetPipelineCacheData");
-    vkMergePipelineCaches_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkMergePipelineCaches");
-    vkCreatePipelineBinariesKHR_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCreatePipelineBinariesKHR");
-    vkDestroyPipelineBinaryKHR_dynamic                               = xx vkGetDeviceProcAddr(device, "vkDestroyPipelineBinaryKHR");
-    vkGetPipelineKeyKHR_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkGetPipelineKeyKHR");
-    vkGetPipelineBinaryDataKHR_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetPipelineBinaryDataKHR");
-    vkReleaseCapturedPipelineDataKHR_dynamic                         = xx vkGetDeviceProcAddr(device, "vkReleaseCapturedPipelineDataKHR");
-    vkCreateGraphicsPipelines_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCreateGraphicsPipelines");
-    vkCreateComputePipelines_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCreateComputePipelines");
-    vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI_dynamic          = xx vkGetDeviceProcAddr(device, "vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI");
-    vkDestroyPipeline_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkDestroyPipeline");
-    vkCreatePipelineLayout_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCreatePipelineLayout");
-    vkDestroyPipelineLayout_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkDestroyPipelineLayout");
-    vkCreateSampler_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCreateSampler");
-    vkDestroySampler_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkDestroySampler");
-    vkCreateDescriptorSetLayout_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCreateDescriptorSetLayout");
-    vkDestroyDescriptorSetLayout_dynamic                             = xx vkGetDeviceProcAddr(device, "vkDestroyDescriptorSetLayout");
-    vkCreateDescriptorPool_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCreateDescriptorPool");
-    vkDestroyDescriptorPool_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkDestroyDescriptorPool");
-    vkResetDescriptorPool_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkResetDescriptorPool");
-    vkAllocateDescriptorSets_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkAllocateDescriptorSets");
-    vkFreeDescriptorSets_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkFreeDescriptorSets");
-    vkUpdateDescriptorSets_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkUpdateDescriptorSets");
-    vkCreateFramebuffer_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCreateFramebuffer");
-    vkDestroyFramebuffer_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkDestroyFramebuffer");
-    vkCreateRenderPass_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCreateRenderPass");
-    vkDestroyRenderPass_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkDestroyRenderPass");
-    vkGetRenderAreaGranularity_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetRenderAreaGranularity");
-    vkGetRenderingAreaGranularity_dynamic                            = xx vkGetDeviceProcAddr(device, "vkGetRenderingAreaGranularity");
-    vkCreateCommandPool_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCreateCommandPool");
-    vkDestroyCommandPool_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkDestroyCommandPool");
-    vkResetCommandPool_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkResetCommandPool");
-    vkAllocateCommandBuffers_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkAllocateCommandBuffers");
-    vkFreeCommandBuffers_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkFreeCommandBuffers");
-    vkBeginCommandBuffer_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkBeginCommandBuffer");
-    vkEndCommandBuffer_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkEndCommandBuffer");
-    vkResetCommandBuffer_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkResetCommandBuffer");
-    vkCmdBindPipeline_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdBindPipeline");
-    vkCmdSetAttachmentFeedbackLoopEnableEXT_dynamic                  = xx vkGetDeviceProcAddr(device, "vkCmdSetAttachmentFeedbackLoopEnableEXT");
-    vkCmdSetViewport_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdSetViewport");
-    vkCmdSetScissor_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdSetScissor");
-    vkCmdSetLineWidth_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdSetLineWidth");
-    vkCmdSetDepthBias_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBias");
-    vkCmdSetBlendConstants_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdSetBlendConstants");
-    vkCmdSetDepthBounds_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBounds");
-    vkCmdSetStencilCompareMask_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilCompareMask");
-    vkCmdSetStencilWriteMask_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilWriteMask");
-    vkCmdSetStencilReference_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilReference");
-    vkCmdBindDescriptorSets_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdBindDescriptorSets");
-    vkCmdBindIndexBuffer_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdBindIndexBuffer");
-    vkCmdBindVertexBuffers_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdBindVertexBuffers");
-    vkCmdDraw_dynamic                                                = xx vkGetDeviceProcAddr(device, "vkCmdDraw");
-    vkCmdDrawIndexed_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndexed");
-    vkCmdDrawMultiEXT_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdDrawMultiEXT");
-    vkCmdDrawMultiIndexedEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdDrawMultiIndexedEXT");
-    vkCmdDrawIndirect_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndirect");
-    vkCmdDrawIndexedIndirect_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndexedIndirect");
-    vkCmdDispatch_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkCmdDispatch");
-    vkCmdDispatchIndirect_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdDispatchIndirect");
-    vkCmdSubpassShadingHUAWEI_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdSubpassShadingHUAWEI");
-    vkCmdDrawClusterHUAWEI_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdDrawClusterHUAWEI");
-    vkCmdDrawClusterIndirectHUAWEI_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdDrawClusterIndirectHUAWEI");
-    vkCmdUpdatePipelineIndirectBufferNV_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCmdUpdatePipelineIndirectBufferNV");
-    vkCmdCopyBuffer_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdCopyBuffer");
-    vkCmdCopyImage_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkCmdCopyImage");
-    vkCmdBlitImage_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkCmdBlitImage");
-    vkCmdCopyBufferToImage_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdCopyBufferToImage");
-    vkCmdCopyImageToBuffer_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdCopyImageToBuffer");
-    vkCmdCopyMemoryIndirectNV_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryIndirectNV");
-    vkCmdCopyMemoryIndirectKHR_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryIndirectKHR");
-    vkCmdCopyMemoryToImageIndirectNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryToImageIndirectNV");
-    vkCmdCopyMemoryToImageIndirectKHR_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryToImageIndirectKHR");
-    vkCmdUpdateBuffer_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdUpdateBuffer");
-    vkCmdFillBuffer_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdFillBuffer");
-    vkCmdClearColorImage_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdClearColorImage");
-    vkCmdClearDepthStencilImage_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdClearDepthStencilImage");
-    vkCmdClearAttachments_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdClearAttachments");
-    vkCmdResolveImage_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdResolveImage");
-    vkCmdSetEvent_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkCmdSetEvent");
-    vkCmdResetEvent_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdResetEvent");
-    vkCmdWaitEvents_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdWaitEvents");
-    vkCmdPipelineBarrier_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdPipelineBarrier");
-    vkCmdBeginQuery_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdBeginQuery");
-    vkCmdEndQuery_dynamic                                            = xx vkGetDeviceProcAddr(device, "vkCmdEndQuery");
-    vkCmdBeginConditionalRenderingEXT_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdBeginConditionalRenderingEXT");
-    vkCmdEndConditionalRenderingEXT_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCmdEndConditionalRenderingEXT");
-    vkCmdBeginCustomResolveEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdBeginCustomResolveEXT");
-    vkCmdResetQueryPool_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdResetQueryPool");
-    vkCmdWriteTimestamp_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdWriteTimestamp");
-    vkCmdCopyQueryPoolResults_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdCopyQueryPoolResults");
-    vkCmdPushConstants_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCmdPushConstants");
-    vkCmdBeginRenderPass_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdBeginRenderPass");
-    vkCmdNextSubpass_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdNextSubpass");
-    vkCmdEndRenderPass_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCmdEndRenderPass");
-    vkCmdExecuteCommands_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdExecuteCommands");
-    vkCreateSharedSwapchainsKHR_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCreateSharedSwapchainsKHR");
-    vkCreateSwapchainKHR_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCreateSwapchainKHR");
-    vkDestroySwapchainKHR_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkDestroySwapchainKHR");
-    vkGetSwapchainImagesKHR_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkGetSwapchainImagesKHR");
-    vkAcquireNextImageKHR_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkAcquireNextImageKHR");
-    vkQueuePresentKHR_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkQueuePresentKHR");
-    vkDebugMarkerSetObjectNameEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkDebugMarkerSetObjectNameEXT");
-    vkDebugMarkerSetObjectTagEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkDebugMarkerSetObjectTagEXT");
-    vkCmdDebugMarkerBeginEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdDebugMarkerBeginEXT");
-    vkCmdDebugMarkerEndEXT_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdDebugMarkerEndEXT");
-    vkCmdDebugMarkerInsertEXT_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdDebugMarkerInsertEXT");
-    vkGetMemoryWin32HandleNV_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetMemoryWin32HandleNV");
-    vkCmdExecuteGeneratedCommandsNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCmdExecuteGeneratedCommandsNV");
-    vkCmdPreprocessGeneratedCommandsNV_dynamic                       = xx vkGetDeviceProcAddr(device, "vkCmdPreprocessGeneratedCommandsNV");
-    vkCmdBindPipelineShaderGroupNV_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdBindPipelineShaderGroupNV");
-    vkGetGeneratedCommandsMemoryRequirementsNV_dynamic               = xx vkGetDeviceProcAddr(device, "vkGetGeneratedCommandsMemoryRequirementsNV");
-    vkCreateIndirectCommandsLayoutNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCreateIndirectCommandsLayoutNV");
-    vkDestroyIndirectCommandsLayoutNV_dynamic                        = xx vkGetDeviceProcAddr(device, "vkDestroyIndirectCommandsLayoutNV");
-    vkCmdExecuteGeneratedCommandsEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdExecuteGeneratedCommandsEXT");
-    vkCmdPreprocessGeneratedCommandsEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCmdPreprocessGeneratedCommandsEXT");
-    vkGetGeneratedCommandsMemoryRequirementsEXT_dynamic              = xx vkGetDeviceProcAddr(device, "vkGetGeneratedCommandsMemoryRequirementsEXT");
-    vkCreateIndirectCommandsLayoutEXT_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCreateIndirectCommandsLayoutEXT");
-    vkDestroyIndirectCommandsLayoutEXT_dynamic                       = xx vkGetDeviceProcAddr(device, "vkDestroyIndirectCommandsLayoutEXT");
-    vkCreateIndirectExecutionSetEXT_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCreateIndirectExecutionSetEXT");
-    vkDestroyIndirectExecutionSetEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkDestroyIndirectExecutionSetEXT");
-    vkUpdateIndirectExecutionSetPipelineEXT_dynamic                  = xx vkGetDeviceProcAddr(device, "vkUpdateIndirectExecutionSetPipelineEXT");
-    vkUpdateIndirectExecutionSetShaderEXT_dynamic                    = xx vkGetDeviceProcAddr(device, "vkUpdateIndirectExecutionSetShaderEXT");
-    vkCmdPushDescriptorSet_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSet");
-    vkTrimCommandPool_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkTrimCommandPool");
-    vkGetMemoryWin32HandleKHR_dynamic                                = xx vkGetDeviceProcAddr(device, "vkGetMemoryWin32HandleKHR");
-    vkGetMemoryWin32HandlePropertiesKHR_dynamic                      = xx vkGetDeviceProcAddr(device, "vkGetMemoryWin32HandlePropertiesKHR");
-    vkGetMemoryFdKHR_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkGetMemoryFdKHR");
-    vkGetMemoryFdPropertiesKHR_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetMemoryFdPropertiesKHR");
-    vkGetMemoryZirconHandleFUCHSIA_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetMemoryZirconHandleFUCHSIA");
-    vkGetMemoryZirconHandlePropertiesFUCHSIA_dynamic                 = xx vkGetDeviceProcAddr(device, "vkGetMemoryZirconHandlePropertiesFUCHSIA");
-    vkGetMemoryRemoteAddressNV_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetMemoryRemoteAddressNV");
-    vkGetMemorySciBufNV_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkGetMemorySciBufNV");
-    vkGetSemaphoreWin32HandleKHR_dynamic                             = xx vkGetDeviceProcAddr(device, "vkGetSemaphoreWin32HandleKHR");
-    vkImportSemaphoreWin32HandleKHR_dynamic                          = xx vkGetDeviceProcAddr(device, "vkImportSemaphoreWin32HandleKHR");
-    vkGetSemaphoreFdKHR_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkGetSemaphoreFdKHR");
-    vkImportSemaphoreFdKHR_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkImportSemaphoreFdKHR");
-    vkGetSemaphoreZirconHandleFUCHSIA_dynamic                        = xx vkGetDeviceProcAddr(device, "vkGetSemaphoreZirconHandleFUCHSIA");
-    vkImportSemaphoreZirconHandleFUCHSIA_dynamic                     = xx vkGetDeviceProcAddr(device, "vkImportSemaphoreZirconHandleFUCHSIA");
-    vkGetFenceWin32HandleKHR_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetFenceWin32HandleKHR");
-    vkImportFenceWin32HandleKHR_dynamic                              = xx vkGetDeviceProcAddr(device, "vkImportFenceWin32HandleKHR");
-    vkGetFenceFdKHR_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkGetFenceFdKHR");
-    vkImportFenceFdKHR_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkImportFenceFdKHR");
-    vkGetFenceSciSyncFenceNV_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetFenceSciSyncFenceNV");
-    vkGetFenceSciSyncObjNV_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkGetFenceSciSyncObjNV");
-    vkImportFenceSciSyncFenceNV_dynamic                              = xx vkGetDeviceProcAddr(device, "vkImportFenceSciSyncFenceNV");
-    vkImportFenceSciSyncObjNV_dynamic                                = xx vkGetDeviceProcAddr(device, "vkImportFenceSciSyncObjNV");
-    vkGetSemaphoreSciSyncObjNV_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetSemaphoreSciSyncObjNV");
-    vkImportSemaphoreSciSyncObjNV_dynamic                            = xx vkGetDeviceProcAddr(device, "vkImportSemaphoreSciSyncObjNV");
-    vkCreateSemaphoreSciSyncPoolNV_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCreateSemaphoreSciSyncPoolNV");
-    vkDestroySemaphoreSciSyncPoolNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkDestroySemaphoreSciSyncPoolNV");
-    vkDisplayPowerControlEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkDisplayPowerControlEXT");
-    vkRegisterDeviceEventEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkRegisterDeviceEventEXT");
-    vkRegisterDisplayEventEXT_dynamic                                = xx vkGetDeviceProcAddr(device, "vkRegisterDisplayEventEXT");
-    vkGetSwapchainCounterEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetSwapchainCounterEXT");
-    vkGetDeviceGroupPeerMemoryFeatures_dynamic                       = xx vkGetDeviceProcAddr(device, "vkGetDeviceGroupPeerMemoryFeatures");
-    vkBindBufferMemory2_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkBindBufferMemory2");
-    vkBindImageMemory2_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkBindImageMemory2");
-    vkCmdSetDeviceMask_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCmdSetDeviceMask");
-    vkGetDeviceGroupPresentCapabilitiesKHR_dynamic                   = xx vkGetDeviceProcAddr(device, "vkGetDeviceGroupPresentCapabilitiesKHR");
-    vkGetDeviceGroupSurfacePresentModesKHR_dynamic                   = xx vkGetDeviceProcAddr(device, "vkGetDeviceGroupSurfacePresentModesKHR");
-    vkAcquireNextImage2KHR_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkAcquireNextImage2KHR");
-    vkCmdDispatchBase_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdDispatchBase");
-    vkCreateDescriptorUpdateTemplate_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCreateDescriptorUpdateTemplate");
-    vkDestroyDescriptorUpdateTemplate_dynamic                        = xx vkGetDeviceProcAddr(device, "vkDestroyDescriptorUpdateTemplate");
-    vkUpdateDescriptorSetWithTemplate_dynamic                        = xx vkGetDeviceProcAddr(device, "vkUpdateDescriptorSetWithTemplate");
-    vkCmdPushDescriptorSetWithTemplate_dynamic                       = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetWithTemplate");
-    vkSetHdrMetadataEXT_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkSetHdrMetadataEXT");
-    vkGetSwapchainStatusKHR_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkGetSwapchainStatusKHR");
-    vkGetRefreshCycleDurationGOOGLE_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetRefreshCycleDurationGOOGLE");
-    vkGetPastPresentationTimingGOOGLE_dynamic                        = xx vkGetDeviceProcAddr(device, "vkGetPastPresentationTimingGOOGLE");
-    vkCmdSetViewportWScalingNV_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdSetViewportWScalingNV");
-    vkCmdSetDiscardRectangleEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdSetDiscardRectangleEXT");
-    vkCmdSetDiscardRectangleEnableEXT_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdSetDiscardRectangleEnableEXT");
-    vkCmdSetDiscardRectangleModeEXT_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCmdSetDiscardRectangleModeEXT");
-    vkCmdSetSampleLocationsEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdSetSampleLocationsEXT");
-    vkGetBufferMemoryRequirements2_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetBufferMemoryRequirements2");
-    vkGetImageMemoryRequirements2_dynamic                            = xx vkGetDeviceProcAddr(device, "vkGetImageMemoryRequirements2");
-    vkGetImageSparseMemoryRequirements2_dynamic                      = xx vkGetDeviceProcAddr(device, "vkGetImageSparseMemoryRequirements2");
-    vkGetDeviceBufferMemoryRequirements_dynamic                      = xx vkGetDeviceProcAddr(device, "vkGetDeviceBufferMemoryRequirements");
-    vkGetDeviceImageMemoryRequirements_dynamic                       = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageMemoryRequirements");
-    vkGetDeviceImageSparseMemoryRequirements_dynamic                 = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageSparseMemoryRequirements");
-    vkCreateSamplerYcbcrConversion_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCreateSamplerYcbcrConversion");
-    vkDestroySamplerYcbcrConversion_dynamic                          = xx vkGetDeviceProcAddr(device, "vkDestroySamplerYcbcrConversion");
-    vkGetDeviceQueue2_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkGetDeviceQueue2");
-    vkCreateValidationCacheEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCreateValidationCacheEXT");
-    vkDestroyValidationCacheEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkDestroyValidationCacheEXT");
-    vkGetValidationCacheDataEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkGetValidationCacheDataEXT");
-    vkMergeValidationCachesEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkMergeValidationCachesEXT");
-    vkGetDescriptorSetLayoutSupport_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetLayoutSupport");
-    vkGetSwapchainGrallocUsageANDROID_dynamic                        = xx vkGetDeviceProcAddr(device, "vkGetSwapchainGrallocUsageANDROID");
-    vkGetSwapchainGrallocUsage2ANDROID_dynamic                       = xx vkGetDeviceProcAddr(device, "vkGetSwapchainGrallocUsage2ANDROID");
-    vkAcquireImageANDROID_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkAcquireImageANDROID");
-    vkQueueSignalReleaseImageANDROID_dynamic                         = xx vkGetDeviceProcAddr(device, "vkQueueSignalReleaseImageANDROID");
-    vkGetShaderInfoAMD_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkGetShaderInfoAMD");
-    vkSetLocalDimmingAMD_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkSetLocalDimmingAMD");
-    vkGetCalibratedTimestampsKHR_dynamic                             = xx vkGetDeviceProcAddr(device, "vkGetCalibratedTimestampsKHR");
-    vkSetDebugUtilsObjectNameEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkSetDebugUtilsObjectNameEXT");
-    vkSetDebugUtilsObjectTagEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkSetDebugUtilsObjectTagEXT");
-    vkQueueBeginDebugUtilsLabelEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkQueueBeginDebugUtilsLabelEXT");
-    vkQueueEndDebugUtilsLabelEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkQueueEndDebugUtilsLabelEXT");
-    vkQueueInsertDebugUtilsLabelEXT_dynamic                          = xx vkGetDeviceProcAddr(device, "vkQueueInsertDebugUtilsLabelEXT");
-    vkCmdBeginDebugUtilsLabelEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCmdBeginDebugUtilsLabelEXT");
-    vkCmdEndDebugUtilsLabelEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdEndDebugUtilsLabelEXT");
-    vkCmdInsertDebugUtilsLabelEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdInsertDebugUtilsLabelEXT");
-    vkGetMemoryHostPointerPropertiesEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkGetMemoryHostPointerPropertiesEXT");
-    vkCmdWriteBufferMarkerAMD_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdWriteBufferMarkerAMD");
-    vkCreateRenderPass2_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCreateRenderPass2");
-    vkCmdBeginRenderPass2_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdBeginRenderPass2");
-    vkCmdNextSubpass2_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdNextSubpass2");
-    vkCmdEndRenderPass2_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdEndRenderPass2");
-    vkGetSemaphoreCounterValue_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetSemaphoreCounterValue");
-    vkWaitSemaphores_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkWaitSemaphores");
-    vkSignalSemaphore_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkSignalSemaphore");
-    vkGetAndroidHardwareBufferPropertiesANDROID_dynamic              = xx vkGetDeviceProcAddr(device, "vkGetAndroidHardwareBufferPropertiesANDROID");
-    vkGetMemoryAndroidHardwareBufferANDROID_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetMemoryAndroidHardwareBufferANDROID");
-    vkCmdDrawIndirectCount_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndirectCount");
-    vkCmdDrawIndexedIndirectCount_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndexedIndirectCount");
-    vkCmdSetCheckpointNV_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdSetCheckpointNV");
-    vkGetQueueCheckpointDataNV_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetQueueCheckpointDataNV");
-    vkCmdBindTransformFeedbackBuffersEXT_dynamic                     = xx vkGetDeviceProcAddr(device, "vkCmdBindTransformFeedbackBuffersEXT");
-    vkCmdBeginTransformFeedbackEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdBeginTransformFeedbackEXT");
-    vkCmdEndTransformFeedbackEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCmdEndTransformFeedbackEXT");
-    vkCmdBeginQueryIndexedEXT_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdBeginQueryIndexedEXT");
-    vkCmdEndQueryIndexedEXT_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdEndQueryIndexedEXT");
-    vkCmdDrawIndirectByteCountEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndirectByteCountEXT");
-    vkCmdSetExclusiveScissorNV_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdSetExclusiveScissorNV");
-    vkCmdSetExclusiveScissorEnableNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetExclusiveScissorEnableNV");
-    vkCmdBindShadingRateImageNV_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdBindShadingRateImageNV");
-    vkCmdSetViewportShadingRatePaletteNV_dynamic                     = xx vkGetDeviceProcAddr(device, "vkCmdSetViewportShadingRatePaletteNV");
-    vkCmdSetCoarseSampleOrderNV_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdSetCoarseSampleOrderNV");
-    vkCmdDrawMeshTasksNV_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdDrawMeshTasksNV");
-    vkCmdDrawMeshTasksIndirectNV_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCmdDrawMeshTasksIndirectNV");
-    vkCmdDrawMeshTasksIndirectCountNV_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdDrawMeshTasksIndirectCountNV");
-    vkCmdDrawMeshTasksEXT_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdDrawMeshTasksEXT");
-    vkCmdDrawMeshTasksIndirectEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdDrawMeshTasksIndirectEXT");
-    vkCmdDrawMeshTasksIndirectCountEXT_dynamic                       = xx vkGetDeviceProcAddr(device, "vkCmdDrawMeshTasksIndirectCountEXT");
-    vkCompileDeferredNV_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCompileDeferredNV");
-    vkCreateAccelerationStructureNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCreateAccelerationStructureNV");
-    vkCmdBindInvocationMaskHUAWEI_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdBindInvocationMaskHUAWEI");
-    vkDestroyAccelerationStructureKHR_dynamic                        = xx vkGetDeviceProcAddr(device, "vkDestroyAccelerationStructureKHR");
-    vkDestroyAccelerationStructureNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkDestroyAccelerationStructureNV");
-    vkGetAccelerationStructureMemoryRequirementsNV_dynamic           = xx vkGetDeviceProcAddr(device, "vkGetAccelerationStructureMemoryRequirementsNV");
-    vkBindAccelerationStructureMemoryNV_dynamic                      = xx vkGetDeviceProcAddr(device, "vkBindAccelerationStructureMemoryNV");
-    vkCmdCopyAccelerationStructureNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdCopyAccelerationStructureNV");
-    vkCmdCopyAccelerationStructureKHR_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdCopyAccelerationStructureKHR");
-    vkCopyAccelerationStructureKHR_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCopyAccelerationStructureKHR");
-    vkCmdCopyAccelerationStructureToMemoryKHR_dynamic                = xx vkGetDeviceProcAddr(device, "vkCmdCopyAccelerationStructureToMemoryKHR");
-    vkCopyAccelerationStructureToMemoryKHR_dynamic                   = xx vkGetDeviceProcAddr(device, "vkCopyAccelerationStructureToMemoryKHR");
-    vkCmdCopyMemoryToAccelerationStructureKHR_dynamic                = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryToAccelerationStructureKHR");
-    vkCopyMemoryToAccelerationStructureKHR_dynamic                   = xx vkGetDeviceProcAddr(device, "vkCopyMemoryToAccelerationStructureKHR");
-    vkCmdWriteAccelerationStructuresPropertiesKHR_dynamic            = xx vkGetDeviceProcAddr(device, "vkCmdWriteAccelerationStructuresPropertiesKHR");
-    vkCmdWriteAccelerationStructuresPropertiesNV_dynamic             = xx vkGetDeviceProcAddr(device, "vkCmdWriteAccelerationStructuresPropertiesNV");
-    vkCmdBuildAccelerationStructureNV_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdBuildAccelerationStructureNV");
-    vkWriteAccelerationStructuresPropertiesKHR_dynamic               = xx vkGetDeviceProcAddr(device, "vkWriteAccelerationStructuresPropertiesKHR");
-    vkCmdTraceRaysKHR_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdTraceRaysKHR");
-    vkCmdTraceRaysNV_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdTraceRaysNV");
-    vkGetRayTracingShaderGroupHandlesKHR_dynamic                     = xx vkGetDeviceProcAddr(device, "vkGetRayTracingShaderGroupHandlesKHR");
-    vkGetRayTracingCaptureReplayShaderGroupHandlesKHR_dynamic        = xx vkGetDeviceProcAddr(device, "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR");
-    vkGetAccelerationStructureHandleNV_dynamic                       = xx vkGetDeviceProcAddr(device, "vkGetAccelerationStructureHandleNV");
-    vkCreateRayTracingPipelinesNV_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCreateRayTracingPipelinesNV");
-    vkCreateRayTracingPipelinesKHR_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCreateRayTracingPipelinesKHR");
-    vkCmdTraceRaysIndirectKHR_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdTraceRaysIndirectKHR");
-    vkCmdTraceRaysIndirect2KHR_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdTraceRaysIndirect2KHR");
-    vkGetClusterAccelerationStructureBuildSizesNV_dynamic            = xx vkGetDeviceProcAddr(device, "vkGetClusterAccelerationStructureBuildSizesNV");
-    vkCmdBuildClusterAccelerationStructureIndirectNV_dynamic         = xx vkGetDeviceProcAddr(device, "vkCmdBuildClusterAccelerationStructureIndirectNV");
-    vkGetDeviceAccelerationStructureCompatibilityKHR_dynamic         = xx vkGetDeviceProcAddr(device, "vkGetDeviceAccelerationStructureCompatibilityKHR");
-    vkGetRayTracingShaderGroupStackSizeKHR_dynamic                   = xx vkGetDeviceProcAddr(device, "vkGetRayTracingShaderGroupStackSizeKHR");
-    vkCmdSetRayTracingPipelineStackSizeKHR_dynamic                   = xx vkGetDeviceProcAddr(device, "vkCmdSetRayTracingPipelineStackSizeKHR");
-    vkGetImageViewHandleNVX_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkGetImageViewHandleNVX");
-    vkGetImageViewHandle64NVX_dynamic                                = xx vkGetDeviceProcAddr(device, "vkGetImageViewHandle64NVX");
-    vkGetImageViewAddressNVX_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetImageViewAddressNVX");
-    vkGetDeviceCombinedImageSamplerIndexNVX_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetDeviceCombinedImageSamplerIndexNVX");
-    vkGetDeviceGroupSurfacePresentModes2EXT_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetDeviceGroupSurfacePresentModes2EXT");
-    vkAcquireFullScreenExclusiveModeEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkAcquireFullScreenExclusiveModeEXT");
-    vkReleaseFullScreenExclusiveModeEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkReleaseFullScreenExclusiveModeEXT");
-    vkAcquireProfilingLockKHR_dynamic                                = xx vkGetDeviceProcAddr(device, "vkAcquireProfilingLockKHR");
-    vkReleaseProfilingLockKHR_dynamic                                = xx vkGetDeviceProcAddr(device, "vkReleaseProfilingLockKHR");
-    vkGetImageDrmFormatModifierPropertiesEXT_dynamic                 = xx vkGetDeviceProcAddr(device, "vkGetImageDrmFormatModifierPropertiesEXT");
-    vkGetBufferOpaqueCaptureAddress_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetBufferOpaqueCaptureAddress");
-    vkGetBufferDeviceAddress_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetBufferDeviceAddress");
-    vkInitializePerformanceApiINTEL_dynamic                          = xx vkGetDeviceProcAddr(device, "vkInitializePerformanceApiINTEL");
-    vkUninitializePerformanceApiINTEL_dynamic                        = xx vkGetDeviceProcAddr(device, "vkUninitializePerformanceApiINTEL");
-    vkCmdSetPerformanceMarkerINTEL_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdSetPerformanceMarkerINTEL");
-    vkCmdSetPerformanceStreamMarkerINTEL_dynamic                     = xx vkGetDeviceProcAddr(device, "vkCmdSetPerformanceStreamMarkerINTEL");
-    vkCmdSetPerformanceOverrideINTEL_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetPerformanceOverrideINTEL");
-    vkAcquirePerformanceConfigurationINTEL_dynamic                   = xx vkGetDeviceProcAddr(device, "vkAcquirePerformanceConfigurationINTEL");
-    vkReleasePerformanceConfigurationINTEL_dynamic                   = xx vkGetDeviceProcAddr(device, "vkReleasePerformanceConfigurationINTEL");
-    vkQueueSetPerformanceConfigurationINTEL_dynamic                  = xx vkGetDeviceProcAddr(device, "vkQueueSetPerformanceConfigurationINTEL");
-    vkGetPerformanceParameterINTEL_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetPerformanceParameterINTEL");
-    vkGetDeviceMemoryOpaqueCaptureAddress_dynamic                    = xx vkGetDeviceProcAddr(device, "vkGetDeviceMemoryOpaqueCaptureAddress");
-    vkGetPipelineExecutablePropertiesKHR_dynamic                     = xx vkGetDeviceProcAddr(device, "vkGetPipelineExecutablePropertiesKHR");
-    vkGetPipelineExecutableStatisticsKHR_dynamic                     = xx vkGetDeviceProcAddr(device, "vkGetPipelineExecutableStatisticsKHR");
-    vkGetPipelineExecutableInternalRepresentationsKHR_dynamic        = xx vkGetDeviceProcAddr(device, "vkGetPipelineExecutableInternalRepresentationsKHR");
-    vkCmdSetLineStipple_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdSetLineStipple");
-    vkGetFaultData_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkGetFaultData");
-    vkCreateAccelerationStructureKHR_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCreateAccelerationStructureKHR");
-    vkCmdBuildAccelerationStructuresKHR_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCmdBuildAccelerationStructuresKHR");
-    vkCmdBuildAccelerationStructuresIndirectKHR_dynamic              = xx vkGetDeviceProcAddr(device, "vkCmdBuildAccelerationStructuresIndirectKHR");
-    vkBuildAccelerationStructuresKHR_dynamic                         = xx vkGetDeviceProcAddr(device, "vkBuildAccelerationStructuresKHR");
-    vkGetAccelerationStructureDeviceAddressKHR_dynamic               = xx vkGetDeviceProcAddr(device, "vkGetAccelerationStructureDeviceAddressKHR");
-    vkCreateDeferredOperationKHR_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCreateDeferredOperationKHR");
-    vkDestroyDeferredOperationKHR_dynamic                            = xx vkGetDeviceProcAddr(device, "vkDestroyDeferredOperationKHR");
-    vkGetDeferredOperationMaxConcurrencyKHR_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetDeferredOperationMaxConcurrencyKHR");
-    vkGetDeferredOperationResultKHR_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetDeferredOperationResultKHR");
-    vkDeferredOperationJoinKHR_dynamic                               = xx vkGetDeviceProcAddr(device, "vkDeferredOperationJoinKHR");
-    vkGetPipelineIndirectMemoryRequirementsNV_dynamic                = xx vkGetDeviceProcAddr(device, "vkGetPipelineIndirectMemoryRequirementsNV");
-    vkGetPipelineIndirectDeviceAddressNV_dynamic                     = xx vkGetDeviceProcAddr(device, "vkGetPipelineIndirectDeviceAddressNV");
-    vkAntiLagUpdateAMD_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkAntiLagUpdateAMD");
-    vkCmdSetCullMode_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdSetCullMode");
-    vkCmdSetFrontFace_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdSetFrontFace");
-    vkCmdSetPrimitiveTopology_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdSetPrimitiveTopology");
-    vkCmdSetViewportWithCount_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdSetViewportWithCount");
-    vkCmdSetScissorWithCount_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdSetScissorWithCount");
-    vkCmdBindIndexBuffer2_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdBindIndexBuffer2");
-    vkCmdBindVertexBuffers2_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdBindVertexBuffers2");
-    vkCmdSetDepthTestEnable_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthTestEnable");
-    vkCmdSetDepthWriteEnable_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthWriteEnable");
-    vkCmdSetDepthCompareOp_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthCompareOp");
-    vkCmdSetDepthBoundsTestEnable_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBoundsTestEnable");
-    vkCmdSetStencilTestEnable_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilTestEnable");
-    vkCmdSetStencilOp_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilOp");
-    vkCmdSetPatchControlPointsEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdSetPatchControlPointsEXT");
-    vkCmdSetRasterizerDiscardEnable_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCmdSetRasterizerDiscardEnable");
-    vkCmdSetDepthBiasEnable_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBiasEnable");
-    vkCmdSetLogicOpEXT_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCmdSetLogicOpEXT");
-    vkCmdSetPrimitiveRestartEnable_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdSetPrimitiveRestartEnable");
-    vkCmdSetTessellationDomainOriginEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCmdSetTessellationDomainOriginEXT");
-    vkCmdSetDepthClampEnableEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthClampEnableEXT");
-    vkCmdSetPolygonModeEXT_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdSetPolygonModeEXT");
-    vkCmdSetRasterizationSamplesEXT_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCmdSetRasterizationSamplesEXT");
-    vkCmdSetSampleMaskEXT_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdSetSampleMaskEXT");
-    vkCmdSetAlphaToCoverageEnableEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetAlphaToCoverageEnableEXT");
-    vkCmdSetAlphaToOneEnableEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdSetAlphaToOneEnableEXT");
-    vkCmdSetLogicOpEnableEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdSetLogicOpEnableEXT");
-    vkCmdSetColorBlendEnableEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdSetColorBlendEnableEXT");
-    vkCmdSetColorBlendEquationEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdSetColorBlendEquationEXT");
-    vkCmdSetColorWriteMaskEXT_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdSetColorWriteMaskEXT");
-    vkCmdSetRasterizationStreamEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdSetRasterizationStreamEXT");
-    vkCmdSetConservativeRasterizationModeEXT_dynamic                 = xx vkGetDeviceProcAddr(device, "vkCmdSetConservativeRasterizationModeEXT");
-    vkCmdSetExtraPrimitiveOverestimationSizeEXT_dynamic              = xx vkGetDeviceProcAddr(device, "vkCmdSetExtraPrimitiveOverestimationSizeEXT");
-    vkCmdSetDepthClipEnableEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthClipEnableEXT");
-    vkCmdSetSampleLocationsEnableEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetSampleLocationsEnableEXT");
-    vkCmdSetColorBlendAdvancedEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdSetColorBlendAdvancedEXT");
-    vkCmdSetProvokingVertexModeEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdSetProvokingVertexModeEXT");
-    vkCmdSetLineRasterizationModeEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetLineRasterizationModeEXT");
-    vkCmdSetLineStippleEnableEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCmdSetLineStippleEnableEXT");
-    vkCmdSetDepthClipNegativeOneToOneEXT_dynamic                     = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthClipNegativeOneToOneEXT");
-    vkCmdSetViewportWScalingEnableNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetViewportWScalingEnableNV");
-    vkCmdSetViewportSwizzleNV_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdSetViewportSwizzleNV");
-    vkCmdSetCoverageToColorEnableNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCmdSetCoverageToColorEnableNV");
-    vkCmdSetCoverageToColorLocationNV_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdSetCoverageToColorLocationNV");
-    vkCmdSetCoverageModulationModeNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetCoverageModulationModeNV");
-    vkCmdSetCoverageModulationTableEnableNV_dynamic                  = xx vkGetDeviceProcAddr(device, "vkCmdSetCoverageModulationTableEnableNV");
-    vkCmdSetCoverageModulationTableNV_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdSetCoverageModulationTableNV");
-    vkCmdSetShadingRateImageEnableNV_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdSetShadingRateImageEnableNV");
-    vkCmdSetCoverageReductionModeNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCmdSetCoverageReductionModeNV");
-    vkCmdSetRepresentativeFragmentTestEnableNV_dynamic               = xx vkGetDeviceProcAddr(device, "vkCmdSetRepresentativeFragmentTestEnableNV");
-    vkCreatePrivateDataSlot_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCreatePrivateDataSlot");
-    vkDestroyPrivateDataSlot_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkDestroyPrivateDataSlot");
-    vkSetPrivateData_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkSetPrivateData");
-    vkGetPrivateData_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkGetPrivateData");
-    vkCmdCopyBuffer2_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdCopyBuffer2");
-    vkCmdCopyImage2_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdCopyImage2");
-    vkCmdBlitImage2_dynamic                                          = xx vkGetDeviceProcAddr(device, "vkCmdBlitImage2");
-    vkCmdCopyBufferToImage2_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdCopyBufferToImage2");
-    vkCmdCopyImageToBuffer2_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdCopyImageToBuffer2");
-    vkCmdResolveImage2_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCmdResolveImage2");
-    vkCmdRefreshObjectsKHR_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdRefreshObjectsKHR");
-    vkCmdSetFragmentShadingRateKHR_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdSetFragmentShadingRateKHR");
-    vkCmdSetFragmentShadingRateEnumNV_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCmdSetFragmentShadingRateEnumNV");
-    vkGetAccelerationStructureBuildSizesKHR_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetAccelerationStructureBuildSizesKHR");
-    vkCmdSetVertexInputEXT_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdSetVertexInputEXT");
-    vkCmdSetColorWriteEnableEXT_dynamic                              = xx vkGetDeviceProcAddr(device, "vkCmdSetColorWriteEnableEXT");
-    vkCmdSetEvent2_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkCmdSetEvent2");
-    vkCmdResetEvent2_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdResetEvent2");
-    vkCmdWaitEvents2_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdWaitEvents2");
-    vkCmdPipelineBarrier2_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdPipelineBarrier2");
-    vkQueueSubmit2_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkQueueSubmit2");
-    vkCmdWriteTimestamp2_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdWriteTimestamp2");
-    vkCmdWriteBufferMarker2AMD_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdWriteBufferMarker2AMD");
-    vkGetQueueCheckpointData2NV_dynamic                              = xx vkGetDeviceProcAddr(device, "vkGetQueueCheckpointData2NV");
-    vkCopyMemoryToImage_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCopyMemoryToImage");
-    vkCopyImageToMemory_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCopyImageToMemory");
-    vkCopyImageToImage_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCopyImageToImage");
-    vkTransitionImageLayout_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkTransitionImageLayout");
-    vkGetCommandPoolMemoryConsumption_dynamic                        = xx vkGetDeviceProcAddr(device, "vkGetCommandPoolMemoryConsumption");
-    vkCreateVideoSessionKHR_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCreateVideoSessionKHR");
-    vkDestroyVideoSessionKHR_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkDestroyVideoSessionKHR");
-    vkCreateVideoSessionParametersKHR_dynamic                        = xx vkGetDeviceProcAddr(device, "vkCreateVideoSessionParametersKHR");
-    vkUpdateVideoSessionParametersKHR_dynamic                        = xx vkGetDeviceProcAddr(device, "vkUpdateVideoSessionParametersKHR");
-    vkGetEncodedVideoSessionParametersKHR_dynamic                    = xx vkGetDeviceProcAddr(device, "vkGetEncodedVideoSessionParametersKHR");
-    vkDestroyVideoSessionParametersKHR_dynamic                       = xx vkGetDeviceProcAddr(device, "vkDestroyVideoSessionParametersKHR");
-    vkGetVideoSessionMemoryRequirementsKHR_dynamic                   = xx vkGetDeviceProcAddr(device, "vkGetVideoSessionMemoryRequirementsKHR");
-    vkBindVideoSessionMemoryKHR_dynamic                              = xx vkGetDeviceProcAddr(device, "vkBindVideoSessionMemoryKHR");
-    vkCmdDecodeVideoKHR_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdDecodeVideoKHR");
-    vkCmdBeginVideoCodingKHR_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdBeginVideoCodingKHR");
-    vkCmdControlVideoCodingKHR_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdControlVideoCodingKHR");
-    vkCmdEndVideoCodingKHR_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdEndVideoCodingKHR");
-    vkCmdEncodeVideoKHR_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdEncodeVideoKHR");
-    vkCmdDecompressMemoryNV_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdDecompressMemoryNV");
-    vkCmdDecompressMemoryIndirectCountNV_dynamic                     = xx vkGetDeviceProcAddr(device, "vkCmdDecompressMemoryIndirectCountNV");
-    vkGetPartitionedAccelerationStructuresBuildSizesNV_dynamic       = xx vkGetDeviceProcAddr(device, "vkGetPartitionedAccelerationStructuresBuildSizesNV");
-    vkCmdBuildPartitionedAccelerationStructuresNV_dynamic            = xx vkGetDeviceProcAddr(device, "vkCmdBuildPartitionedAccelerationStructuresNV");
-    vkCmdDecompressMemoryEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdDecompressMemoryEXT");
-    vkCmdDecompressMemoryIndirectCountEXT_dynamic                    = xx vkGetDeviceProcAddr(device, "vkCmdDecompressMemoryIndirectCountEXT");
-    vkCreateCuModuleNVX_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCreateCuModuleNVX");
-    vkCreateCuFunctionNVX_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCreateCuFunctionNVX");
-    vkDestroyCuModuleNVX_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkDestroyCuModuleNVX");
-    vkDestroyCuFunctionNVX_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkDestroyCuFunctionNVX");
-    vkCmdCuLaunchKernelNVX_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdCuLaunchKernelNVX");
-    vkGetDescriptorSetLayoutSizeEXT_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetLayoutSizeEXT");
-    vkGetDescriptorSetLayoutBindingOffsetEXT_dynamic                 = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetLayoutBindingOffsetEXT");
-    vkGetDescriptorEXT_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkGetDescriptorEXT");
-    vkCmdBindDescriptorBuffersEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCmdBindDescriptorBuffersEXT");
-    vkCmdSetDescriptorBufferOffsetsEXT_dynamic                       = xx vkGetDeviceProcAddr(device, "vkCmdSetDescriptorBufferOffsetsEXT");
-    vkCmdBindDescriptorBufferEmbeddedSamplersEXT_dynamic             = xx vkGetDeviceProcAddr(device, "vkCmdBindDescriptorBufferEmbeddedSamplersEXT");
-    vkGetBufferOpaqueCaptureDescriptorDataEXT_dynamic                = xx vkGetDeviceProcAddr(device, "vkGetBufferOpaqueCaptureDescriptorDataEXT");
-    vkGetImageOpaqueCaptureDescriptorDataEXT_dynamic                 = xx vkGetDeviceProcAddr(device, "vkGetImageOpaqueCaptureDescriptorDataEXT");
-    vkGetImageViewOpaqueCaptureDescriptorDataEXT_dynamic             = xx vkGetDeviceProcAddr(device, "vkGetImageViewOpaqueCaptureDescriptorDataEXT");
-    vkGetSamplerOpaqueCaptureDescriptorDataEXT_dynamic               = xx vkGetDeviceProcAddr(device, "vkGetSamplerOpaqueCaptureDescriptorDataEXT");
-    vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT_dynamic = xx vkGetDeviceProcAddr(device, "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT");
-    vkSetDeviceMemoryPriorityEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkSetDeviceMemoryPriorityEXT");
-    vkWaitForPresent2KHR_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkWaitForPresent2KHR");
-    vkWaitForPresentKHR_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkWaitForPresentKHR");
-    vkCreateBufferCollectionFUCHSIA_dynamic                          = xx vkGetDeviceProcAddr(device, "vkCreateBufferCollectionFUCHSIA");
-    vkSetBufferCollectionBufferConstraintsFUCHSIA_dynamic            = xx vkGetDeviceProcAddr(device, "vkSetBufferCollectionBufferConstraintsFUCHSIA");
-    vkSetBufferCollectionImageConstraintsFUCHSIA_dynamic             = xx vkGetDeviceProcAddr(device, "vkSetBufferCollectionImageConstraintsFUCHSIA");
-    vkDestroyBufferCollectionFUCHSIA_dynamic                         = xx vkGetDeviceProcAddr(device, "vkDestroyBufferCollectionFUCHSIA");
-    vkGetBufferCollectionPropertiesFUCHSIA_dynamic                   = xx vkGetDeviceProcAddr(device, "vkGetBufferCollectionPropertiesFUCHSIA");
-    vkCreateCudaModuleNV_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCreateCudaModuleNV");
-    vkGetCudaModuleCacheNV_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkGetCudaModuleCacheNV");
-    vkCreateCudaFunctionNV_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCreateCudaFunctionNV");
-    vkDestroyCudaModuleNV_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkDestroyCudaModuleNV");
-    vkDestroyCudaFunctionNV_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkDestroyCudaFunctionNV");
-    vkCmdCudaLaunchKernelNV_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdCudaLaunchKernelNV");
-    vkCmdBeginRendering_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdBeginRendering");
-    vkCmdEndRendering_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCmdEndRendering");
-    vkCmdEndRendering2KHR_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdEndRendering2KHR");
-    vkGetDescriptorSetLayoutHostMappingInfoVALVE_dynamic             = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetLayoutHostMappingInfoVALVE");
-    vkGetDescriptorSetHostMappingVALVE_dynamic                       = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetHostMappingVALVE");
-    vkCreateMicromapEXT_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCreateMicromapEXT");
-    vkCmdBuildMicromapsEXT_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdBuildMicromapsEXT");
-    vkBuildMicromapsEXT_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkBuildMicromapsEXT");
-    vkDestroyMicromapEXT_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkDestroyMicromapEXT");
-    vkCmdCopyMicromapEXT_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkCmdCopyMicromapEXT");
-    vkCopyMicromapEXT_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCopyMicromapEXT");
-    vkCmdCopyMicromapToMemoryEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCmdCopyMicromapToMemoryEXT");
-    vkCopyMicromapToMemoryEXT_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCopyMicromapToMemoryEXT");
-    vkCmdCopyMemoryToMicromapEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCmdCopyMemoryToMicromapEXT");
-    vkCopyMemoryToMicromapEXT_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCopyMemoryToMicromapEXT");
-    vkCmdWriteMicromapsPropertiesEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkCmdWriteMicromapsPropertiesEXT");
-    vkWriteMicromapsPropertiesEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkWriteMicromapsPropertiesEXT");
-    vkGetDeviceMicromapCompatibilityEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkGetDeviceMicromapCompatibilityEXT");
-    vkGetMicromapBuildSizesEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetMicromapBuildSizesEXT");
-    vkGetShaderModuleIdentifierEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetShaderModuleIdentifierEXT");
-    vkGetShaderModuleCreateInfoIdentifierEXT_dynamic                 = xx vkGetDeviceProcAddr(device, "vkGetShaderModuleCreateInfoIdentifierEXT");
-    vkGetImageSubresourceLayout2_dynamic                             = xx vkGetDeviceProcAddr(device, "vkGetImageSubresourceLayout2");
-    vkGetPipelinePropertiesEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkGetPipelinePropertiesEXT");
-    vkExportMetalObjectsEXT_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkExportMetalObjectsEXT");
-    vkCmdBindTileMemoryQCOM_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdBindTileMemoryQCOM");
-    vkGetFramebufferTilePropertiesQCOM_dynamic                       = xx vkGetDeviceProcAddr(device, "vkGetFramebufferTilePropertiesQCOM");
-    vkGetDynamicRenderingTilePropertiesQCOM_dynamic                  = xx vkGetDeviceProcAddr(device, "vkGetDynamicRenderingTilePropertiesQCOM");
-    vkCreateOpticalFlowSessionNV_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCreateOpticalFlowSessionNV");
-    vkDestroyOpticalFlowSessionNV_dynamic                            = xx vkGetDeviceProcAddr(device, "vkDestroyOpticalFlowSessionNV");
-    vkBindOpticalFlowSessionImageNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkBindOpticalFlowSessionImageNV");
-    vkCmdOpticalFlowExecuteNV_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdOpticalFlowExecuteNV");
-    vkGetDeviceFaultInfoEXT_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkGetDeviceFaultInfoEXT");
-    vkCmdSetDepthBias2EXT_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBias2EXT");
-    vkReleaseSwapchainImagesKHR_dynamic                              = xx vkGetDeviceProcAddr(device, "vkReleaseSwapchainImagesKHR");
-    vkGetDeviceImageSubresourceLayout_dynamic                        = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageSubresourceLayout");
-    vkMapMemory2_dynamic                                             = xx vkGetDeviceProcAddr(device, "vkMapMemory2");
-    vkUnmapMemory2_dynamic                                           = xx vkGetDeviceProcAddr(device, "vkUnmapMemory2");
-    vkCreateShadersEXT_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCreateShadersEXT");
-    vkDestroyShaderEXT_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkDestroyShaderEXT");
-    vkGetShaderBinaryDataEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkGetShaderBinaryDataEXT");
-    vkCmdBindShadersEXT_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdBindShadersEXT");
-    vkSetSwapchainPresentTimingQueueSizeEXT_dynamic                  = xx vkGetDeviceProcAddr(device, "vkSetSwapchainPresentTimingQueueSizeEXT");
-    vkGetSwapchainTimingPropertiesEXT_dynamic                        = xx vkGetDeviceProcAddr(device, "vkGetSwapchainTimingPropertiesEXT");
-    vkGetSwapchainTimeDomainPropertiesEXT_dynamic                    = xx vkGetDeviceProcAddr(device, "vkGetSwapchainTimeDomainPropertiesEXT");
-    vkGetPastPresentationTimingEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetPastPresentationTimingEXT");
-    vkGetScreenBufferPropertiesQNX_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetScreenBufferPropertiesQNX");
-    vkGetExecutionGraphPipelineScratchSizeAMDX_dynamic               = xx vkGetDeviceProcAddr(device, "vkGetExecutionGraphPipelineScratchSizeAMDX");
-    vkGetExecutionGraphPipelineNodeIndexAMDX_dynamic                 = xx vkGetDeviceProcAddr(device, "vkGetExecutionGraphPipelineNodeIndexAMDX");
-    vkCreateExecutionGraphPipelinesAMDX_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCreateExecutionGraphPipelinesAMDX");
-    vkCmdInitializeGraphScratchMemoryAMDX_dynamic                    = xx vkGetDeviceProcAddr(device, "vkCmdInitializeGraphScratchMemoryAMDX");
-    vkCmdDispatchGraphAMDX_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkCmdDispatchGraphAMDX");
-    vkCmdDispatchGraphIndirectAMDX_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdDispatchGraphIndirectAMDX");
-    vkCmdDispatchGraphIndirectCountAMDX_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCmdDispatchGraphIndirectCountAMDX");
-    vkCmdBindDescriptorSets2_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdBindDescriptorSets2");
-    vkCmdPushConstants2_dynamic                                      = xx vkGetDeviceProcAddr(device, "vkCmdPushConstants2");
-    vkCmdPushDescriptorSet2_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSet2");
-    vkCmdPushDescriptorSetWithTemplate2_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetWithTemplate2");
-    vkCmdSetDescriptorBufferOffsets2EXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCmdSetDescriptorBufferOffsets2EXT");
-    vkCmdBindDescriptorBufferEmbeddedSamplers2EXT_dynamic            = xx vkGetDeviceProcAddr(device, "vkCmdBindDescriptorBufferEmbeddedSamplers2EXT");
-    vkSetLatencySleepModeNV_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkSetLatencySleepModeNV");
-    vkLatencySleepNV_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkLatencySleepNV");
-    vkSetLatencyMarkerNV_dynamic                                     = xx vkGetDeviceProcAddr(device, "vkSetLatencyMarkerNV");
-    vkGetLatencyTimingsNV_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkGetLatencyTimingsNV");
-    vkQueueNotifyOutOfBandNV_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkQueueNotifyOutOfBandNV");
-    vkCmdSetRenderingAttachmentLocations_dynamic                     = xx vkGetDeviceProcAddr(device, "vkCmdSetRenderingAttachmentLocations");
-    vkCmdSetRenderingInputAttachmentIndices_dynamic                  = xx vkGetDeviceProcAddr(device, "vkCmdSetRenderingInputAttachmentIndices");
-    vkCmdSetDepthClampRangeEXT_dynamic                               = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthClampRangeEXT");
-    vkGetMemoryMetalHandleEXT_dynamic                                = xx vkGetDeviceProcAddr(device, "vkGetMemoryMetalHandleEXT");
-    vkGetMemoryMetalHandlePropertiesEXT_dynamic                      = xx vkGetDeviceProcAddr(device, "vkGetMemoryMetalHandlePropertiesEXT");
-    vkConvertCooperativeVectorMatrixNV_dynamic                       = xx vkGetDeviceProcAddr(device, "vkConvertCooperativeVectorMatrixNV");
-    vkCmdConvertCooperativeVectorMatrixNV_dynamic                    = xx vkGetDeviceProcAddr(device, "vkCmdConvertCooperativeVectorMatrixNV");
-    vkCmdDispatchTileQCOM_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCmdDispatchTileQCOM");
-    vkCmdBeginPerTileExecutionQCOM_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCmdBeginPerTileExecutionQCOM");
-    vkCmdEndPerTileExecutionQCOM_dynamic                             = xx vkGetDeviceProcAddr(device, "vkCmdEndPerTileExecutionQCOM");
-    vkCreateExternalComputeQueueNV_dynamic                           = xx vkGetDeviceProcAddr(device, "vkCreateExternalComputeQueueNV");
-    vkDestroyExternalComputeQueueNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkDestroyExternalComputeQueueNV");
-    vkGetExternalComputeQueueDataNV_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetExternalComputeQueueDataNV");
-    vkCreateTensorARM_dynamic                                        = xx vkGetDeviceProcAddr(device, "vkCreateTensorARM");
-    vkDestroyTensorARM_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkDestroyTensorARM");
-    vkCreateTensorViewARM_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkCreateTensorViewARM");
-    vkDestroyTensorViewARM_dynamic                                   = xx vkGetDeviceProcAddr(device, "vkDestroyTensorViewARM");
-    vkGetTensorMemoryRequirementsARM_dynamic                         = xx vkGetDeviceProcAddr(device, "vkGetTensorMemoryRequirementsARM");
-    vkBindTensorMemoryARM_dynamic                                    = xx vkGetDeviceProcAddr(device, "vkBindTensorMemoryARM");
-    vkGetDeviceTensorMemoryRequirementsARM_dynamic                   = xx vkGetDeviceProcAddr(device, "vkGetDeviceTensorMemoryRequirementsARM");
-    vkCmdCopyTensorARM_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkCmdCopyTensorARM");
-    vkGetTensorOpaqueCaptureDescriptorDataARM_dynamic                = xx vkGetDeviceProcAddr(device, "vkGetTensorOpaqueCaptureDescriptorDataARM");
-    vkGetTensorViewOpaqueCaptureDescriptorDataARM_dynamic            = xx vkGetDeviceProcAddr(device, "vkGetTensorViewOpaqueCaptureDescriptorDataARM");
-    vkCreateDataGraphPipelinesARM_dynamic                            = xx vkGetDeviceProcAddr(device, "vkCreateDataGraphPipelinesARM");
-    vkCreateDataGraphPipelineSessionARM_dynamic                      = xx vkGetDeviceProcAddr(device, "vkCreateDataGraphPipelineSessionARM");
-    vkGetDataGraphPipelineSessionBindPointRequirementsARM_dynamic    = xx vkGetDeviceProcAddr(device, "vkGetDataGraphPipelineSessionBindPointRequirementsARM");
-    vkGetDataGraphPipelineSessionMemoryRequirementsARM_dynamic       = xx vkGetDeviceProcAddr(device, "vkGetDataGraphPipelineSessionMemoryRequirementsARM");
-    vkBindDataGraphPipelineSessionMemoryARM_dynamic                  = xx vkGetDeviceProcAddr(device, "vkBindDataGraphPipelineSessionMemoryARM");
-    vkDestroyDataGraphPipelineSessionARM_dynamic                     = xx vkGetDeviceProcAddr(device, "vkDestroyDataGraphPipelineSessionARM");
-    vkCmdDispatchDataGraphARM_dynamic                                = xx vkGetDeviceProcAddr(device, "vkCmdDispatchDataGraphARM");
-    vkGetDataGraphPipelineAvailablePropertiesARM_dynamic             = xx vkGetDeviceProcAddr(device, "vkGetDataGraphPipelineAvailablePropertiesARM");
-    vkGetDataGraphPipelinePropertiesARM_dynamic                      = xx vkGetDeviceProcAddr(device, "vkGetDataGraphPipelinePropertiesARM");
-    vkGetNativeBufferPropertiesOHOS_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetNativeBufferPropertiesOHOS");
-    vkGetMemoryNativeBufferOHOS_dynamic                              = xx vkGetDeviceProcAddr(device, "vkGetMemoryNativeBufferOHOS");
-    vkGetSwapchainGrallocUsageOHOS_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetSwapchainGrallocUsageOHOS");
-    vkAcquireImageOHOS_dynamic                                       = xx vkGetDeviceProcAddr(device, "vkAcquireImageOHOS");
-    vkQueueSignalReleaseImageOHOS_dynamic                            = xx vkGetDeviceProcAddr(device, "vkQueueSignalReleaseImageOHOS");
-    vkCmdSetComputeOccupancyPriorityNV_dynamic                       = xx vkGetDeviceProcAddr(device, "vkCmdSetComputeOccupancyPriorityNV");
-    vkWriteSamplerDescriptorsEXT_dynamic                             = xx vkGetDeviceProcAddr(device, "vkWriteSamplerDescriptorsEXT");
-    vkWriteResourceDescriptorsEXT_dynamic                            = xx vkGetDeviceProcAddr(device, "vkWriteResourceDescriptorsEXT");
-    vkCmdBindSamplerHeapEXT_dynamic                                  = xx vkGetDeviceProcAddr(device, "vkCmdBindSamplerHeapEXT");
-    vkCmdBindResourceHeapEXT_dynamic                                 = xx vkGetDeviceProcAddr(device, "vkCmdBindResourceHeapEXT");
-    vkCmdPushDataEXT_dynamic                                         = xx vkGetDeviceProcAddr(device, "vkCmdPushDataEXT");
-    vkRegisterCustomBorderColorEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkRegisterCustomBorderColorEXT");
-    vkUnregisterCustomBorderColorEXT_dynamic                         = xx vkGetDeviceProcAddr(device, "vkUnregisterCustomBorderColorEXT");
-    vkGetImageOpaqueCaptureDataEXT_dynamic                           = xx vkGetDeviceProcAddr(device, "vkGetImageOpaqueCaptureDataEXT");
-    vkGetTensorOpaqueCaptureDataARM_dynamic                          = xx vkGetDeviceProcAddr(device, "vkGetTensorOpaqueCaptureDataARM");
-    if vkResetQueryPool_dynamic == null {
-        vkResetQueryPool_dynamic = xx vkGetDeviceProcAddr(device, "vkResetQueryPoolEXT");
-    }
-    if vkGetRenderingAreaGranularity_dynamic == null {
-        vkGetRenderingAreaGranularity_dynamic = xx vkGetDeviceProcAddr(device, "vkGetRenderingAreaGranularityKHR");
-    }
-    if vkCmdPushDescriptorSet_dynamic == null {
-        vkCmdPushDescriptorSet_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetKHR");
-    }
-    if vkTrimCommandPool_dynamic == null {
-        vkTrimCommandPool_dynamic = xx vkGetDeviceProcAddr(device, "vkTrimCommandPoolKHR");
-    }
-    if vkGetDeviceGroupPeerMemoryFeatures_dynamic == null {
-        vkGetDeviceGroupPeerMemoryFeatures_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceGroupPeerMemoryFeaturesKHR");
-    }
-    if vkBindBufferMemory2_dynamic == null {
-        vkBindBufferMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkBindBufferMemory2KHR");
-    }
-    if vkBindImageMemory2_dynamic == null {
-        vkBindImageMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkBindImageMemory2KHR");
-    }
-    if vkCmdSetDeviceMask_dynamic == null {
-        vkCmdSetDeviceMask_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDeviceMaskKHR");
-    }
-    if vkCmdDispatchBase_dynamic == null {
-        vkCmdDispatchBase_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDispatchBaseKHR");
-    }
-    if vkCreateDescriptorUpdateTemplate_dynamic == null {
-        vkCreateDescriptorUpdateTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkCreateDescriptorUpdateTemplateKHR");
-    }
-    if vkDestroyDescriptorUpdateTemplate_dynamic == null {
-        vkDestroyDescriptorUpdateTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkDestroyDescriptorUpdateTemplateKHR");
-    }
-    if vkUpdateDescriptorSetWithTemplate_dynamic == null {
-        vkUpdateDescriptorSetWithTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkUpdateDescriptorSetWithTemplateKHR");
-    }
-    if vkCmdPushDescriptorSetWithTemplate_dynamic == null {
-        vkCmdPushDescriptorSetWithTemplate_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetWithTemplateKHR");
-    }
-    if vkGetBufferMemoryRequirements2_dynamic == null {
-        vkGetBufferMemoryRequirements2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferMemoryRequirements2KHR");
-    }
-    if vkGetImageMemoryRequirements2_dynamic == null {
-        vkGetImageMemoryRequirements2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageMemoryRequirements2KHR");
-    }
-    if vkGetImageSparseMemoryRequirements2_dynamic == null {
-        vkGetImageSparseMemoryRequirements2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageSparseMemoryRequirements2KHR");
-    }
-    if vkGetDeviceBufferMemoryRequirements_dynamic == null {
-        vkGetDeviceBufferMemoryRequirements_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceBufferMemoryRequirementsKHR");
-    }
-    if vkGetDeviceImageMemoryRequirements_dynamic == null {
-        vkGetDeviceImageMemoryRequirements_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageMemoryRequirementsKHR");
-    }
-    if vkGetDeviceImageSparseMemoryRequirements_dynamic == null {
-        vkGetDeviceImageSparseMemoryRequirements_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageSparseMemoryRequirementsKHR");
-    }
-    if vkCreateSamplerYcbcrConversion_dynamic == null {
-        vkCreateSamplerYcbcrConversion_dynamic = xx vkGetDeviceProcAddr(device, "vkCreateSamplerYcbcrConversionKHR");
-    }
-    if vkDestroySamplerYcbcrConversion_dynamic == null {
-        vkDestroySamplerYcbcrConversion_dynamic = xx vkGetDeviceProcAddr(device, "vkDestroySamplerYcbcrConversionKHR");
-    }
-    if vkGetDescriptorSetLayoutSupport_dynamic == null {
-        vkGetDescriptorSetLayoutSupport_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDescriptorSetLayoutSupportKHR");
-    }
-    if vkGetCalibratedTimestampsKHR_dynamic == null {
-        vkGetCalibratedTimestampsKHR_dynamic = xx vkGetDeviceProcAddr(device, "vkGetCalibratedTimestampsEXT");
-    }
-    if vkCreateRenderPass2_dynamic == null {
-        vkCreateRenderPass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCreateRenderPass2KHR");
-    }
-    if vkCmdBeginRenderPass2_dynamic == null {
-        vkCmdBeginRenderPass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBeginRenderPass2KHR");
-    }
-    if vkCmdNextSubpass2_dynamic == null {
-        vkCmdNextSubpass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdNextSubpass2KHR");
-    }
-    if vkCmdEndRenderPass2_dynamic == null {
-        vkCmdEndRenderPass2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdEndRenderPass2KHR");
-    }
-    if vkGetSemaphoreCounterValue_dynamic == null {
-        vkGetSemaphoreCounterValue_dynamic = xx vkGetDeviceProcAddr(device, "vkGetSemaphoreCounterValueKHR");
-    }
-    if vkWaitSemaphores_dynamic == null {
-        vkWaitSemaphores_dynamic = xx vkGetDeviceProcAddr(device, "vkWaitSemaphoresKHR");
-    }
-    if vkSignalSemaphore_dynamic == null {
-        vkSignalSemaphore_dynamic = xx vkGetDeviceProcAddr(device, "vkSignalSemaphoreKHR");
-    }
-    if vkCmdDrawIndirectCount_dynamic == null {
-        vkCmdDrawIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndirectCountKHR");
-    }
-    if vkCmdDrawIndirectCount_dynamic == null {
-        vkCmdDrawIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndirectCountAMD");
-    }
-    if vkCmdDrawIndexedIndirectCount_dynamic == null {
-        vkCmdDrawIndexedIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndexedIndirectCountKHR");
-    }
-    if vkCmdDrawIndexedIndirectCount_dynamic == null {
-        vkCmdDrawIndexedIndirectCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdDrawIndexedIndirectCountAMD");
-    }
-    if vkGetRayTracingShaderGroupHandlesKHR_dynamic == null {
-        vkGetRayTracingShaderGroupHandlesKHR_dynamic = xx vkGetDeviceProcAddr(device, "vkGetRayTracingShaderGroupHandlesNV");
-    }
-    if vkGetBufferOpaqueCaptureAddress_dynamic == null {
-        vkGetBufferOpaqueCaptureAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferOpaqueCaptureAddressKHR");
-    }
-    if vkGetBufferDeviceAddress_dynamic == null {
-        vkGetBufferDeviceAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferDeviceAddressKHR");
-    }
-    if vkGetBufferDeviceAddress_dynamic == null {
-        vkGetBufferDeviceAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetBufferDeviceAddressEXT");
-    }
-    if vkGetDeviceMemoryOpaqueCaptureAddress_dynamic == null {
-        vkGetDeviceMemoryOpaqueCaptureAddress_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceMemoryOpaqueCaptureAddressKHR");
-    }
-    if vkCmdSetLineStipple_dynamic == null {
-        vkCmdSetLineStipple_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetLineStippleKHR");
-    }
-    if vkCmdSetLineStipple_dynamic == null {
-        vkCmdSetLineStipple_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetLineStippleEXT");
-    }
-    if vkCmdSetCullMode_dynamic == null {
-        vkCmdSetCullMode_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetCullModeEXT");
-    }
-    if vkCmdSetFrontFace_dynamic == null {
-        vkCmdSetFrontFace_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetFrontFaceEXT");
-    }
-    if vkCmdSetPrimitiveTopology_dynamic == null {
-        vkCmdSetPrimitiveTopology_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetPrimitiveTopologyEXT");
-    }
-    if vkCmdSetViewportWithCount_dynamic == null {
-        vkCmdSetViewportWithCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetViewportWithCountEXT");
-    }
-    if vkCmdSetScissorWithCount_dynamic == null {
-        vkCmdSetScissorWithCount_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetScissorWithCountEXT");
-    }
-    if vkCmdBindIndexBuffer2_dynamic == null {
-        vkCmdBindIndexBuffer2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBindIndexBuffer2KHR");
-    }
-    if vkCmdBindVertexBuffers2_dynamic == null {
-        vkCmdBindVertexBuffers2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBindVertexBuffers2EXT");
-    }
-    if vkCmdSetDepthTestEnable_dynamic == null {
-        vkCmdSetDepthTestEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthTestEnableEXT");
-    }
-    if vkCmdSetDepthWriteEnable_dynamic == null {
-        vkCmdSetDepthWriteEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthWriteEnableEXT");
-    }
-    if vkCmdSetDepthCompareOp_dynamic == null {
-        vkCmdSetDepthCompareOp_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthCompareOpEXT");
-    }
-    if vkCmdSetDepthBoundsTestEnable_dynamic == null {
-        vkCmdSetDepthBoundsTestEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBoundsTestEnableEXT");
-    }
-    if vkCmdSetStencilTestEnable_dynamic == null {
-        vkCmdSetStencilTestEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilTestEnableEXT");
-    }
-    if vkCmdSetStencilOp_dynamic == null {
-        vkCmdSetStencilOp_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetStencilOpEXT");
-    }
-    if vkCmdSetRasterizerDiscardEnable_dynamic == null {
-        vkCmdSetRasterizerDiscardEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetRasterizerDiscardEnableEXT");
-    }
-    if vkCmdSetDepthBiasEnable_dynamic == null {
-        vkCmdSetDepthBiasEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetDepthBiasEnableEXT");
-    }
-    if vkCmdSetPrimitiveRestartEnable_dynamic == null {
-        vkCmdSetPrimitiveRestartEnable_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetPrimitiveRestartEnableEXT");
-    }
-    if vkCreatePrivateDataSlot_dynamic == null {
-        vkCreatePrivateDataSlot_dynamic = xx vkGetDeviceProcAddr(device, "vkCreatePrivateDataSlotEXT");
-    }
-    if vkDestroyPrivateDataSlot_dynamic == null {
-        vkDestroyPrivateDataSlot_dynamic = xx vkGetDeviceProcAddr(device, "vkDestroyPrivateDataSlotEXT");
-    }
-    if vkSetPrivateData_dynamic == null {
-        vkSetPrivateData_dynamic = xx vkGetDeviceProcAddr(device, "vkSetPrivateDataEXT");
-    }
-    if vkGetPrivateData_dynamic == null {
-        vkGetPrivateData_dynamic = xx vkGetDeviceProcAddr(device, "vkGetPrivateDataEXT");
-    }
-    if vkCmdCopyBuffer2_dynamic == null {
-        vkCmdCopyBuffer2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyBuffer2KHR");
-    }
-    if vkCmdCopyImage2_dynamic == null {
-        vkCmdCopyImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyImage2KHR");
-    }
-    if vkCmdBlitImage2_dynamic == null {
-        vkCmdBlitImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBlitImage2KHR");
-    }
-    if vkCmdCopyBufferToImage2_dynamic == null {
-        vkCmdCopyBufferToImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyBufferToImage2KHR");
-    }
-    if vkCmdCopyImageToBuffer2_dynamic == null {
-        vkCmdCopyImageToBuffer2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdCopyImageToBuffer2KHR");
-    }
-    if vkCmdResolveImage2_dynamic == null {
-        vkCmdResolveImage2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdResolveImage2KHR");
-    }
-    if vkCmdSetEvent2_dynamic == null {
-        vkCmdSetEvent2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetEvent2KHR");
-    }
-    if vkCmdResetEvent2_dynamic == null {
-        vkCmdResetEvent2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdResetEvent2KHR");
-    }
-    if vkCmdWaitEvents2_dynamic == null {
-        vkCmdWaitEvents2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdWaitEvents2KHR");
-    }
-    if vkCmdPipelineBarrier2_dynamic == null {
-        vkCmdPipelineBarrier2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPipelineBarrier2KHR");
-    }
-    if vkQueueSubmit2_dynamic == null {
-        vkQueueSubmit2_dynamic = xx vkGetDeviceProcAddr(device, "vkQueueSubmit2KHR");
-    }
-    if vkCmdWriteTimestamp2_dynamic == null {
-        vkCmdWriteTimestamp2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdWriteTimestamp2KHR");
-    }
-    if vkCopyMemoryToImage_dynamic == null {
-        vkCopyMemoryToImage_dynamic = xx vkGetDeviceProcAddr(device, "vkCopyMemoryToImageEXT");
-    }
-    if vkCopyImageToMemory_dynamic == null {
-        vkCopyImageToMemory_dynamic = xx vkGetDeviceProcAddr(device, "vkCopyImageToMemoryEXT");
-    }
-    if vkCopyImageToImage_dynamic == null {
-        vkCopyImageToImage_dynamic = xx vkGetDeviceProcAddr(device, "vkCopyImageToImageEXT");
-    }
-    if vkTransitionImageLayout_dynamic == null {
-        vkTransitionImageLayout_dynamic = xx vkGetDeviceProcAddr(device, "vkTransitionImageLayoutEXT");
-    }
-    if vkCmdBeginRendering_dynamic == null {
-        vkCmdBeginRendering_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBeginRenderingKHR");
-    }
-    if vkCmdEndRendering2KHR_dynamic == null {
-        vkCmdEndRendering2KHR_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdEndRendering2EXT");
-    }
-    if vkCmdEndRendering_dynamic == null {
-        vkCmdEndRendering_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdEndRenderingKHR");
-    }
-    if vkGetImageSubresourceLayout2_dynamic == null {
-        vkGetImageSubresourceLayout2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageSubresourceLayout2KHR");
-    }
-    if vkGetImageSubresourceLayout2_dynamic == null {
-        vkGetImageSubresourceLayout2_dynamic = xx vkGetDeviceProcAddr(device, "vkGetImageSubresourceLayout2EXT");
-    }
-    if vkReleaseSwapchainImagesKHR_dynamic == null {
-        vkReleaseSwapchainImagesKHR_dynamic = xx vkGetDeviceProcAddr(device, "vkReleaseSwapchainImagesEXT");
-    }
-    if vkGetDeviceImageSubresourceLayout_dynamic == null {
-        vkGetDeviceImageSubresourceLayout_dynamic = xx vkGetDeviceProcAddr(device, "vkGetDeviceImageSubresourceLayoutKHR");
-    }
-    if vkMapMemory2_dynamic == null {
-        vkMapMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkMapMemory2KHR");
-    }
-    if vkUnmapMemory2_dynamic == null {
-        vkUnmapMemory2_dynamic = xx vkGetDeviceProcAddr(device, "vkUnmapMemory2KHR");
-    }
-    if vkCmdBindDescriptorSets2_dynamic == null {
-        vkCmdBindDescriptorSets2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdBindDescriptorSets2KHR");
-    }
-    if vkCmdPushConstants2_dynamic == null {
-        vkCmdPushConstants2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushConstants2KHR");
-    }
-    if vkCmdPushDescriptorSet2_dynamic == null {
-        vkCmdPushDescriptorSet2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSet2KHR");
-    }
-    if vkCmdPushDescriptorSetWithTemplate2_dynamic == null {
-        vkCmdPushDescriptorSetWithTemplate2_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdPushDescriptorSetWithTemplate2KHR");
-    }
-    if vkCmdSetRenderingAttachmentLocations_dynamic == null {
-        vkCmdSetRenderingAttachmentLocations_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetRenderingAttachmentLocationsKHR");
-    }
-    if vkCmdSetRenderingInputAttachmentIndices_dynamic == null {
-        vkCmdSetRenderingInputAttachmentIndices_dynamic = xx vkGetDeviceProcAddr(device, "vkCmdSetRenderingInputAttachmentIndicesKHR");
-    }
+    #insert #run make_dynamic_device_function("vkDestroyDevice");
+    #insert #run make_dynamic_device_function("vkGetDeviceQueue");
+    #insert #run make_dynamic_device_function("vkQueueSubmit");
+    #insert #run make_dynamic_device_function("vkQueueWaitIdle");
+    #insert #run make_dynamic_device_function("vkDeviceWaitIdle");
+    #insert #run make_dynamic_device_function("vkAllocateMemory");
+    #insert #run make_dynamic_device_function("vkFreeMemory");
+    #insert #run make_dynamic_device_function("vkMapMemory");
+    #insert #run make_dynamic_device_function("vkUnmapMemory");
+    #insert #run make_dynamic_device_function("vkFlushMappedMemoryRanges");
+    #insert #run make_dynamic_device_function("vkInvalidateMappedMemoryRanges");
+    #insert #run make_dynamic_device_function("vkGetDeviceMemoryCommitment");
+    #insert #run make_dynamic_device_function("vkGetBufferMemoryRequirements");
+    #insert #run make_dynamic_device_function("vkBindBufferMemory");
+    #insert #run make_dynamic_device_function("vkGetImageMemoryRequirements");
+    #insert #run make_dynamic_device_function("vkBindImageMemory");
+    #insert #run make_dynamic_device_function("vkGetImageSparseMemoryRequirements");
+    #insert #run make_dynamic_device_function("vkQueueBindSparse");
+    #insert #run make_dynamic_device_function("vkCreateFence");
+    #insert #run make_dynamic_device_function("vkDestroyFence");
+    #insert #run make_dynamic_device_function("vkResetFences");
+    #insert #run make_dynamic_device_function("vkGetFenceStatus");
+    #insert #run make_dynamic_device_function("vkWaitForFences");
+    #insert #run make_dynamic_device_function("vkCreateSemaphore");
+    #insert #run make_dynamic_device_function("vkDestroySemaphore");
+    #insert #run make_dynamic_device_function("vkCreateEvent");
+    #insert #run make_dynamic_device_function("vkDestroyEvent");
+    #insert #run make_dynamic_device_function("vkGetEventStatus");
+    #insert #run make_dynamic_device_function("vkSetEvent");
+    #insert #run make_dynamic_device_function("vkResetEvent");
+    #insert #run make_dynamic_device_function("vkCreateQueryPool");
+    #insert #run make_dynamic_device_function("vkDestroyQueryPool");
+    #insert #run make_dynamic_device_function("vkGetQueryPoolResults");
+    #insert #run make_dynamic_device_function("vkResetQueryPool");
+    #insert #run make_dynamic_device_function("vkCreateBuffer");
+    #insert #run make_dynamic_device_function("vkDestroyBuffer");
+    #insert #run make_dynamic_device_function("vkCreateBufferView");
+    #insert #run make_dynamic_device_function("vkDestroyBufferView");
+    #insert #run make_dynamic_device_function("vkCreateImage");
+    #insert #run make_dynamic_device_function("vkDestroyImage");
+    #insert #run make_dynamic_device_function("vkGetImageSubresourceLayout");
+    #insert #run make_dynamic_device_function("vkCreateImageView");
+    #insert #run make_dynamic_device_function("vkDestroyImageView");
+    #insert #run make_dynamic_device_function("vkCreateShaderModule");
+    #insert #run make_dynamic_device_function("vkDestroyShaderModule");
+    #insert #run make_dynamic_device_function("vkCreatePipelineCache");
+    #insert #run make_dynamic_device_function("vkDestroyPipelineCache");
+    #insert #run make_dynamic_device_function("vkGetPipelineCacheData");
+    #insert #run make_dynamic_device_function("vkMergePipelineCaches");
+    #insert #run make_dynamic_device_function("vkCreatePipelineBinariesKHR");
+    #insert #run make_dynamic_device_function("vkDestroyPipelineBinaryKHR");
+    #insert #run make_dynamic_device_function("vkGetPipelineKeyKHR");
+    #insert #run make_dynamic_device_function("vkGetPipelineBinaryDataKHR");
+    #insert #run make_dynamic_device_function("vkReleaseCapturedPipelineDataKHR");
+    #insert #run make_dynamic_device_function("vkCreateGraphicsPipelines");
+    #insert #run make_dynamic_device_function("vkCreateComputePipelines");
+    #insert #run make_dynamic_device_function("vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI");
+    #insert #run make_dynamic_device_function("vkDestroyPipeline");
+    #insert #run make_dynamic_device_function("vkCreatePipelineLayout");
+    #insert #run make_dynamic_device_function("vkDestroyPipelineLayout");
+    #insert #run make_dynamic_device_function("vkCreateSampler");
+    #insert #run make_dynamic_device_function("vkDestroySampler");
+    #insert #run make_dynamic_device_function("vkCreateDescriptorSetLayout");
+    #insert #run make_dynamic_device_function("vkDestroyDescriptorSetLayout");
+    #insert #run make_dynamic_device_function("vkCreateDescriptorPool");
+    #insert #run make_dynamic_device_function("vkDestroyDescriptorPool");
+    #insert #run make_dynamic_device_function("vkResetDescriptorPool");
+    #insert #run make_dynamic_device_function("vkAllocateDescriptorSets");
+    #insert #run make_dynamic_device_function("vkFreeDescriptorSets");
+    #insert #run make_dynamic_device_function("vkUpdateDescriptorSets");
+    #insert #run make_dynamic_device_function("vkCreateFramebuffer");
+    #insert #run make_dynamic_device_function("vkDestroyFramebuffer");
+    #insert #run make_dynamic_device_function("vkCreateRenderPass");
+    #insert #run make_dynamic_device_function("vkDestroyRenderPass");
+    #insert #run make_dynamic_device_function("vkGetRenderAreaGranularity");
+    #insert #run make_dynamic_device_function("vkGetRenderingAreaGranularity");
+    #insert #run make_dynamic_device_function("vkCreateCommandPool");
+    #insert #run make_dynamic_device_function("vkDestroyCommandPool");
+    #insert #run make_dynamic_device_function("vkResetCommandPool");
+    #insert #run make_dynamic_device_function("vkAllocateCommandBuffers");
+    #insert #run make_dynamic_device_function("vkFreeCommandBuffers");
+    #insert #run make_dynamic_device_function("vkBeginCommandBuffer");
+    #insert #run make_dynamic_device_function("vkEndCommandBuffer");
+    #insert #run make_dynamic_device_function("vkResetCommandBuffer");
+    #insert #run make_dynamic_device_function("vkCmdBindPipeline");
+    #insert #run make_dynamic_device_function("vkCmdSetAttachmentFeedbackLoopEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetViewport");
+    #insert #run make_dynamic_device_function("vkCmdSetScissor");
+    #insert #run make_dynamic_device_function("vkCmdSetLineWidth");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthBias");
+    #insert #run make_dynamic_device_function("vkCmdSetBlendConstants");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthBounds");
+    #insert #run make_dynamic_device_function("vkCmdSetStencilCompareMask");
+    #insert #run make_dynamic_device_function("vkCmdSetStencilWriteMask");
+    #insert #run make_dynamic_device_function("vkCmdSetStencilReference");
+    #insert #run make_dynamic_device_function("vkCmdBindDescriptorSets");
+    #insert #run make_dynamic_device_function("vkCmdBindIndexBuffer");
+    #insert #run make_dynamic_device_function("vkCmdBindVertexBuffers");
+    #insert #run make_dynamic_device_function("vkCmdDraw");
+    #insert #run make_dynamic_device_function("vkCmdDrawIndexed");
+    #insert #run make_dynamic_device_function("vkCmdDrawMultiEXT");
+    #insert #run make_dynamic_device_function("vkCmdDrawMultiIndexedEXT");
+    #insert #run make_dynamic_device_function("vkCmdDrawIndirect");
+    #insert #run make_dynamic_device_function("vkCmdDrawIndexedIndirect");
+    #insert #run make_dynamic_device_function("vkCmdDispatch");
+    #insert #run make_dynamic_device_function("vkCmdDispatchIndirect");
+    #insert #run make_dynamic_device_function("vkCmdSubpassShadingHUAWEI");
+    #insert #run make_dynamic_device_function("vkCmdDrawClusterHUAWEI");
+    #insert #run make_dynamic_device_function("vkCmdDrawClusterIndirectHUAWEI");
+    #insert #run make_dynamic_device_function("vkCmdUpdatePipelineIndirectBufferNV");
+    #insert #run make_dynamic_device_function("vkCmdCopyBuffer");
+    #insert #run make_dynamic_device_function("vkCmdCopyImage");
+    #insert #run make_dynamic_device_function("vkCmdBlitImage");
+    #insert #run make_dynamic_device_function("vkCmdCopyBufferToImage");
+    #insert #run make_dynamic_device_function("vkCmdCopyImageToBuffer");
+    #insert #run make_dynamic_device_function("vkCmdCopyMemoryIndirectNV");
+    #insert #run make_dynamic_device_function("vkCmdCopyMemoryIndirectKHR");
+    #insert #run make_dynamic_device_function("vkCmdCopyMemoryToImageIndirectNV");
+    #insert #run make_dynamic_device_function("vkCmdCopyMemoryToImageIndirectKHR");
+    #insert #run make_dynamic_device_function("vkCmdUpdateBuffer");
+    #insert #run make_dynamic_device_function("vkCmdFillBuffer");
+    #insert #run make_dynamic_device_function("vkCmdClearColorImage");
+    #insert #run make_dynamic_device_function("vkCmdClearDepthStencilImage");
+    #insert #run make_dynamic_device_function("vkCmdClearAttachments");
+    #insert #run make_dynamic_device_function("vkCmdResolveImage");
+    #insert #run make_dynamic_device_function("vkCmdSetEvent");
+    #insert #run make_dynamic_device_function("vkCmdResetEvent");
+    #insert #run make_dynamic_device_function("vkCmdWaitEvents");
+    #insert #run make_dynamic_device_function("vkCmdPipelineBarrier");
+    #insert #run make_dynamic_device_function("vkCmdBeginQuery");
+    #insert #run make_dynamic_device_function("vkCmdEndQuery");
+    #insert #run make_dynamic_device_function("vkCmdBeginConditionalRenderingEXT");
+    #insert #run make_dynamic_device_function("vkCmdEndConditionalRenderingEXT");
+    #insert #run make_dynamic_device_function("vkCmdBeginCustomResolveEXT");
+    #insert #run make_dynamic_device_function("vkCmdResetQueryPool");
+    #insert #run make_dynamic_device_function("vkCmdWriteTimestamp");
+    #insert #run make_dynamic_device_function("vkCmdCopyQueryPoolResults");
+    #insert #run make_dynamic_device_function("vkCmdPushConstants");
+    #insert #run make_dynamic_device_function("vkCmdBeginRenderPass");
+    #insert #run make_dynamic_device_function("vkCmdNextSubpass");
+    #insert #run make_dynamic_device_function("vkCmdEndRenderPass");
+    #insert #run make_dynamic_device_function("vkCmdExecuteCommands");
+    #insert #run make_dynamic_device_function("vkCreateSharedSwapchainsKHR");
+    #insert #run make_dynamic_device_function("vkCreateSwapchainKHR");
+    #insert #run make_dynamic_device_function("vkDestroySwapchainKHR");
+    #insert #run make_dynamic_device_function("vkGetSwapchainImagesKHR");
+    #insert #run make_dynamic_device_function("vkAcquireNextImageKHR");
+    #insert #run make_dynamic_device_function("vkQueuePresentKHR");
+    #insert #run make_dynamic_device_function("vkDebugMarkerSetObjectNameEXT");
+    #insert #run make_dynamic_device_function("vkDebugMarkerSetObjectTagEXT");
+    #insert #run make_dynamic_device_function("vkCmdDebugMarkerBeginEXT");
+    #insert #run make_dynamic_device_function("vkCmdDebugMarkerEndEXT");
+    #insert #run make_dynamic_device_function("vkCmdDebugMarkerInsertEXT");
+    #insert #run make_dynamic_device_function("vkGetMemoryWin32HandleNV");
+    #insert #run make_dynamic_device_function("vkCmdExecuteGeneratedCommandsNV");
+    #insert #run make_dynamic_device_function("vkCmdPreprocessGeneratedCommandsNV");
+    #insert #run make_dynamic_device_function("vkCmdBindPipelineShaderGroupNV");
+    #insert #run make_dynamic_device_function("vkGetGeneratedCommandsMemoryRequirementsNV");
+    #insert #run make_dynamic_device_function("vkCreateIndirectCommandsLayoutNV");
+    #insert #run make_dynamic_device_function("vkDestroyIndirectCommandsLayoutNV");
+    #insert #run make_dynamic_device_function("vkCmdExecuteGeneratedCommandsEXT");
+    #insert #run make_dynamic_device_function("vkCmdPreprocessGeneratedCommandsEXT");
+    #insert #run make_dynamic_device_function("vkGetGeneratedCommandsMemoryRequirementsEXT");
+    #insert #run make_dynamic_device_function("vkCreateIndirectCommandsLayoutEXT");
+    #insert #run make_dynamic_device_function("vkDestroyIndirectCommandsLayoutEXT");
+    #insert #run make_dynamic_device_function("vkCreateIndirectExecutionSetEXT");
+    #insert #run make_dynamic_device_function("vkDestroyIndirectExecutionSetEXT");
+    #insert #run make_dynamic_device_function("vkUpdateIndirectExecutionSetPipelineEXT");
+    #insert #run make_dynamic_device_function("vkUpdateIndirectExecutionSetShaderEXT");
+    #insert #run make_dynamic_device_function("vkCmdPushDescriptorSet");
+    #insert #run make_dynamic_device_function("vkTrimCommandPool");
+    #insert #run make_dynamic_device_function("vkGetMemoryWin32HandleKHR");
+    #insert #run make_dynamic_device_function("vkGetMemoryWin32HandlePropertiesKHR");
+    #insert #run make_dynamic_device_function("vkGetMemoryFdKHR");
+    #insert #run make_dynamic_device_function("vkGetMemoryFdPropertiesKHR");
+    #insert #run make_dynamic_device_function("vkGetMemoryZirconHandleFUCHSIA");
+    #insert #run make_dynamic_device_function("vkGetMemoryZirconHandlePropertiesFUCHSIA");
+    #insert #run make_dynamic_device_function("vkGetMemoryRemoteAddressNV");
+    #insert #run make_dynamic_device_function("vkGetMemorySciBufNV");
+    #insert #run make_dynamic_device_function("vkGetSemaphoreWin32HandleKHR");
+    #insert #run make_dynamic_device_function("vkImportSemaphoreWin32HandleKHR");
+    #insert #run make_dynamic_device_function("vkGetSemaphoreFdKHR");
+    #insert #run make_dynamic_device_function("vkImportSemaphoreFdKHR");
+    #insert #run make_dynamic_device_function("vkGetSemaphoreZirconHandleFUCHSIA");
+    #insert #run make_dynamic_device_function("vkImportSemaphoreZirconHandleFUCHSIA");
+    #insert #run make_dynamic_device_function("vkGetFenceWin32HandleKHR");
+    #insert #run make_dynamic_device_function("vkImportFenceWin32HandleKHR");
+    #insert #run make_dynamic_device_function("vkGetFenceFdKHR");
+    #insert #run make_dynamic_device_function("vkImportFenceFdKHR");
+    #insert #run make_dynamic_device_function("vkGetFenceSciSyncFenceNV");
+    #insert #run make_dynamic_device_function("vkGetFenceSciSyncObjNV");
+    #insert #run make_dynamic_device_function("vkImportFenceSciSyncFenceNV");
+    #insert #run make_dynamic_device_function("vkImportFenceSciSyncObjNV");
+    #insert #run make_dynamic_device_function("vkGetSemaphoreSciSyncObjNV");
+    #insert #run make_dynamic_device_function("vkImportSemaphoreSciSyncObjNV");
+    #insert #run make_dynamic_device_function("vkCreateSemaphoreSciSyncPoolNV");
+    #insert #run make_dynamic_device_function("vkDestroySemaphoreSciSyncPoolNV");
+    #insert #run make_dynamic_device_function("vkDisplayPowerControlEXT");
+    #insert #run make_dynamic_device_function("vkRegisterDeviceEventEXT");
+    #insert #run make_dynamic_device_function("vkRegisterDisplayEventEXT");
+    #insert #run make_dynamic_device_function("vkGetSwapchainCounterEXT");
+    #insert #run make_dynamic_device_function("vkGetDeviceGroupPeerMemoryFeatures");
+    #insert #run make_dynamic_device_function("vkBindBufferMemory2");
+    #insert #run make_dynamic_device_function("vkBindImageMemory2");
+    #insert #run make_dynamic_device_function("vkCmdSetDeviceMask");
+    #insert #run make_dynamic_device_function("vkGetDeviceGroupPresentCapabilitiesKHR");
+    #insert #run make_dynamic_device_function("vkGetDeviceGroupSurfacePresentModesKHR");
+    #insert #run make_dynamic_device_function("vkAcquireNextImage2KHR");
+    #insert #run make_dynamic_device_function("vkCmdDispatchBase");
+    #insert #run make_dynamic_device_function("vkCreateDescriptorUpdateTemplate");
+    #insert #run make_dynamic_device_function("vkDestroyDescriptorUpdateTemplate");
+    #insert #run make_dynamic_device_function("vkUpdateDescriptorSetWithTemplate");
+    #insert #run make_dynamic_device_function("vkCmdPushDescriptorSetWithTemplate");
+    #insert #run make_dynamic_device_function("vkSetHdrMetadataEXT");
+    #insert #run make_dynamic_device_function("vkGetSwapchainStatusKHR");
+    #insert #run make_dynamic_device_function("vkGetRefreshCycleDurationGOOGLE");
+    #insert #run make_dynamic_device_function("vkGetPastPresentationTimingGOOGLE");
+    #insert #run make_dynamic_device_function("vkCmdSetViewportWScalingNV");
+    #insert #run make_dynamic_device_function("vkCmdSetDiscardRectangleEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetDiscardRectangleEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetDiscardRectangleModeEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetSampleLocationsEXT");
+    #insert #run make_dynamic_device_function("vkGetBufferMemoryRequirements2");
+    #insert #run make_dynamic_device_function("vkGetImageMemoryRequirements2");
+    #insert #run make_dynamic_device_function("vkGetImageSparseMemoryRequirements2");
+    #insert #run make_dynamic_device_function("vkGetDeviceBufferMemoryRequirements");
+    #insert #run make_dynamic_device_function("vkGetDeviceImageMemoryRequirements");
+    #insert #run make_dynamic_device_function("vkGetDeviceImageSparseMemoryRequirements");
+    #insert #run make_dynamic_device_function("vkCreateSamplerYcbcrConversion");
+    #insert #run make_dynamic_device_function("vkDestroySamplerYcbcrConversion");
+    #insert #run make_dynamic_device_function("vkGetDeviceQueue2");
+    #insert #run make_dynamic_device_function("vkCreateValidationCacheEXT");
+    #insert #run make_dynamic_device_function("vkDestroyValidationCacheEXT");
+    #insert #run make_dynamic_device_function("vkGetValidationCacheDataEXT");
+    #insert #run make_dynamic_device_function("vkMergeValidationCachesEXT");
+    #insert #run make_dynamic_device_function("vkGetDescriptorSetLayoutSupport");
+    #insert #run make_dynamic_device_function("vkGetSwapchainGrallocUsageANDROID");
+    #insert #run make_dynamic_device_function("vkGetSwapchainGrallocUsage2ANDROID");
+    #insert #run make_dynamic_device_function("vkAcquireImageANDROID");
+    #insert #run make_dynamic_device_function("vkQueueSignalReleaseImageANDROID");
+    #insert #run make_dynamic_device_function("vkGetShaderInfoAMD");
+    #insert #run make_dynamic_device_function("vkSetLocalDimmingAMD");
+    #insert #run make_dynamic_device_function("vkGetCalibratedTimestampsKHR");
+    #insert #run make_dynamic_device_function("vkSetDebugUtilsObjectNameEXT");
+    #insert #run make_dynamic_device_function("vkSetDebugUtilsObjectTagEXT");
+    #insert #run make_dynamic_device_function("vkQueueBeginDebugUtilsLabelEXT");
+    #insert #run make_dynamic_device_function("vkQueueEndDebugUtilsLabelEXT");
+    #insert #run make_dynamic_device_function("vkQueueInsertDebugUtilsLabelEXT");
+    #insert #run make_dynamic_device_function("vkCmdBeginDebugUtilsLabelEXT");
+    #insert #run make_dynamic_device_function("vkCmdEndDebugUtilsLabelEXT");
+    #insert #run make_dynamic_device_function("vkCmdInsertDebugUtilsLabelEXT");
+    #insert #run make_dynamic_device_function("vkGetMemoryHostPointerPropertiesEXT");
+    #insert #run make_dynamic_device_function("vkCmdWriteBufferMarkerAMD");
+    #insert #run make_dynamic_device_function("vkCreateRenderPass2");
+    #insert #run make_dynamic_device_function("vkCmdBeginRenderPass2");
+    #insert #run make_dynamic_device_function("vkCmdNextSubpass2");
+    #insert #run make_dynamic_device_function("vkCmdEndRenderPass2");
+    #insert #run make_dynamic_device_function("vkGetSemaphoreCounterValue");
+    #insert #run make_dynamic_device_function("vkWaitSemaphores");
+    #insert #run make_dynamic_device_function("vkSignalSemaphore");
+    #insert #run make_dynamic_device_function("vkGetAndroidHardwareBufferPropertiesANDROID");
+    #insert #run make_dynamic_device_function("vkGetMemoryAndroidHardwareBufferANDROID");
+    #insert #run make_dynamic_device_function("vkCmdDrawIndirectCount");
+    #insert #run make_dynamic_device_function("vkCmdDrawIndexedIndirectCount");
+    #insert #run make_dynamic_device_function("vkCmdSetCheckpointNV");
+    #insert #run make_dynamic_device_function("vkGetQueueCheckpointDataNV");
+    #insert #run make_dynamic_device_function("vkCmdBindTransformFeedbackBuffersEXT");
+    #insert #run make_dynamic_device_function("vkCmdBeginTransformFeedbackEXT");
+    #insert #run make_dynamic_device_function("vkCmdEndTransformFeedbackEXT");
+    #insert #run make_dynamic_device_function("vkCmdBeginQueryIndexedEXT");
+    #insert #run make_dynamic_device_function("vkCmdEndQueryIndexedEXT");
+    #insert #run make_dynamic_device_function("vkCmdDrawIndirectByteCountEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetExclusiveScissorNV");
+    #insert #run make_dynamic_device_function("vkCmdSetExclusiveScissorEnableNV");
+    #insert #run make_dynamic_device_function("vkCmdBindShadingRateImageNV");
+    #insert #run make_dynamic_device_function("vkCmdSetViewportShadingRatePaletteNV");
+    #insert #run make_dynamic_device_function("vkCmdSetCoarseSampleOrderNV");
+    #insert #run make_dynamic_device_function("vkCmdDrawMeshTasksNV");
+    #insert #run make_dynamic_device_function("vkCmdDrawMeshTasksIndirectNV");
+    #insert #run make_dynamic_device_function("vkCmdDrawMeshTasksIndirectCountNV");
+    #insert #run make_dynamic_device_function("vkCmdDrawMeshTasksEXT");
+    #insert #run make_dynamic_device_function("vkCmdDrawMeshTasksIndirectEXT");
+    #insert #run make_dynamic_device_function("vkCmdDrawMeshTasksIndirectCountEXT");
+    #insert #run make_dynamic_device_function("vkCompileDeferredNV");
+    #insert #run make_dynamic_device_function("vkCreateAccelerationStructureNV");
+    #insert #run make_dynamic_device_function("vkCmdBindInvocationMaskHUAWEI");
+    #insert #run make_dynamic_device_function("vkDestroyAccelerationStructureKHR");
+    #insert #run make_dynamic_device_function("vkDestroyAccelerationStructureNV");
+    #insert #run make_dynamic_device_function("vkGetAccelerationStructureMemoryRequirementsNV");
+    #insert #run make_dynamic_device_function("vkBindAccelerationStructureMemoryNV");
+    #insert #run make_dynamic_device_function("vkCmdCopyAccelerationStructureNV");
+    #insert #run make_dynamic_device_function("vkCmdCopyAccelerationStructureKHR");
+    #insert #run make_dynamic_device_function("vkCopyAccelerationStructureKHR");
+    #insert #run make_dynamic_device_function("vkCmdCopyAccelerationStructureToMemoryKHR");
+    #insert #run make_dynamic_device_function("vkCopyAccelerationStructureToMemoryKHR");
+    #insert #run make_dynamic_device_function("vkCmdCopyMemoryToAccelerationStructureKHR");
+    #insert #run make_dynamic_device_function("vkCopyMemoryToAccelerationStructureKHR");
+    #insert #run make_dynamic_device_function("vkCmdWriteAccelerationStructuresPropertiesKHR");
+    #insert #run make_dynamic_device_function("vkCmdWriteAccelerationStructuresPropertiesNV");
+    #insert #run make_dynamic_device_function("vkCmdBuildAccelerationStructureNV");
+    #insert #run make_dynamic_device_function("vkWriteAccelerationStructuresPropertiesKHR");
+    #insert #run make_dynamic_device_function("vkCmdTraceRaysKHR");
+    #insert #run make_dynamic_device_function("vkCmdTraceRaysNV");
+    #insert #run make_dynamic_device_function("vkGetRayTracingShaderGroupHandlesKHR");
+    #insert #run make_dynamic_device_function("vkGetRayTracingCaptureReplayShaderGroupHandlesKHR");
+    #insert #run make_dynamic_device_function("vkGetAccelerationStructureHandleNV");
+    #insert #run make_dynamic_device_function("vkCreateRayTracingPipelinesNV");
+    #insert #run make_dynamic_device_function("vkCreateRayTracingPipelinesKHR");
+    #insert #run make_dynamic_device_function("vkCmdTraceRaysIndirectKHR");
+    #insert #run make_dynamic_device_function("vkCmdTraceRaysIndirect2KHR");
+    #insert #run make_dynamic_device_function("vkGetClusterAccelerationStructureBuildSizesNV");
+    #insert #run make_dynamic_device_function("vkCmdBuildClusterAccelerationStructureIndirectNV");
+    #insert #run make_dynamic_device_function("vkGetDeviceAccelerationStructureCompatibilityKHR");
+    #insert #run make_dynamic_device_function("vkGetRayTracingShaderGroupStackSizeKHR");
+    #insert #run make_dynamic_device_function("vkCmdSetRayTracingPipelineStackSizeKHR");
+    #insert #run make_dynamic_device_function("vkGetImageViewHandleNVX");
+    #insert #run make_dynamic_device_function("vkGetImageViewHandle64NVX");
+    #insert #run make_dynamic_device_function("vkGetImageViewAddressNVX");
+    #insert #run make_dynamic_device_function("vkGetDeviceCombinedImageSamplerIndexNVX");
+    #insert #run make_dynamic_device_function("vkGetDeviceGroupSurfacePresentModes2EXT");
+    #insert #run make_dynamic_device_function("vkAcquireFullScreenExclusiveModeEXT");
+    #insert #run make_dynamic_device_function("vkReleaseFullScreenExclusiveModeEXT");
+    #insert #run make_dynamic_device_function("vkAcquireProfilingLockKHR");
+    #insert #run make_dynamic_device_function("vkReleaseProfilingLockKHR");
+    #insert #run make_dynamic_device_function("vkGetImageDrmFormatModifierPropertiesEXT");
+    #insert #run make_dynamic_device_function("vkGetBufferOpaqueCaptureAddress");
+    #insert #run make_dynamic_device_function("vkGetBufferDeviceAddress");
+    #insert #run make_dynamic_device_function("vkInitializePerformanceApiINTEL");
+    #insert #run make_dynamic_device_function("vkUninitializePerformanceApiINTEL");
+    #insert #run make_dynamic_device_function("vkCmdSetPerformanceMarkerINTEL");
+    #insert #run make_dynamic_device_function("vkCmdSetPerformanceStreamMarkerINTEL");
+    #insert #run make_dynamic_device_function("vkCmdSetPerformanceOverrideINTEL");
+    #insert #run make_dynamic_device_function("vkAcquirePerformanceConfigurationINTEL");
+    #insert #run make_dynamic_device_function("vkReleasePerformanceConfigurationINTEL");
+    #insert #run make_dynamic_device_function("vkQueueSetPerformanceConfigurationINTEL");
+    #insert #run make_dynamic_device_function("vkGetPerformanceParameterINTEL");
+    #insert #run make_dynamic_device_function("vkGetDeviceMemoryOpaqueCaptureAddress");
+    #insert #run make_dynamic_device_function("vkGetPipelineExecutablePropertiesKHR");
+    #insert #run make_dynamic_device_function("vkGetPipelineExecutableStatisticsKHR");
+    #insert #run make_dynamic_device_function("vkGetPipelineExecutableInternalRepresentationsKHR");
+    #insert #run make_dynamic_device_function("vkCmdSetLineStipple");
+    #insert #run make_dynamic_device_function("vkGetFaultData");
+    #insert #run make_dynamic_device_function("vkCreateAccelerationStructureKHR");
+    #insert #run make_dynamic_device_function("vkCmdBuildAccelerationStructuresKHR");
+    #insert #run make_dynamic_device_function("vkCmdBuildAccelerationStructuresIndirectKHR");
+    #insert #run make_dynamic_device_function("vkBuildAccelerationStructuresKHR");
+    #insert #run make_dynamic_device_function("vkGetAccelerationStructureDeviceAddressKHR");
+    #insert #run make_dynamic_device_function("vkCreateDeferredOperationKHR");
+    #insert #run make_dynamic_device_function("vkDestroyDeferredOperationKHR");
+    #insert #run make_dynamic_device_function("vkGetDeferredOperationMaxConcurrencyKHR");
+    #insert #run make_dynamic_device_function("vkGetDeferredOperationResultKHR");
+    #insert #run make_dynamic_device_function("vkDeferredOperationJoinKHR");
+    #insert #run make_dynamic_device_function("vkGetPipelineIndirectMemoryRequirementsNV");
+    #insert #run make_dynamic_device_function("vkGetPipelineIndirectDeviceAddressNV");
+    #insert #run make_dynamic_device_function("vkAntiLagUpdateAMD");
+    #insert #run make_dynamic_device_function("vkCmdSetCullMode");
+    #insert #run make_dynamic_device_function("vkCmdSetFrontFace");
+    #insert #run make_dynamic_device_function("vkCmdSetPrimitiveTopology");
+    #insert #run make_dynamic_device_function("vkCmdSetViewportWithCount");
+    #insert #run make_dynamic_device_function("vkCmdSetScissorWithCount");
+    #insert #run make_dynamic_device_function("vkCmdBindIndexBuffer2");
+    #insert #run make_dynamic_device_function("vkCmdBindVertexBuffers2");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthTestEnable");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthWriteEnable");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthCompareOp");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthBoundsTestEnable");
+    #insert #run make_dynamic_device_function("vkCmdSetStencilTestEnable");
+    #insert #run make_dynamic_device_function("vkCmdSetStencilOp");
+    #insert #run make_dynamic_device_function("vkCmdSetPatchControlPointsEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetRasterizerDiscardEnable");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthBiasEnable");
+    #insert #run make_dynamic_device_function("vkCmdSetLogicOpEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetPrimitiveRestartEnable");
+    #insert #run make_dynamic_device_function("vkCmdSetTessellationDomainOriginEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthClampEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetPolygonModeEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetRasterizationSamplesEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetSampleMaskEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetAlphaToCoverageEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetAlphaToOneEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetLogicOpEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetColorBlendEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetColorBlendEquationEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetColorWriteMaskEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetRasterizationStreamEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetConservativeRasterizationModeEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetExtraPrimitiveOverestimationSizeEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthClipEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetSampleLocationsEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetColorBlendAdvancedEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetProvokingVertexModeEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetLineRasterizationModeEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetLineStippleEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthClipNegativeOneToOneEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetViewportWScalingEnableNV");
+    #insert #run make_dynamic_device_function("vkCmdSetViewportSwizzleNV");
+    #insert #run make_dynamic_device_function("vkCmdSetCoverageToColorEnableNV");
+    #insert #run make_dynamic_device_function("vkCmdSetCoverageToColorLocationNV");
+    #insert #run make_dynamic_device_function("vkCmdSetCoverageModulationModeNV");
+    #insert #run make_dynamic_device_function("vkCmdSetCoverageModulationTableEnableNV");
+    #insert #run make_dynamic_device_function("vkCmdSetCoverageModulationTableNV");
+    #insert #run make_dynamic_device_function("vkCmdSetShadingRateImageEnableNV");
+    #insert #run make_dynamic_device_function("vkCmdSetCoverageReductionModeNV");
+    #insert #run make_dynamic_device_function("vkCmdSetRepresentativeFragmentTestEnableNV");
+    #insert #run make_dynamic_device_function("vkCreatePrivateDataSlot");
+    #insert #run make_dynamic_device_function("vkDestroyPrivateDataSlot");
+    #insert #run make_dynamic_device_function("vkSetPrivateData");
+    #insert #run make_dynamic_device_function("vkGetPrivateData");
+    #insert #run make_dynamic_device_function("vkCmdCopyBuffer2");
+    #insert #run make_dynamic_device_function("vkCmdCopyImage2");
+    #insert #run make_dynamic_device_function("vkCmdBlitImage2");
+    #insert #run make_dynamic_device_function("vkCmdCopyBufferToImage2");
+    #insert #run make_dynamic_device_function("vkCmdCopyImageToBuffer2");
+    #insert #run make_dynamic_device_function("vkCmdResolveImage2");
+    #insert #run make_dynamic_device_function("vkCmdRefreshObjectsKHR");
+    #insert #run make_dynamic_device_function("vkCmdSetFragmentShadingRateKHR");
+    #insert #run make_dynamic_device_function("vkCmdSetFragmentShadingRateEnumNV");
+    #insert #run make_dynamic_device_function("vkGetAccelerationStructureBuildSizesKHR");
+    #insert #run make_dynamic_device_function("vkCmdSetVertexInputEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetColorWriteEnableEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetEvent2");
+    #insert #run make_dynamic_device_function("vkCmdResetEvent2");
+    #insert #run make_dynamic_device_function("vkCmdWaitEvents2");
+    #insert #run make_dynamic_device_function("vkCmdPipelineBarrier2");
+    #insert #run make_dynamic_device_function("vkQueueSubmit2");
+    #insert #run make_dynamic_device_function("vkCmdWriteTimestamp2");
+    #insert #run make_dynamic_device_function("vkCmdWriteBufferMarker2AMD");
+    #insert #run make_dynamic_device_function("vkGetQueueCheckpointData2NV");
+    #insert #run make_dynamic_device_function("vkCopyMemoryToImage");
+    #insert #run make_dynamic_device_function("vkCopyImageToMemory");
+    #insert #run make_dynamic_device_function("vkCopyImageToImage");
+    #insert #run make_dynamic_device_function("vkTransitionImageLayout");
+    #insert #run make_dynamic_device_function("vkGetCommandPoolMemoryConsumption");
+    #insert #run make_dynamic_device_function("vkCreateVideoSessionKHR");
+    #insert #run make_dynamic_device_function("vkDestroyVideoSessionKHR");
+    #insert #run make_dynamic_device_function("vkCreateVideoSessionParametersKHR");
+    #insert #run make_dynamic_device_function("vkUpdateVideoSessionParametersKHR");
+    #insert #run make_dynamic_device_function("vkGetEncodedVideoSessionParametersKHR");
+    #insert #run make_dynamic_device_function("vkDestroyVideoSessionParametersKHR");
+    #insert #run make_dynamic_device_function("vkGetVideoSessionMemoryRequirementsKHR");
+    #insert #run make_dynamic_device_function("vkBindVideoSessionMemoryKHR");
+    #insert #run make_dynamic_device_function("vkCmdDecodeVideoKHR");
+    #insert #run make_dynamic_device_function("vkCmdBeginVideoCodingKHR");
+    #insert #run make_dynamic_device_function("vkCmdControlVideoCodingKHR");
+    #insert #run make_dynamic_device_function("vkCmdEndVideoCodingKHR");
+    #insert #run make_dynamic_device_function("vkCmdEncodeVideoKHR");
+    #insert #run make_dynamic_device_function("vkCmdDecompressMemoryNV");
+    #insert #run make_dynamic_device_function("vkCmdDecompressMemoryIndirectCountNV");
+    #insert #run make_dynamic_device_function("vkGetPartitionedAccelerationStructuresBuildSizesNV");
+    #insert #run make_dynamic_device_function("vkCmdBuildPartitionedAccelerationStructuresNV");
+    #insert #run make_dynamic_device_function("vkCmdDecompressMemoryEXT");
+    #insert #run make_dynamic_device_function("vkCmdDecompressMemoryIndirectCountEXT");
+    #insert #run make_dynamic_device_function("vkCreateCuModuleNVX");
+    #insert #run make_dynamic_device_function("vkCreateCuFunctionNVX");
+    #insert #run make_dynamic_device_function("vkDestroyCuModuleNVX");
+    #insert #run make_dynamic_device_function("vkDestroyCuFunctionNVX");
+    #insert #run make_dynamic_device_function("vkCmdCuLaunchKernelNVX");
+    #insert #run make_dynamic_device_function("vkGetDescriptorSetLayoutSizeEXT");
+    #insert #run make_dynamic_device_function("vkGetDescriptorSetLayoutBindingOffsetEXT");
+    #insert #run make_dynamic_device_function("vkGetDescriptorEXT");
+    #insert #run make_dynamic_device_function("vkCmdBindDescriptorBuffersEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetDescriptorBufferOffsetsEXT");
+    #insert #run make_dynamic_device_function("vkCmdBindDescriptorBufferEmbeddedSamplersEXT");
+    #insert #run make_dynamic_device_function("vkGetBufferOpaqueCaptureDescriptorDataEXT");
+    #insert #run make_dynamic_device_function("vkGetImageOpaqueCaptureDescriptorDataEXT");
+    #insert #run make_dynamic_device_function("vkGetImageViewOpaqueCaptureDescriptorDataEXT");
+    #insert #run make_dynamic_device_function("vkGetSamplerOpaqueCaptureDescriptorDataEXT");
+    #insert #run make_dynamic_device_function("vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT");
+    #insert #run make_dynamic_device_function("vkSetDeviceMemoryPriorityEXT");
+    #insert #run make_dynamic_device_function("vkWaitForPresent2KHR");
+    #insert #run make_dynamic_device_function("vkWaitForPresentKHR");
+    #insert #run make_dynamic_device_function("vkCreateBufferCollectionFUCHSIA");
+    #insert #run make_dynamic_device_function("vkSetBufferCollectionBufferConstraintsFUCHSIA");
+    #insert #run make_dynamic_device_function("vkSetBufferCollectionImageConstraintsFUCHSIA");
+    #insert #run make_dynamic_device_function("vkDestroyBufferCollectionFUCHSIA");
+    #insert #run make_dynamic_device_function("vkGetBufferCollectionPropertiesFUCHSIA");
+    #insert #run make_dynamic_device_function("vkCreateCudaModuleNV");
+    #insert #run make_dynamic_device_function("vkGetCudaModuleCacheNV");
+    #insert #run make_dynamic_device_function("vkCreateCudaFunctionNV");
+    #insert #run make_dynamic_device_function("vkDestroyCudaModuleNV");
+    #insert #run make_dynamic_device_function("vkDestroyCudaFunctionNV");
+    #insert #run make_dynamic_device_function("vkCmdCudaLaunchKernelNV");
+    #insert #run make_dynamic_device_function("vkCmdBeginRendering");
+    #insert #run make_dynamic_device_function("vkCmdEndRendering");
+    #insert #run make_dynamic_device_function("vkCmdEndRendering2KHR");
+    #insert #run make_dynamic_device_function("vkGetDescriptorSetLayoutHostMappingInfoVALVE");
+    #insert #run make_dynamic_device_function("vkGetDescriptorSetHostMappingVALVE");
+    #insert #run make_dynamic_device_function("vkCreateMicromapEXT");
+    #insert #run make_dynamic_device_function("vkCmdBuildMicromapsEXT");
+    #insert #run make_dynamic_device_function("vkBuildMicromapsEXT");
+    #insert #run make_dynamic_device_function("vkDestroyMicromapEXT");
+    #insert #run make_dynamic_device_function("vkCmdCopyMicromapEXT");
+    #insert #run make_dynamic_device_function("vkCopyMicromapEXT");
+    #insert #run make_dynamic_device_function("vkCmdCopyMicromapToMemoryEXT");
+    #insert #run make_dynamic_device_function("vkCopyMicromapToMemoryEXT");
+    #insert #run make_dynamic_device_function("vkCmdCopyMemoryToMicromapEXT");
+    #insert #run make_dynamic_device_function("vkCopyMemoryToMicromapEXT");
+    #insert #run make_dynamic_device_function("vkCmdWriteMicromapsPropertiesEXT");
+    #insert #run make_dynamic_device_function("vkWriteMicromapsPropertiesEXT");
+    #insert #run make_dynamic_device_function("vkGetDeviceMicromapCompatibilityEXT");
+    #insert #run make_dynamic_device_function("vkGetMicromapBuildSizesEXT");
+    #insert #run make_dynamic_device_function("vkGetShaderModuleIdentifierEXT");
+    #insert #run make_dynamic_device_function("vkGetShaderModuleCreateInfoIdentifierEXT");
+    #insert #run make_dynamic_device_function("vkGetImageSubresourceLayout2");
+    #insert #run make_dynamic_device_function("vkGetPipelinePropertiesEXT");
+    #insert #run make_dynamic_device_function("vkExportMetalObjectsEXT");
+    #insert #run make_dynamic_device_function("vkCmdBindTileMemoryQCOM");
+    #insert #run make_dynamic_device_function("vkGetFramebufferTilePropertiesQCOM");
+    #insert #run make_dynamic_device_function("vkGetDynamicRenderingTilePropertiesQCOM");
+    #insert #run make_dynamic_device_function("vkCreateOpticalFlowSessionNV");
+    #insert #run make_dynamic_device_function("vkDestroyOpticalFlowSessionNV");
+    #insert #run make_dynamic_device_function("vkBindOpticalFlowSessionImageNV");
+    #insert #run make_dynamic_device_function("vkCmdOpticalFlowExecuteNV");
+    #insert #run make_dynamic_device_function("vkGetDeviceFaultInfoEXT");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthBias2EXT");
+    #insert #run make_dynamic_device_function("vkReleaseSwapchainImagesKHR");
+    #insert #run make_dynamic_device_function("vkGetDeviceImageSubresourceLayout");
+    #insert #run make_dynamic_device_function("vkMapMemory2");
+    #insert #run make_dynamic_device_function("vkUnmapMemory2");
+    #insert #run make_dynamic_device_function("vkCreateShadersEXT");
+    #insert #run make_dynamic_device_function("vkDestroyShaderEXT");
+    #insert #run make_dynamic_device_function("vkGetShaderBinaryDataEXT");
+    #insert #run make_dynamic_device_function("vkCmdBindShadersEXT");
+    #insert #run make_dynamic_device_function("vkSetSwapchainPresentTimingQueueSizeEXT");
+    #insert #run make_dynamic_device_function("vkGetSwapchainTimingPropertiesEXT");
+    #insert #run make_dynamic_device_function("vkGetSwapchainTimeDomainPropertiesEXT");
+    #insert #run make_dynamic_device_function("vkGetPastPresentationTimingEXT");
+    #insert #run make_dynamic_device_function("vkGetScreenBufferPropertiesQNX");
+    #insert #run make_dynamic_device_function("vkGetExecutionGraphPipelineScratchSizeAMDX");
+    #insert #run make_dynamic_device_function("vkGetExecutionGraphPipelineNodeIndexAMDX");
+    #insert #run make_dynamic_device_function("vkCreateExecutionGraphPipelinesAMDX");
+    #insert #run make_dynamic_device_function("vkCmdInitializeGraphScratchMemoryAMDX");
+    #insert #run make_dynamic_device_function("vkCmdDispatchGraphAMDX");
+    #insert #run make_dynamic_device_function("vkCmdDispatchGraphIndirectAMDX");
+    #insert #run make_dynamic_device_function("vkCmdDispatchGraphIndirectCountAMDX");
+    #insert #run make_dynamic_device_function("vkCmdBindDescriptorSets2");
+    #insert #run make_dynamic_device_function("vkCmdPushConstants2");
+    #insert #run make_dynamic_device_function("vkCmdPushDescriptorSet2");
+    #insert #run make_dynamic_device_function("vkCmdPushDescriptorSetWithTemplate2");
+    #insert #run make_dynamic_device_function("vkCmdSetDescriptorBufferOffsets2EXT");
+    #insert #run make_dynamic_device_function("vkCmdBindDescriptorBufferEmbeddedSamplers2EXT");
+    #insert #run make_dynamic_device_function("vkSetLatencySleepModeNV");
+    #insert #run make_dynamic_device_function("vkLatencySleepNV");
+    #insert #run make_dynamic_device_function("vkSetLatencyMarkerNV");
+    #insert #run make_dynamic_device_function("vkGetLatencyTimingsNV");
+    #insert #run make_dynamic_device_function("vkQueueNotifyOutOfBandNV");
+    #insert #run make_dynamic_device_function("vkCmdSetRenderingAttachmentLocations");
+    #insert #run make_dynamic_device_function("vkCmdSetRenderingInputAttachmentIndices");
+    #insert #run make_dynamic_device_function("vkCmdSetDepthClampRangeEXT");
+    #insert #run make_dynamic_device_function("vkGetMemoryMetalHandleEXT");
+    #insert #run make_dynamic_device_function("vkGetMemoryMetalHandlePropertiesEXT");
+    #insert #run make_dynamic_device_function("vkConvertCooperativeVectorMatrixNV");
+    #insert #run make_dynamic_device_function("vkCmdConvertCooperativeVectorMatrixNV");
+    #insert #run make_dynamic_device_function("vkCmdDispatchTileQCOM");
+    #insert #run make_dynamic_device_function("vkCmdBeginPerTileExecutionQCOM");
+    #insert #run make_dynamic_device_function("vkCmdEndPerTileExecutionQCOM");
+    #insert #run make_dynamic_device_function("vkCreateExternalComputeQueueNV");
+    #insert #run make_dynamic_device_function("vkDestroyExternalComputeQueueNV");
+    #insert #run make_dynamic_device_function("vkGetExternalComputeQueueDataNV");
+    #insert #run make_dynamic_device_function("vkCreateTensorARM");
+    #insert #run make_dynamic_device_function("vkDestroyTensorARM");
+    #insert #run make_dynamic_device_function("vkCreateTensorViewARM");
+    #insert #run make_dynamic_device_function("vkDestroyTensorViewARM");
+    #insert #run make_dynamic_device_function("vkGetTensorMemoryRequirementsARM");
+    #insert #run make_dynamic_device_function("vkBindTensorMemoryARM");
+    #insert #run make_dynamic_device_function("vkGetDeviceTensorMemoryRequirementsARM");
+    #insert #run make_dynamic_device_function("vkCmdCopyTensorARM");
+    #insert #run make_dynamic_device_function("vkGetTensorOpaqueCaptureDescriptorDataARM");
+    #insert #run make_dynamic_device_function("vkGetTensorViewOpaqueCaptureDescriptorDataARM");
+    #insert #run make_dynamic_device_function("vkCreateDataGraphPipelinesARM");
+    #insert #run make_dynamic_device_function("vkCreateDataGraphPipelineSessionARM");
+    #insert #run make_dynamic_device_function("vkGetDataGraphPipelineSessionBindPointRequirementsARM");
+    #insert #run make_dynamic_device_function("vkGetDataGraphPipelineSessionMemoryRequirementsARM");
+    #insert #run make_dynamic_device_function("vkBindDataGraphPipelineSessionMemoryARM");
+    #insert #run make_dynamic_device_function("vkDestroyDataGraphPipelineSessionARM");
+    #insert #run make_dynamic_device_function("vkCmdDispatchDataGraphARM");
+    #insert #run make_dynamic_device_function("vkGetDataGraphPipelineAvailablePropertiesARM");
+    #insert #run make_dynamic_device_function("vkGetDataGraphPipelinePropertiesARM");
+    #insert #run make_dynamic_device_function("vkGetNativeBufferPropertiesOHOS");
+    #insert #run make_dynamic_device_function("vkGetMemoryNativeBufferOHOS");
+    #insert #run make_dynamic_device_function("vkGetSwapchainGrallocUsageOHOS");
+    #insert #run make_dynamic_device_function("vkAcquireImageOHOS");
+    #insert #run make_dynamic_device_function("vkQueueSignalReleaseImageOHOS");
+    #insert #run make_dynamic_device_function("vkCmdSetComputeOccupancyPriorityNV");
+    #insert #run make_dynamic_device_function("vkWriteSamplerDescriptorsEXT");
+    #insert #run make_dynamic_device_function("vkWriteResourceDescriptorsEXT");
+    #insert #run make_dynamic_device_function("vkCmdBindSamplerHeapEXT");
+    #insert #run make_dynamic_device_function("vkCmdBindResourceHeapEXT");
+    #insert #run make_dynamic_device_function("vkCmdPushDataEXT");
+    #insert #run make_dynamic_device_function("vkRegisterCustomBorderColorEXT");
+    #insert #run make_dynamic_device_function("vkUnregisterCustomBorderColorEXT");
+    #insert #run make_dynamic_device_function("vkGetImageOpaqueCaptureDataEXT");
+    #insert #run make_dynamic_device_function("vkGetTensorOpaqueCaptureDataARM");
+    #insert #run make_dynamic_device_function_maybe("vkResetQueryPool", "vkResetQueryPoolEXT");
+    #insert #run make_dynamic_device_function_maybe("vkGetRenderingAreaGranularity", "vkGetRenderingAreaGranularityKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdPushDescriptorSet", "vkCmdPushDescriptorSetKHR");
+    #insert #run make_dynamic_device_function_maybe("vkTrimCommandPool", "vkTrimCommandPoolKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetDeviceGroupPeerMemoryFeatures", "vkGetDeviceGroupPeerMemoryFeaturesKHR");
+    #insert #run make_dynamic_device_function_maybe("vkBindBufferMemory2", "vkBindBufferMemory2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkBindImageMemory2", "vkBindImageMemory2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetDeviceMask", "vkCmdSetDeviceMaskKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdDispatchBase", "vkCmdDispatchBaseKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCreateDescriptorUpdateTemplate", "vkCreateDescriptorUpdateTemplateKHR");
+    #insert #run make_dynamic_device_function_maybe("vkDestroyDescriptorUpdateTemplate", "vkDestroyDescriptorUpdateTemplateKHR");
+    #insert #run make_dynamic_device_function_maybe("vkUpdateDescriptorSetWithTemplate", "vkUpdateDescriptorSetWithTemplateKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdPushDescriptorSetWithTemplate", "vkCmdPushDescriptorSetWithTemplateKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetBufferMemoryRequirements2", "vkGetBufferMemoryRequirements2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetImageMemoryRequirements2", "vkGetImageMemoryRequirements2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetImageSparseMemoryRequirements2", "vkGetImageSparseMemoryRequirements2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetDeviceBufferMemoryRequirements", "vkGetDeviceBufferMemoryRequirementsKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetDeviceImageMemoryRequirements", "vkGetDeviceImageMemoryRequirementsKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetDeviceImageSparseMemoryRequirements", "vkGetDeviceImageSparseMemoryRequirementsKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCreateSamplerYcbcrConversion", "vkCreateSamplerYcbcrConversionKHR");
+    #insert #run make_dynamic_device_function_maybe("vkDestroySamplerYcbcrConversion", "vkDestroySamplerYcbcrConversionKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetDescriptorSetLayoutSupport", "vkGetDescriptorSetLayoutSupportKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetCalibratedTimestampsKHR", "vkGetCalibratedTimestampsEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCreateRenderPass2", "vkCreateRenderPass2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdBeginRenderPass2", "vkCmdBeginRenderPass2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdNextSubpass2", "vkCmdNextSubpass2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdEndRenderPass2", "vkCmdEndRenderPass2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetSemaphoreCounterValue", "vkGetSemaphoreCounterValueKHR");
+    #insert #run make_dynamic_device_function_maybe("vkWaitSemaphores", "vkWaitSemaphoresKHR");
+    #insert #run make_dynamic_device_function_maybe("vkSignalSemaphore", "vkSignalSemaphoreKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdDrawIndirectCount", "vkCmdDrawIndirectCountKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdDrawIndirectCount", "vkCmdDrawIndirectCountAMD");
+    #insert #run make_dynamic_device_function_maybe("vkCmdDrawIndexedIndirectCount", "vkCmdDrawIndexedIndirectCountKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdDrawIndexedIndirectCount", "vkCmdDrawIndexedIndirectCountAMD");
+    #insert #run make_dynamic_device_function_maybe("vkGetRayTracingShaderGroupHandlesKHR", "vkGetRayTracingShaderGroupHandlesNV");
+    #insert #run make_dynamic_device_function_maybe("vkGetBufferOpaqueCaptureAddress", "vkGetBufferOpaqueCaptureAddressKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetBufferDeviceAddress", "vkGetBufferDeviceAddressKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetBufferDeviceAddress", "vkGetBufferDeviceAddressEXT");
+    #insert #run make_dynamic_device_function_maybe("vkGetDeviceMemoryOpaqueCaptureAddress", "vkGetDeviceMemoryOpaqueCaptureAddressKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetLineStipple", "vkCmdSetLineStippleKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetLineStipple", "vkCmdSetLineStippleEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetCullMode", "vkCmdSetCullModeEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetFrontFace", "vkCmdSetFrontFaceEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetPrimitiveTopology", "vkCmdSetPrimitiveTopologyEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetViewportWithCount", "vkCmdSetViewportWithCountEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetScissorWithCount", "vkCmdSetScissorWithCountEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdBindIndexBuffer2", "vkCmdBindIndexBuffer2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdBindVertexBuffers2", "vkCmdBindVertexBuffers2EXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetDepthTestEnable", "vkCmdSetDepthTestEnableEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetDepthWriteEnable", "vkCmdSetDepthWriteEnableEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetDepthCompareOp", "vkCmdSetDepthCompareOpEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetDepthBoundsTestEnable", "vkCmdSetDepthBoundsTestEnableEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetStencilTestEnable", "vkCmdSetStencilTestEnableEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetStencilOp", "vkCmdSetStencilOpEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetRasterizerDiscardEnable", "vkCmdSetRasterizerDiscardEnableEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetDepthBiasEnable", "vkCmdSetDepthBiasEnableEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetPrimitiveRestartEnable", "vkCmdSetPrimitiveRestartEnableEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCreatePrivateDataSlot", "vkCreatePrivateDataSlotEXT");
+    #insert #run make_dynamic_device_function_maybe("vkDestroyPrivateDataSlot", "vkDestroyPrivateDataSlotEXT");
+    #insert #run make_dynamic_device_function_maybe("vkSetPrivateData", "vkSetPrivateDataEXT");
+    #insert #run make_dynamic_device_function_maybe("vkGetPrivateData", "vkGetPrivateDataEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdCopyBuffer2", "vkCmdCopyBuffer2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdCopyImage2", "vkCmdCopyImage2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdBlitImage2", "vkCmdBlitImage2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdCopyBufferToImage2", "vkCmdCopyBufferToImage2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdCopyImageToBuffer2", "vkCmdCopyImageToBuffer2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdResolveImage2", "vkCmdResolveImage2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetEvent2", "vkCmdSetEvent2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdResetEvent2", "vkCmdResetEvent2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdWaitEvents2", "vkCmdWaitEvents2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdPipelineBarrier2", "vkCmdPipelineBarrier2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkQueueSubmit2", "vkQueueSubmit2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdWriteTimestamp2", "vkCmdWriteTimestamp2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCopyMemoryToImage", "vkCopyMemoryToImageEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCopyImageToMemory", "vkCopyImageToMemoryEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCopyImageToImage", "vkCopyImageToImageEXT");
+    #insert #run make_dynamic_device_function_maybe("vkTransitionImageLayout", "vkTransitionImageLayoutEXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdBeginRendering", "vkCmdBeginRenderingKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdEndRendering2KHR", "vkCmdEndRendering2EXT");
+    #insert #run make_dynamic_device_function_maybe("vkCmdEndRendering", "vkCmdEndRenderingKHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetImageSubresourceLayout2", "vkGetImageSubresourceLayout2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkGetImageSubresourceLayout2", "vkGetImageSubresourceLayout2EXT");
+    #insert #run make_dynamic_device_function_maybe("vkReleaseSwapchainImagesKHR", "vkReleaseSwapchainImagesEXT");
+    #insert #run make_dynamic_device_function_maybe("vkGetDeviceImageSubresourceLayout", "vkGetDeviceImageSubresourceLayoutKHR");
+    #insert #run make_dynamic_device_function_maybe("vkMapMemory2", "vkMapMemory2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkUnmapMemory2", "vkUnmapMemory2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdBindDescriptorSets2", "vkCmdBindDescriptorSets2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdPushConstants2", "vkCmdPushConstants2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdPushDescriptorSet2", "vkCmdPushDescriptorSet2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdPushDescriptorSetWithTemplate2", "vkCmdPushDescriptorSetWithTemplate2KHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetRenderingAttachmentLocations", "vkCmdSetRenderingAttachmentLocationsKHR");
+    #insert #run make_dynamic_device_function_maybe("vkCmdSetRenderingInputAttachmentIndices", "vkCmdSetRenderingInputAttachmentIndicesKHR");
 }
 
 vkCreateInstance :: (pCreateInfo: *VkInstanceCreateInfo, pAllocator: *VkAllocationCallbacks, pInstance: *VkInstance) -> VkResult #c_call {
