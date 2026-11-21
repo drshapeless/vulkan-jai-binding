@@ -46,6 +46,7 @@ VkTensorARM_T :: struct {}
 VkTensorViewARM_T :: struct {}
 VkDataGraphPipelineSessionARM_T :: struct {}
 VkShaderInstrumentationARM_T :: struct {}
+VkGpaSessionAMD_T :: struct {}
 VkDisplayKHR_T :: struct {}
 VkDisplayModeKHR_T :: struct {}
 VkSurfaceKHR_T :: struct {}
@@ -90,6 +91,8 @@ VkRenderingFlagsKHR :: VkRenderingFlags;
 VkDirectDriverLoadingFlagsLUNARG :: VkFlags;
 VkPipelineCreateFlags2KHR :: VkPipelineCreateFlags2;
 VkBufferUsageFlags2KHR :: VkBufferUsageFlags2;
+VkGpaPerfBlockPropertiesFlagsAMD :: VkFlags;
+VkPhysicalDeviceGpaPropertiesFlagsAMD :: VkFlags;
 VkDisplayModeCreateFlagsKHR :: VkFlags;
 VkDisplaySurfaceCreateFlagsKHR :: VkFlags;
 VkAndroidSurfaceCreateFlagsKHR :: VkFlags;
@@ -195,6 +198,7 @@ VkTensorARM :: *VkTensorARM_T;
 VkTensorViewARM :: *VkTensorViewARM_T;
 VkDataGraphPipelineSessionARM :: *VkDataGraphPipelineSessionARM_T;
 VkShaderInstrumentationARM :: *VkShaderInstrumentationARM_T;
+VkGpaSessionAMD :: *VkGpaSessionAMD_T;
 VkDisplayKHR :: *VkDisplayKHR_T;
 VkDisplayModeKHR :: *VkDisplayModeKHR_T;
 VkSurfaceKHR :: *VkSurfaceKHR_T;
@@ -233,6 +237,8 @@ VkFormatFeatureFlagBits2KHR :: VkFormatFeatureFlagBits2;
 VkRenderingFlagBitsKHR :: VkRenderingFlagBits;
 VkPipelineRobustnessBufferBehaviorEXT :: VkPipelineRobustnessBufferBehavior;
 VkPipelineRobustnessImageBehaviorEXT :: VkPipelineRobustnessImageBehavior;
+VkOpacityMicromapFormatEXT :: VkOpacityMicromapFormatKHR;
+VkOpacityMicromapSpecialIndexEXT :: VkOpacityMicromapSpecialIndexKHR;
 VkDeviceFaultVendorBinaryHeaderVersionEXT :: VkDeviceFaultVendorBinaryHeaderVersionKHR;
 VkMemoryDecompressionMethodFlagBitsNV :: VkMemoryDecompressionMethodFlagBitsEXT;
 VkPipelineCreateFlagBits2KHR :: VkPipelineCreateFlagBits2;

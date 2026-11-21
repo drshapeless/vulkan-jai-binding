@@ -550,6 +550,18 @@ vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR :: (physicalDevice: VkPhysical
     return result, data;
 }
 
+vkGetPhysicalDeviceCooperativeMatrixProperties2EXT :: (physicalDevice: VkPhysicalDevice, pCooperativeMatrixInfo: *VkPhysicalDeviceCooperativeMatrixInfo2EXT) -> VkResult, [] VkCooperativeMatrixProperties2EXT {
+    count: u32;
+    data: [] VkCooperativeMatrixProperties2EXT;
+    result: VkResult;
+    result = vkGetPhysicalDeviceCooperativeMatrixProperties2EXT(physicalDevice, pCooperativeMatrixInfo, *count, data.data);
+    if result return result, .[];
+    if count == 0 return .SUCCESS, .[];
+    data = NewArray(count, VkCooperativeMatrixProperties2EXT, initialized = false);
+    result = vkGetPhysicalDeviceCooperativeMatrixProperties2EXT(physicalDevice, pCooperativeMatrixInfo, *count, data.data);
+    return result, data;
+}
+
 vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV :: (physicalDevice: VkPhysicalDevice) -> VkResult, [] VkCooperativeMatrixFlexibleDimensionsPropertiesNV {
     count: u32;
     data: [] VkCooperativeMatrixFlexibleDimensionsPropertiesNV;

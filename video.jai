@@ -1584,6 +1584,8 @@ StdVideoH264ProfileIdc :: enum u32 {
     STD_VIDEO_H264_PROFILE_IDC_BASELINE :: 66; /* Only constrained baseline is supported */
     STD_VIDEO_H264_PROFILE_IDC_MAIN :: 77;
     STD_VIDEO_H264_PROFILE_IDC_HIGH :: 100;
+    STD_VIDEO_H264_PROFILE_IDC_HIGH_10 :: 110; /* Annex A.2.5 High 10 profile (profile_idc 100 or 110) */
+    STD_VIDEO_H264_PROFILE_IDC_HIGH_422 :: 122; /* Annex A.2.6 High 4:2:2 profile (profile_idc 100, 110, or 122) */
     STD_VIDEO_H264_PROFILE_IDC_HIGH_444_PREDICTIVE :: 244;
     STD_VIDEO_H264_PROFILE_IDC_INVALID :: 0x7FFFFFFF;
 }

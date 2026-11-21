@@ -732,6 +732,7 @@ PFN_vkGetSwapchainTimeDomainPropertiesEXT :: #type (device: VkDevice, swapchain:
 PFN_vkGetPastPresentationTimingEXT :: #type (device: VkDevice, pPastPresentationTimingInfo: *VkPastPresentationTimingInfoEXT, pPastPresentationTimingProperties: *VkPastPresentationTimingPropertiesEXT) -> VkResult #c_call;
 PFN_vkGetScreenBufferPropertiesQNX :: #type (device: VkDevice, buffer: *_screen_buffer, pProperties: *VkScreenBufferPropertiesQNX) -> VkResult #c_call;
 PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR :: #type (physicalDevice: VkPhysicalDevice, pPropertyCount: *u32, pProperties: *VkCooperativeMatrixPropertiesKHR) -> VkResult #c_call;
+PFN_vkGetPhysicalDeviceCooperativeMatrixProperties2EXT :: #type (physicalDevice: VkPhysicalDevice, pCooperativeMatrixInfo: *VkPhysicalDeviceCooperativeMatrixInfo2EXT, pPropertyCount: *u32, pProperties: *VkCooperativeMatrixProperties2EXT) -> VkResult #c_call;
 PFN_vkGetExecutionGraphPipelineScratchSizeAMDX :: #type (device: VkDevice, executionGraph: VkPipeline, pSizeInfo: *VkExecutionGraphPipelineScratchSizeAMDX) -> VkResult #c_call;
 PFN_vkGetExecutionGraphPipelineNodeIndexAMDX :: #type (device: VkDevice, executionGraph: VkPipeline, pNodeInfo: *VkPipelineShaderStageNodeCreateInfoAMDX, pNodeIndex: *u32) -> VkResult #c_call;
 PFN_vkCreateExecutionGraphPipelinesAMDX :: #type (device: VkDevice, pipelineCache: VkPipelineCache, createInfoCount: u32, pCreateInfos: *VkExecutionGraphPipelineCreateInfoAMDX, pAllocator: *VkAllocationCallbacks, pPipelines: *VkPipeline) -> VkResult #c_call;
@@ -739,6 +740,18 @@ PFN_vkCmdInitializeGraphScratchMemoryAMDX :: #type (commandBuffer: VkCommandBuff
 PFN_vkCmdDispatchGraphAMDX :: #type (commandBuffer: VkCommandBuffer, scratch: VkDeviceAddress, scratchSize: VkDeviceSize, pCountInfo: *VkDispatchGraphCountInfoAMDX) -> void #c_call;
 PFN_vkCmdDispatchGraphIndirectAMDX :: #type (commandBuffer: VkCommandBuffer, scratch: VkDeviceAddress, scratchSize: VkDeviceSize, pCountInfo: *VkDispatchGraphCountInfoAMDX) -> void #c_call;
 PFN_vkCmdDispatchGraphIndirectCountAMDX :: #type (commandBuffer: VkCommandBuffer, scratch: VkDeviceAddress, scratchSize: VkDeviceSize, countInfo: VkDeviceAddress) -> void #c_call;
+PFN_vkCreateGpaSessionAMD :: #type (device: VkDevice, pCreateInfo: *VkGpaSessionCreateInfoAMD, pAllocator: *VkAllocationCallbacks, pGpaSession: *VkGpaSessionAMD) -> VkResult #c_call;
+PFN_vkDestroyGpaSessionAMD :: #type (device: VkDevice, gpaSession: VkGpaSessionAMD, pAllocator: *VkAllocationCallbacks) -> void #c_call;
+PFN_vkSetGpaDeviceClockModeAMD :: #type (device: VkDevice, pInfo: *VkGpaDeviceClockModeInfoAMD) -> VkResult #c_call;
+PFN_vkGetGpaDeviceClockInfoAMD :: #type (device: VkDevice, pInfo: *VkGpaDeviceGetClockInfoAMD) -> VkResult #c_call;
+PFN_vkCmdBeginGpaSessionAMD :: #type (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD) -> VkResult #c_call;
+PFN_vkCmdEndGpaSessionAMD :: #type (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD) -> VkResult #c_call;
+PFN_vkCmdBeginGpaSampleAMD :: #type (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD, pGpaSampleBeginInfo: *VkGpaSampleBeginInfoAMD, pSampleID: *u32) -> VkResult #c_call;
+PFN_vkCmdEndGpaSampleAMD :: #type (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD, sampleID: u32) -> void #c_call;
+PFN_vkGetGpaSessionStatusAMD :: #type (device: VkDevice, gpaSession: VkGpaSessionAMD) -> VkResult #c_call;
+PFN_vkGetGpaSessionResultsAMD :: #type (device: VkDevice, gpaSession: VkGpaSessionAMD, sampleID: u32, pSizeInBytes: *u64, pData: *void) -> VkResult #c_call;
+PFN_vkResetGpaSessionAMD :: #type (device: VkDevice, gpaSession: VkGpaSessionAMD) -> VkResult #c_call;
+PFN_vkCmdCopyGpaSessionResultsAMD :: #type (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD) -> void #c_call;
 PFN_vkCmdBindDescriptorSets2 :: #type (commandBuffer: VkCommandBuffer, pBindDescriptorSetsInfo: *VkBindDescriptorSetsInfo) -> void #c_call;
 PFN_vkCmdBindDescriptorSets2KHR :: PFN_vkCmdBindDescriptorSets2;
 PFN_vkCmdPushConstants2 :: #type (commandBuffer: VkCommandBuffer, pPushConstantsInfo: *VkPushConstantsInfo) -> void #c_call;
@@ -754,6 +767,13 @@ PFN_vkLatencySleepNV :: #type (device: VkDevice, swapchain: VkSwapchainKHR, pSle
 PFN_vkSetLatencyMarkerNV :: #type (device: VkDevice, swapchain: VkSwapchainKHR, pLatencyMarkerInfo: *VkSetLatencyMarkerInfoNV) -> void #c_call;
 PFN_vkGetLatencyTimingsNV :: #type (device: VkDevice, swapchain: VkSwapchainKHR, pLatencyMarkerInfo: *VkGetLatencyMarkerInfoNV) -> void #c_call;
 PFN_vkQueueNotifyOutOfBandNV :: #type (queue: VkQueue, pQueueTypeInfo: *VkOutOfBandQueueTypeInfoNV) -> void #c_call;
+PFN_vkSetLatencySleepModeLegacyNV :: #type (device: VkDevice, lowLatencyMode: VkBool32, lowLatencyBoost: VkBool32, minimumIntervalUs: u32) -> void #c_call;
+PFN_vkLatencySleepLegacyNV :: #type (device: VkDevice, signalSemaphore: VkSemaphore, value: u64) -> void #c_call;
+PFN_vkSetLatencyMarkerLegacyNV :: #type (device: VkDevice, frameID: u64, marker: u32) -> void #c_call;
+PFN_vkGetLatencyTimingsLegacyNV :: #type (device: VkDevice, pTimings: *void) -> void #c_call;
+PFN_vkQueueNotifyOutOfBandLegacyNV :: #type (queue: VkQueue, queueType: u32) -> void #c_call;
+PFN_vkGetSleepStatusLegacyNV :: #type (device: VkDevice, pLowLatencyMode: *VkBool32) -> void #c_call;
+PFN_vkShutdownLatencyDeviceLegacyNV :: #type (device: VkDevice) -> void #c_call;
 PFN_vkCmdSetRenderingAttachmentLocations :: #type (commandBuffer: VkCommandBuffer, pLocationInfo: *VkRenderingAttachmentLocationInfo) -> void #c_call;
 PFN_vkCmdSetRenderingAttachmentLocationsKHR :: PFN_vkCmdSetRenderingAttachmentLocations;
 PFN_vkCmdSetRenderingInputAttachmentIndices :: #type (commandBuffer: VkCommandBuffer, pInputAttachmentIndexInfo: *VkRenderingInputAttachmentIndexInfo) -> void #c_call;
@@ -1479,6 +1499,7 @@ vkGetSwapchainTimeDomainPropertiesEXT_dynamic : PFN_vkGetSwapchainTimeDomainProp
 vkGetPastPresentationTimingEXT_dynamic : PFN_vkGetPastPresentationTimingEXT;
 vkGetScreenBufferPropertiesQNX_dynamic : PFN_vkGetScreenBufferPropertiesQNX;
 vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR_dynamic : PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR;
+vkGetPhysicalDeviceCooperativeMatrixProperties2EXT_dynamic : PFN_vkGetPhysicalDeviceCooperativeMatrixProperties2EXT;
 vkGetExecutionGraphPipelineScratchSizeAMDX_dynamic : PFN_vkGetExecutionGraphPipelineScratchSizeAMDX;
 vkGetExecutionGraphPipelineNodeIndexAMDX_dynamic : PFN_vkGetExecutionGraphPipelineNodeIndexAMDX;
 vkCreateExecutionGraphPipelinesAMDX_dynamic : PFN_vkCreateExecutionGraphPipelinesAMDX;
@@ -1486,6 +1507,18 @@ vkCmdInitializeGraphScratchMemoryAMDX_dynamic : PFN_vkCmdInitializeGraphScratchM
 vkCmdDispatchGraphAMDX_dynamic : PFN_vkCmdDispatchGraphAMDX;
 vkCmdDispatchGraphIndirectAMDX_dynamic : PFN_vkCmdDispatchGraphIndirectAMDX;
 vkCmdDispatchGraphIndirectCountAMDX_dynamic : PFN_vkCmdDispatchGraphIndirectCountAMDX;
+vkCreateGpaSessionAMD_dynamic : PFN_vkCreateGpaSessionAMD;
+vkDestroyGpaSessionAMD_dynamic : PFN_vkDestroyGpaSessionAMD;
+vkSetGpaDeviceClockModeAMD_dynamic : PFN_vkSetGpaDeviceClockModeAMD;
+vkGetGpaDeviceClockInfoAMD_dynamic : PFN_vkGetGpaDeviceClockInfoAMD;
+vkCmdBeginGpaSessionAMD_dynamic : PFN_vkCmdBeginGpaSessionAMD;
+vkCmdEndGpaSessionAMD_dynamic : PFN_vkCmdEndGpaSessionAMD;
+vkCmdBeginGpaSampleAMD_dynamic : PFN_vkCmdBeginGpaSampleAMD;
+vkCmdEndGpaSampleAMD_dynamic : PFN_vkCmdEndGpaSampleAMD;
+vkGetGpaSessionStatusAMD_dynamic : PFN_vkGetGpaSessionStatusAMD;
+vkGetGpaSessionResultsAMD_dynamic : PFN_vkGetGpaSessionResultsAMD;
+vkResetGpaSessionAMD_dynamic : PFN_vkResetGpaSessionAMD;
+vkCmdCopyGpaSessionResultsAMD_dynamic : PFN_vkCmdCopyGpaSessionResultsAMD;
 vkCmdBindDescriptorSets2_dynamic : PFN_vkCmdBindDescriptorSets2;
 vkCmdPushConstants2_dynamic : PFN_vkCmdPushConstants2;
 vkCmdPushDescriptorSet2_dynamic : PFN_vkCmdPushDescriptorSet2;
@@ -1497,6 +1530,13 @@ vkLatencySleepNV_dynamic : PFN_vkLatencySleepNV;
 vkSetLatencyMarkerNV_dynamic : PFN_vkSetLatencyMarkerNV;
 vkGetLatencyTimingsNV_dynamic : PFN_vkGetLatencyTimingsNV;
 vkQueueNotifyOutOfBandNV_dynamic : PFN_vkQueueNotifyOutOfBandNV;
+vkSetLatencySleepModeLegacyNV_dynamic : PFN_vkSetLatencySleepModeLegacyNV;
+vkLatencySleepLegacyNV_dynamic : PFN_vkLatencySleepLegacyNV;
+vkSetLatencyMarkerLegacyNV_dynamic : PFN_vkSetLatencyMarkerLegacyNV;
+vkGetLatencyTimingsLegacyNV_dynamic : PFN_vkGetLatencyTimingsLegacyNV;
+vkQueueNotifyOutOfBandLegacyNV_dynamic : PFN_vkQueueNotifyOutOfBandLegacyNV;
+vkGetSleepStatusLegacyNV_dynamic : PFN_vkGetSleepStatusLegacyNV;
+vkShutdownLatencyDeviceLegacyNV_dynamic : PFN_vkShutdownLatencyDeviceLegacyNV;
 vkCmdSetRenderingAttachmentLocations_dynamic : PFN_vkCmdSetRenderingAttachmentLocations;
 vkCmdSetRenderingInputAttachmentIndices_dynamic : PFN_vkCmdSetRenderingInputAttachmentIndices;
 vkCmdSetDepthClampRangeEXT_dynamic : PFN_vkCmdSetDepthClampRangeEXT;
@@ -1711,6 +1751,7 @@ vk_load_instance_functions :: (instance: VkInstance) {
     #insert #run make_dynamic_instance_function("vkGetDrmDisplayEXT");
     #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
     #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
+    #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeMatrixProperties2EXT");
     #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV");
     #insert #run make_dynamic_instance_function("vkGetPhysicalDeviceCooperativeVectorPropertiesNV");
     #insert #run make_dynamic_instance_function("vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM");
@@ -2275,6 +2316,18 @@ vk_load_device_functions :: (device: VkDevice) {
     #insert #run make_dynamic_device_function("vkCmdDispatchGraphAMDX");
     #insert #run make_dynamic_device_function("vkCmdDispatchGraphIndirectAMDX");
     #insert #run make_dynamic_device_function("vkCmdDispatchGraphIndirectCountAMDX");
+    #insert #run make_dynamic_device_function("vkCreateGpaSessionAMD");
+    #insert #run make_dynamic_device_function("vkDestroyGpaSessionAMD");
+    #insert #run make_dynamic_device_function("vkSetGpaDeviceClockModeAMD");
+    #insert #run make_dynamic_device_function("vkGetGpaDeviceClockInfoAMD");
+    #insert #run make_dynamic_device_function("vkCmdBeginGpaSessionAMD");
+    #insert #run make_dynamic_device_function("vkCmdEndGpaSessionAMD");
+    #insert #run make_dynamic_device_function("vkCmdBeginGpaSampleAMD");
+    #insert #run make_dynamic_device_function("vkCmdEndGpaSampleAMD");
+    #insert #run make_dynamic_device_function("vkGetGpaSessionStatusAMD");
+    #insert #run make_dynamic_device_function("vkGetGpaSessionResultsAMD");
+    #insert #run make_dynamic_device_function("vkResetGpaSessionAMD");
+    #insert #run make_dynamic_device_function("vkCmdCopyGpaSessionResultsAMD");
     #insert #run make_dynamic_device_function("vkCmdBindDescriptorSets2");
     #insert #run make_dynamic_device_function("vkCmdPushConstants2");
     #insert #run make_dynamic_device_function("vkCmdPushDescriptorSet2");
@@ -2286,6 +2339,13 @@ vk_load_device_functions :: (device: VkDevice) {
     #insert #run make_dynamic_device_function("vkSetLatencyMarkerNV");
     #insert #run make_dynamic_device_function("vkGetLatencyTimingsNV");
     #insert #run make_dynamic_device_function("vkQueueNotifyOutOfBandNV");
+    #insert #run make_dynamic_device_function("vkSetLatencySleepModeLegacyNV");
+    #insert #run make_dynamic_device_function("vkLatencySleepLegacyNV");
+    #insert #run make_dynamic_device_function("vkSetLatencyMarkerLegacyNV");
+    #insert #run make_dynamic_device_function("vkGetLatencyTimingsLegacyNV");
+    #insert #run make_dynamic_device_function("vkQueueNotifyOutOfBandLegacyNV");
+    #insert #run make_dynamic_device_function("vkGetSleepStatusLegacyNV");
+    #insert #run make_dynamic_device_function("vkShutdownLatencyDeviceLegacyNV");
     #insert #run make_dynamic_device_function("vkCmdSetRenderingAttachmentLocations");
     #insert #run make_dynamic_device_function("vkCmdSetRenderingInputAttachmentIndices");
     #insert #run make_dynamic_device_function("vkCmdSetDepthClampRangeEXT");
@@ -5195,6 +5255,10 @@ vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR :: (physicalDevice: VkPhysical
     return vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR_dynamic(physicalDevice, pPropertyCount, pProperties);
 }
 
+vkGetPhysicalDeviceCooperativeMatrixProperties2EXT :: (physicalDevice: VkPhysicalDevice, pCooperativeMatrixInfo: *VkPhysicalDeviceCooperativeMatrixInfo2EXT, pPropertyCount: *u32, pProperties: *VkCooperativeMatrixProperties2EXT) -> VkResult #c_call {
+    return vkGetPhysicalDeviceCooperativeMatrixProperties2EXT_dynamic(physicalDevice, pCooperativeMatrixInfo, pPropertyCount, pProperties);
+}
+
 vkGetExecutionGraphPipelineScratchSizeAMDX :: (device: VkDevice, executionGraph: VkPipeline, pSizeInfo: *VkExecutionGraphPipelineScratchSizeAMDX) -> VkResult #c_call {
     return vkGetExecutionGraphPipelineScratchSizeAMDX_dynamic(device, executionGraph, pSizeInfo);
 }
@@ -5221,6 +5285,54 @@ vkCmdDispatchGraphIndirectAMDX :: (commandBuffer: VkCommandBuffer, scratch: VkDe
 
 vkCmdDispatchGraphIndirectCountAMDX :: (commandBuffer: VkCommandBuffer, scratch: VkDeviceAddress, scratchSize: VkDeviceSize, countInfo: VkDeviceAddress) -> void #c_call {
     vkCmdDispatchGraphIndirectCountAMDX_dynamic(commandBuffer, scratch, scratchSize, countInfo);
+}
+
+vkCreateGpaSessionAMD :: (device: VkDevice, pCreateInfo: *VkGpaSessionCreateInfoAMD, pAllocator: *VkAllocationCallbacks, pGpaSession: *VkGpaSessionAMD) -> VkResult #c_call {
+    return vkCreateGpaSessionAMD_dynamic(device, pCreateInfo, pAllocator, pGpaSession);
+}
+
+vkDestroyGpaSessionAMD :: (device: VkDevice, gpaSession: VkGpaSessionAMD, pAllocator: *VkAllocationCallbacks) -> void #c_call {
+    vkDestroyGpaSessionAMD_dynamic(device, gpaSession, pAllocator);
+}
+
+vkSetGpaDeviceClockModeAMD :: (device: VkDevice, pInfo: *VkGpaDeviceClockModeInfoAMD) -> VkResult #c_call {
+    return vkSetGpaDeviceClockModeAMD_dynamic(device, pInfo);
+}
+
+vkGetGpaDeviceClockInfoAMD :: (device: VkDevice, pInfo: *VkGpaDeviceGetClockInfoAMD) -> VkResult #c_call {
+    return vkGetGpaDeviceClockInfoAMD_dynamic(device, pInfo);
+}
+
+vkCmdBeginGpaSessionAMD :: (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD) -> VkResult #c_call {
+    return vkCmdBeginGpaSessionAMD_dynamic(commandBuffer, gpaSession);
+}
+
+vkCmdEndGpaSessionAMD :: (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD) -> VkResult #c_call {
+    return vkCmdEndGpaSessionAMD_dynamic(commandBuffer, gpaSession);
+}
+
+vkCmdBeginGpaSampleAMD :: (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD, pGpaSampleBeginInfo: *VkGpaSampleBeginInfoAMD, pSampleID: *u32) -> VkResult #c_call {
+    return vkCmdBeginGpaSampleAMD_dynamic(commandBuffer, gpaSession, pGpaSampleBeginInfo, pSampleID);
+}
+
+vkCmdEndGpaSampleAMD :: (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD, sampleID: u32) -> void #c_call {
+    vkCmdEndGpaSampleAMD_dynamic(commandBuffer, gpaSession, sampleID);
+}
+
+vkGetGpaSessionStatusAMD :: (device: VkDevice, gpaSession: VkGpaSessionAMD) -> VkResult #c_call {
+    return vkGetGpaSessionStatusAMD_dynamic(device, gpaSession);
+}
+
+vkGetGpaSessionResultsAMD :: (device: VkDevice, gpaSession: VkGpaSessionAMD, sampleID: u32, pSizeInBytes: *u64, pData: *void) -> VkResult #c_call {
+    return vkGetGpaSessionResultsAMD_dynamic(device, gpaSession, sampleID, pSizeInBytes, pData);
+}
+
+vkResetGpaSessionAMD :: (device: VkDevice, gpaSession: VkGpaSessionAMD) -> VkResult #c_call {
+    return vkResetGpaSessionAMD_dynamic(device, gpaSession);
+}
+
+vkCmdCopyGpaSessionResultsAMD :: (commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD) -> void #c_call {
+    vkCmdCopyGpaSessionResultsAMD_dynamic(commandBuffer, gpaSession);
 }
 
 vkCmdBindDescriptorSets2 :: (commandBuffer: VkCommandBuffer, pBindDescriptorSetsInfo: *VkBindDescriptorSetsInfo) -> void #c_call {
@@ -5273,6 +5385,34 @@ vkGetLatencyTimingsNV :: (device: VkDevice, swapchain: VkSwapchainKHR, pLatencyM
 
 vkQueueNotifyOutOfBandNV :: (queue: VkQueue, pQueueTypeInfo: *VkOutOfBandQueueTypeInfoNV) -> void #c_call {
     vkQueueNotifyOutOfBandNV_dynamic(queue, pQueueTypeInfo);
+}
+
+vkSetLatencySleepModeLegacyNV :: (device: VkDevice, lowLatencyMode: VkBool32, lowLatencyBoost: VkBool32, minimumIntervalUs: u32) -> void #c_call {
+    vkSetLatencySleepModeLegacyNV_dynamic(device, lowLatencyMode, lowLatencyBoost, minimumIntervalUs);
+}
+
+vkLatencySleepLegacyNV :: (device: VkDevice, signalSemaphore: VkSemaphore, value: u64) -> void #c_call {
+    vkLatencySleepLegacyNV_dynamic(device, signalSemaphore, value);
+}
+
+vkSetLatencyMarkerLegacyNV :: (device: VkDevice, frameID: u64, marker: u32) -> void #c_call {
+    vkSetLatencyMarkerLegacyNV_dynamic(device, frameID, marker);
+}
+
+vkGetLatencyTimingsLegacyNV :: (device: VkDevice, pTimings: *void) -> void #c_call {
+    vkGetLatencyTimingsLegacyNV_dynamic(device, pTimings);
+}
+
+vkQueueNotifyOutOfBandLegacyNV :: (queue: VkQueue, queueType: u32) -> void #c_call {
+    vkQueueNotifyOutOfBandLegacyNV_dynamic(queue, queueType);
+}
+
+vkGetSleepStatusLegacyNV :: (device: VkDevice, pLowLatencyMode: *VkBool32) -> void #c_call {
+    vkGetSleepStatusLegacyNV_dynamic(device, pLowLatencyMode);
+}
+
+vkShutdownLatencyDeviceLegacyNV :: (device: VkDevice) -> void #c_call {
+    vkShutdownLatencyDeviceLegacyNV_dynamic(device);
 }
 
 vkCmdSetRenderingAttachmentLocations :: (commandBuffer: VkCommandBuffer, pLocationInfo: *VkRenderingAttachmentLocationInfo) -> void #c_call {
